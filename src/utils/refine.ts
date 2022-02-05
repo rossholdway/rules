@@ -1,4 +1,4 @@
-import { Err, Invalid, InvalidRefined, Rule, Valid } from "..";
+import { InvalidRefined, Rule, Valid, ctx } from "..";
 import { isValidRefinedResult, isValidResult } from "../helpers";
 
 export type RefinedErr = {
@@ -6,10 +6,12 @@ export type RefinedErr = {
   message: string;
 }
 
+export type refineCb<Output> = (value: Output, ctx: ctx) => Valid<Output> | InvalidRefined;
+
 export function refine<Output>(
     name: string,
     ruleFn: Rule<Output>,
-    customFn: (value: Output, ctx: unknown) => Valid<Output> | InvalidRefined
+    customFn: refineCb<Output>
   ): Rule<Output> {
   return function refine(path, value, ctx) {
 
