@@ -19,7 +19,7 @@ import { Err, Rule } from "..";
             value, name, path,
             code: "required",
             message: "Required"
-          } as Err<undefined>]
+          } as Err]
         }
       }
 

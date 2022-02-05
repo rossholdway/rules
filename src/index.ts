@@ -25,9 +25,9 @@ function addError<Input = unknown>(errors: Err<Input>[]) {
   value: Output;
 }
 
-export type Invalid<Input> = {
+export type Invalid = {
   success: false;
-  errors: Err<Input>[]
+  errors: Err[]
 }
 
 export type InvalidRefined = {
@@ -42,8 +42,8 @@ export type InvalidRefined = {
 //   path: string[];
 // }
 
-export type Err<Input = unknown> = {
-  value: Input;
+export type Err = {
+  value: unknown;
   name: string;
   path: string[];
   code: string;
@@ -56,7 +56,7 @@ export type ctx = {
   // }
 }
 
-export type Rule<Output, Input = unknown> = (path: string[], value: Input, ctx: ctx) => Valid<Output> | Invalid<Input>;
+export type Rule<Output> = (path: string[], value: unknown, ctx: ctx) => Valid<Output> | Invalid;
 
 // Rules
 export { str } from "./rules/string";

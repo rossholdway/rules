@@ -25,7 +25,7 @@ export function array<T>(
           value, name, path,
           code: "required",
           message: `${path[path.length - 1]} is required`
-        } as Err<undefined>]
+        } as Err]
       }
     }
 

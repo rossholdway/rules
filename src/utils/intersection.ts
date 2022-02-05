@@ -10,7 +10,7 @@ export function intersection<A, B, C, D>(ruleSet: [Rule<A>, Rule<B>, Rule<C>, Ru
 export function intersection(ruleSet: Rule<any>[]): Rule<any> {
   const name = "intersection";
   return function intersection(path, value, ctx) {
-    const errors: (Err|Err[])[] = [];
+    const errors: Err[][] = [];
 
     // Require a value
     if (typeof value === "undefined") {
@@ -20,7 +20,7 @@ export function intersection(ruleSet: Rule<any>[]): Rule<any> {
           value, name, path,
           code: "required",
           message: "Required"
-        } as Err<undefined>]
+        } as Err]
       }
     }
 

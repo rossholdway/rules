@@ -14,7 +14,6 @@ export function literal(constant: unknown): Rule<any> {
   const name = "literal";
   return function literal(path, value, ctx) {
     const key = path[path.length - 1];
-    const errors: Err[] = [];
 
     const validType = (value === constant);
 
@@ -26,7 +25,7 @@ export function literal(constant: unknown): Rule<any> {
           value, name, path,
           code: "required",
           message: `${key} is required`
-        } as Err<undefined>]
+        } as Err]
       }
     }
 
