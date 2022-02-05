@@ -1,4 +1,4 @@
-import { Rule } from "..";
+import { Err, Rule } from "..";
 import { isValidResult } from "../helpers";
 
 export function union<A>(ruleSet: [Rule<A>]): Rule<A>;
@@ -8,17 +8,32 @@ export function union<A, B, C, D>(ruleSet: [Rule<A>, Rule<B>, Rule<C>, Rule<D>])
 
 // Helps to validate that a value matches at least one rule
 export function union(ruleSet: Rule<any>[]): Rule<any> {
+  const name = "union";
 
   return function union(path, value, ctx) {
-    const rule = "union";
+    const errors: Err[][] = [];
+
+    // Require a value
+    if (typeof value === "undefined") {
+      return {
+        success: false,
+        errors: [{
+          value, name, path,
+          code: "required",
+          message: "Required"
+        } as Err]
+      }
+    }
 
     for (const ruleFn of ruleSet) {
       const result = ruleFn(path, value, ctx);
       if (isValidResult(result)) {
-        return result;
+        return result; // We're done
+      } else {
+        errors.push(result.errors);
       }
     }
 
-    return ctx.next(rule, path, value, [], false);
+    return { success: false, errors: errors.flat() };
   };
 }

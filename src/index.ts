@@ -45,7 +45,7 @@ export { dynamic } from "./utils/dynamic";
 export { intersection } from "./utils/intersection";
 export { optional } from "./utils/optional";
 export { refine } from "./utils/refine";
-// export { union } from "./utils/union";
+export { union } from "./utils/union";
 
 
 
