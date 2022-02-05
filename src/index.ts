@@ -1,22 +1,6 @@
 import { isValidResult } from "./helpers";
 
 /**
- * Private
- * *****************************************************************
- */
-function addError<Input = unknown>(errors: Err<Input>[]) {
-  return function add(error: Err<Input>) {
-    errors.push(error);
-  };
-}
-
-// function valid(errors: Map<string, Err[]>) {
-//   return function has(path: string) {
-//     return !errors.has(path);
-//   };
-// }
-
-/**
  * Public
  * *****************************************************************
  */
@@ -35,13 +19,6 @@ export type InvalidRefined = {
   errors: Omit<Err, "value" | "name" | "path">[];
 }
 
-// export type Response<Input, Output> = {
-//   input: Input;
-//   output: Output;
-//   name: string;
-//   path: string[];
-// }
-
 export type Err = {
   value: unknown;
   name: string;
@@ -50,11 +27,7 @@ export type Err = {
   message: string;
 }
 
-export type ctx = {
-  // error: {
-  //   add<Input>(error: Err<Input>): ({value: Input; name: string; path: string[];});
-  // }
-}
+export type ctx = {}
 
 export type Rule<Output> = (path: string[], value: unknown, ctx: ctx) => Valid<Output> | Invalid;
 
@@ -90,7 +63,7 @@ export function isValid<Output>(result: [Err[], undefined] | [undefined, Valid<O
 
 export function parse<S>(schema: Rule<S>, value: unknown): [undefined, Valid<S>["value"]] | [Err[], undefined] {
   const ctx = {};
-  const result = schema(["initial"], value, ctx);
+  const result = schema([], value, ctx);
 
   if (isValidResult(result)) {
     return [undefined, result.value];
