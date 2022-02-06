@@ -5,6 +5,7 @@ import { isValidResult } from "../helpers";
  * Object validation
  * *****************************************************************
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isObject(value: any): value is Record<string, unknown> {
   return (!!value) && (value.constructor === Object);
 }
@@ -23,7 +24,7 @@ export function obj<T>(schema: {[Key in keyof T]: Rule<T[Key]>}): Rule<T> {
           code: "not_an_object",
           message: "Not an object",
         }]
-      }
+      };
     } else {
       // I want keys only defined in the scheam to come through unvalidated..?
       // Realistic? and how would we do this...

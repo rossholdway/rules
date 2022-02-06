@@ -7,6 +7,7 @@ export function intersection<A, B, C>(ruleSet: [Rule<A>, Rule<B>, Rule<C>]): Rul
 export function intersection<A, B, C, D>(ruleSet: [Rule<A>, Rule<B>, Rule<C>, Rule<D>]): Rule<A & B & C & D>;
 
 // Helps to run multiple rules against a single value
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function intersection(ruleSet: Rule<any>[]): Rule<any> {
   const name = "intersection";
   return function intersection(path, value, ctx) {
@@ -20,8 +21,8 @@ export function intersection(ruleSet: Rule<any>[]): Rule<any> {
           value, name, path,
           code: "required",
           message: "Required"
-        } as Err]
-      }
+        }]
+      };
     }
 
     for (const ruleFn of ruleSet) {

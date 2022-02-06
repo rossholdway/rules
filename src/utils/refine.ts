@@ -20,9 +20,9 @@ export function refine<Output>(
 
     if (!isValidResult(result)) {
       result.errors = result.errors.map((e) => {
-        e.name = name // Overwrite with our custom name
+        e.name = name; // Overwrite with our custom name
         return e;
-      })
+      });
       return result;
     }
 
@@ -30,7 +30,7 @@ export function refine<Output>(
     const custom = customFn(result.value, ctx);
 
     if (isValidRefinedResult(custom)) {
-      return custom
+      return custom;
     } else {
       // No point in exposing the value, name
       // or path props to the user writing the
@@ -44,9 +44,9 @@ export function refine<Output>(
             path,
             code: e.code,
             message: e.message
-          }
+          };
         })
-      }
+      };
     }
   };
 }

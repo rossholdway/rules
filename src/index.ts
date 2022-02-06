@@ -27,7 +27,7 @@ export type Err = {
   message: string;
 }
 
-export type ctx = {}
+export type ctx = Record<string, never>;
 
 export type Rule<Output> = (path: string[], value: unknown, ctx: ctx) => Valid<Output> | Invalid;
 

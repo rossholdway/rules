@@ -1,18 +1,19 @@
-import { Err, Rule } from "..";
+import { Rule } from "..";
 
 /**
  * Literal validation
  * *****************************************************************
  */
- export function literal<T extends boolean>(constant: T): Rule<T>
- export function literal<T extends number>(constant: T): Rule<T>
- export function literal<T extends string>(constant: T): Rule<T>
- export function literal<T extends Record<string | number | symbol, unknown>>(constant: T): Rule<T>
+export function literal<T extends boolean>(constant: T): Rule<T>
+export function literal<T extends number>(constant: T): Rule<T>
+export function literal<T extends string>(constant: T): Rule<T>
+export function literal<T extends Record<string | number | symbol, unknown>>(constant: T): Rule<T>
  
 //Value is an exact match, using `===` for comparison
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function literal(constant: unknown): Rule<any> {
   const name = "literal";
-  return function literal(path, value, ctx) {
+  return function literal(path, value, _ctx) {
     const key = path[path.length - 1];
 
     const validType = (value === constant);
@@ -25,8 +26,8 @@ export function literal(constant: unknown): Rule<any> {
           value, name, path,
           code: "required",
           message: `${key} is required`
-        } as Err]
-      }
+        }]
+      };
     }
 
     if (!validType) {
@@ -37,7 +38,7 @@ export function literal(constant: unknown): Rule<any> {
           code: "invalid_value",
           message: `Value must be '${constant}'`,
         }]
-      }
+      };
     }
 
     return { success: true, value };

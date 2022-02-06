@@ -1,4 +1,4 @@
-import { Err, Rule } from "..";
+import { Rule } from "..";
 
 /**
  * Enum validation
@@ -8,7 +8,7 @@ import { Err, Rule } from "..";
  type EnumLike = { [k: string]: string | number; };
  export function enums<T extends EnumLike>(values: T): Rule<string|number> {
    const name = "enums";
-   return function enums(path, value, ctx) {
+   return function enums(path, value, _ctx) {
      const key = path[path.length - 1];
  
      // Require a value
@@ -19,8 +19,8 @@ import { Err, Rule } from "..";
           value, name, path,
           code: "required",
           message: `${key} is required`
-        } as Err]
-      }
+        }]
+      };
      }
  
      const validKeys = Object.keys(values).filter(
@@ -35,7 +35,7 @@ import { Err, Rule } from "..";
           code: "not_a_string_or_number",
           message: "Value must be either a string or number"
         }]
-      }
+      };
      }
      if (!validKeys.includes(value)) {
       return {
@@ -45,7 +45,7 @@ import { Err, Rule } from "..";
           code: "invalid_enum",
           message: `Must be one of ${validKeys.join(", ")}`
         }]
-      }
+      };
      }
 
      return { success: true, value };

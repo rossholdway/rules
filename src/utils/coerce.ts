@@ -15,7 +15,7 @@ export function coerce<Output>(ruleFn: Rule<Output>, coercionFn: coerceCb<Output
           code: "coercion_failure",
           message: "Value could not be coerced"
         }]
-      }
+      };
     }
     return ruleFn(path, coercedValue, ctx);
   };

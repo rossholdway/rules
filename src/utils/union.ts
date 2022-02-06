@@ -7,6 +7,7 @@ export function union<A, B, C>(ruleSet: [Rule<A>, Rule<B>, Rule<C>]): Rule<A | B
 export function union<A, B, C, D>(ruleSet: [Rule<A>, Rule<B>, Rule<C>, Rule<D>]): Rule<A | B | C | D>;
 
 // Helps to validate that a value matches at least one rule
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function union(ruleSet: Rule<any>[]): Rule<any> {
   const name = "union";
 
@@ -21,8 +22,8 @@ export function union(ruleSet: Rule<any>[]): Rule<any> {
           value, name, path,
           code: "required",
           message: "Required"
-        } as Err]
-      }
+        }]
+      };
     }
 
     for (const ruleFn of ruleSet) {

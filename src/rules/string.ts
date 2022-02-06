@@ -1,4 +1,4 @@
-import { Err, Rule } from "..";
+import { Rule } from "..";
 
 /**
  * String validation
@@ -9,7 +9,7 @@ import { Err, Rule } from "..";
     { max?: number, min?: number, trim?: boolean } = {}
   ): Rule<string> {
     const name = "string";
-    return function str(path, value, ctx) {
+    return function str(path, value, _ctx) {
 
       // Require a value
       if (typeof value === "undefined") {
@@ -19,8 +19,8 @@ import { Err, Rule } from "..";
             value, name, path,
             code: "required",
             message: "Required"
-          } as Err]
-        }
+          }]
+        };
       }
 
       if (typeof value !== "string") {
@@ -31,7 +31,7 @@ import { Err, Rule } from "..";
             code: "not_a_string",
             message: "Not a string"
           }]
-        }
+        };
       }
   
       if (min && value.length < min) {
@@ -42,7 +42,7 @@ import { Err, Rule } from "..";
             code: "invalid_min_length",
             message: `Must not be less than ${min} characters`
           }]
-        }
+        };
       }
 
       if (max && value.length > max) {
@@ -53,7 +53,7 @@ import { Err, Rule } from "..";
             code: "invalid_max_length",
             message: `Must not be greater than ${max} characters`
           }]
-        }
+        };
       }
   
       return { success: true, value };

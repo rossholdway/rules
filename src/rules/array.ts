@@ -25,8 +25,8 @@ export function array<T>(
           value, name, path,
           code: "required",
           message: `${path[path.length - 1]} is required`
-        } as Err]
-      }
+        }]
+      };
     }
 
     if (!Array.isArray(value)) {
@@ -37,7 +37,7 @@ export function array<T>(
           code: "invalid_type",
           message: "Must be an array",
         }]
-      }
+      };
     }
 
     if (min && value.length < min) {
@@ -48,7 +48,7 @@ export function array<T>(
           code: "invalid_min_length",
           message: `Must not be less than ${min} entries`
         }]
-      }
+      };
     }
 
     if (max && value.length > max) {
@@ -59,7 +59,7 @@ export function array<T>(
           code: "invalid_max_length",
           message: `Must not be greater than ${max} entries`
         }]
-      }
+      };
     }
     
     // if (unique && value.length !== new Set(value).size) {
@@ -69,7 +69,7 @@ export function array<T>(
     for (const [i, v] of value.entries()) {
       const result = ruleFn([...path, i.toString()], v, ctx);
       if (isValidResult(result)) {
-        data.push(result.value)
+        data.push(result.value);
       } else {
         errors.push(result.errors);
       }
