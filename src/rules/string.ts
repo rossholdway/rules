@@ -4,6 +4,8 @@ import { Rule } from "..";
  * String validation
  * *****************************************************************
  */
+ export type str = typeof str;
+
  export function str(
     { max, min, trim }:
     { max?: number, min?: number, trim?: boolean } = {}
@@ -32,6 +34,10 @@ import { Rule } from "..";
             message: "Not a string"
           }]
         };
+      }
+
+      if (trim) {
+        (value as string) = value.trim();
       }
   
       if (min && value.length < min) {
