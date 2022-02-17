@@ -4,6 +4,8 @@ import { Rule } from "..";
  * Literal validation
  * *****************************************************************
  */
+export type literal = typeof literal;
+
 export function literal<T extends boolean>(constant: T): Rule<T>
 export function literal<T extends number>(constant: T): Rule<T>
 export function literal<T extends string>(constant: T): Rule<T>
