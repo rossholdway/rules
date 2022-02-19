@@ -3,11 +3,10 @@ import { expect } from "chai";
 import { ctx, Invalid } from "../../src";
 import { str } from "../../src/rules/string";
 
-type Valid = Exclude<ReturnType<ReturnType<str>>, Invalid>;
-
 describe("string", function() {
   let ctx: ctx;
-  let rule: ReturnType<str>;
+  const rule = str();
+  type Valid = Exclude<ReturnType<typeof rule>, Invalid>;
 
   const invalidInput = [
     null,
@@ -25,7 +24,6 @@ describe("string", function() {
 
   beforeEach(function() {
     ctx = {};
-    rule = str();
   });
 
   describe("valid", function() {
@@ -34,7 +32,7 @@ describe("string", function() {
     });
 
     it("should trim text", function() {
-      rule = str({trim: true});
+      const rule = str({trim: true});
       const result = rule([], " Lisa ", ctx) as Valid;
 
       expect(result.success).to.be.true;
@@ -62,7 +60,7 @@ describe("string", function() {
     describe("options", function() {
 
       it("should disallow input less than min length", function() {
-        rule = str({min: 10});
+        const rule = str({min: 10});
         const result = rule([], "Homer", ctx) as Invalid;
 
         expect(result.success).to.be.false;
@@ -70,7 +68,7 @@ describe("string", function() {
       });
 
       it("should disallow input greater than max length", function() {
-        rule = str({max: 3});
+        const rule = str({max: 3});
         const result = rule([], "Lisa", ctx) as Invalid;
 
         expect(result.success).to.be.false;
@@ -78,7 +76,7 @@ describe("string", function() {
       });
 
       it("should disallow blank string", function() {
-        rule = str({min: 1, trim: true});
+        const rule = str({min: 1, trim: true});
         const result = rule([], "    ", ctx) as Invalid;
 
         expect(result.success).to.be.false;
