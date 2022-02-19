@@ -50,7 +50,7 @@ describe("string", function() {
       expect(result.errors[0].code).to.eq("required");
     });
 
-    it("should disallow invalid input", function() {
+    it("should disallow invalid input type", function() {
       invalidInput.forEach(type => {
         const result = rule([], type, ctx) as Invalid;
 
