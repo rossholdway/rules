@@ -6,6 +6,8 @@ import { isValidResult } from "../helpers";
  * Value is an array or given rules
  * *****************************************************************
  */
+export type array = typeof array;
+
 export function array<T>(
   ruleFn: Rule<T>,
   { max, min}:
