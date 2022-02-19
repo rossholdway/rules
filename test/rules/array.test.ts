@@ -6,7 +6,7 @@ import { str } from "../../src/rules/string";
 
 describe("array", function() {
   let ctx: ctx;
-  let rule: ReturnType<array>;
+  const rule = array(str());
 
   const invalidInput = [
     "test",
@@ -24,12 +24,18 @@ describe("array", function() {
 
   beforeEach(function() {
     ctx = {};
-    rule = array(str());
   });
 
   describe("valid", function() {
-    it("should allow passing rule", function() {
+    it("should allow valid array", function() {
       expect(rule([], ["Homer"], ctx).success).to.be.true;
+    });
+
+    it("should support nested arrays", function() {
+      const rule = array(array(str()));
+      const result = rule([], [["Flanders"]], ctx);
+
+      expect(result.success).to.be.true;
     });
   });
 
@@ -57,10 +63,18 @@ describe("array", function() {
       });
     });
 
-    it("should provide the correct path", function() {
-      const result = rule([], ["Homer", 1], ctx) as Invalid;
-
-      expect(result.errors[0].path).to.eql(["1"]);
+    describe("path", function() {
+      it("should provide a correct path", function() {
+        const result = rule([], ["Homer", 1], ctx) as Invalid;
+  
+        expect(result.errors[0].path).to.eql(["1"]);
+      });
+      it("should provide a correct path when nested", function() {
+        const rule = array(array(str()));
+        const result = rule([], [["Ned", 1]], ctx) as Invalid;
+  
+        expect(result.errors[0].path).to.eql(["0","1"]);
+      });
     });
 
     describe("options", function() {
