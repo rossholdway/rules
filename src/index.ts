@@ -1,10 +1,27 @@
+// Helpers
 import { isValidResult } from "./helpers";
+
+// Rules
+import { str } from "./rules/string";
+import { obj } from "./rules/object";
+import { literal } from "./rules/literal";
+import { enums } from "./rules/enum";
+import { array } from "./rules/array";
+
+// Utils
+import { coerce } from "./utils/coerce";
+import { defaulted } from "./utils/defaulted";
+import { dynamic } from "./utils/dynamic";
+import { intersection } from "./utils/intersection";
+import { optional } from "./utils/optional";
+import { refine } from "./utils/refine";
+import { union } from "./utils/union";
 
 /**
  * Public
  * *****************************************************************
  */
- export type Valid<Output> = {
+export type Valid<Output> = {
   success: true;
   value: Output;
 }
@@ -31,23 +48,38 @@ export type ctx = Record<string, never>;
 
 export type Rule<Output> = (path: string[], value: unknown, ctx: ctx) => Valid<Output> | Invalid;
 
-// Rules
-export { str } from "./rules/string";
-export { obj } from "./rules/object";
-export { literal } from "./rules/literal";
-export { enums } from "./rules/enum";
-export { array } from "./rules/array";
+const all = {
+  // Rules
+  str,
+  obj,
+  literal,
+  enums,
+  array,
+  // Utils
+  coerce,
+  defaulted,
+  dynamic,
+  intersection,
+  optional,
+  refine,
+  union
+};
 
-// Utils
-export { coerce } from "./utils/coerce";
-export { defaulted } from "./utils/defaulted";
-export { dynamic } from "./utils/dynamic";
-export { intersection } from "./utils/intersection";
-export { optional } from "./utils/optional";
-export { refine } from "./utils/refine";
-export { union } from "./utils/union";
-
-
+export {
+  all as default,
+  str,
+  obj,
+  literal,
+  enums,
+  array,
+  coerce,
+  defaulted,
+  dynamic,
+  intersection,
+  optional,
+  refine,
+  union
+};
 
 // function next(errors: Err[]) {
 //   return function next(rule: string, path: string[], value: unknown, ruleErrors: Err[] = [], valid?: boolean) {
@@ -71,5 +103,3 @@ export function parse<S>(schema: Rule<S>, value: unknown): [undefined, Valid<S>[
     return [result.errors, undefined];
   }
 }
-
-
