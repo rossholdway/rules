@@ -48,6 +48,8 @@ export type ctx = Record<string, never>;
 
 export type Rule<Output> = (path: string[], value: unknown, ctx: ctx) => Valid<Output> | Invalid;
 
+export type Infer<R extends Rule<unknown>> = R extends Rule<infer T> ? T : unknown;
+
 const all = {
   // Rules
   str,
