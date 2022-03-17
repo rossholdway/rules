@@ -15,22 +15,22 @@ describe("defaulted", function() {
   });
 
   it("should call callback when value is undefined", function() {
-    const coerceCb = sinon.fake();
-    const util = defaulted(rule, coerceCb);
+    const defaultedCb = sinon.fake();
+    const util = defaulted(rule, defaultedCb);
     util([], undefined, ctx);
-    expect(coerceCb.calledWithExactly(ctx)).to.be.true;
+    expect(defaultedCb.calledWithExactly(ctx)).to.be.true;
   });
 
   it("should call rule with default value when undefined", function() {
-    const coerceCb = sinon.fake.returns("Max Power");
-    const util = defaulted(rule, coerceCb);
+    const defaultedCb = sinon.fake.returns("Max Power");
+    const util = defaulted(rule, defaultedCb);
     util([], undefined, ctx);
     expect(rule.calledWithExactly([], "Max Power", ctx)).to.be.true;
   });
 
   it("should call rule with provided value when not undefined", function() {
-    const coerceCb = sinon.fake();
-    const util = defaulted(rule, coerceCb);
+    const defaultedCb = sinon.fake();
+    const util = defaulted(rule, defaultedCb);
     util([], "Mr. Plow", ctx);
     expect(rule.calledWithExactly([], "Mr. Plow", ctx)).to.be.true;
   });
