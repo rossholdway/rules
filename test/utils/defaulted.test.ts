@@ -18,6 +18,7 @@ describe("defaulted", function() {
     const defaultedCb = sinon.fake();
     const util = defaulted(rule, defaultedCb);
     util([], undefined, ctx);
+
     expect(defaultedCb.calledWithExactly(ctx)).to.be.true;
   });
 
@@ -25,6 +26,7 @@ describe("defaulted", function() {
     const defaultedCb = sinon.fake.returns("Max Power");
     const util = defaulted(rule, defaultedCb);
     util([], undefined, ctx);
+
     expect(rule.calledWithExactly([], "Max Power", ctx)).to.be.true;
   });
 
@@ -32,6 +34,7 @@ describe("defaulted", function() {
     const defaultedCb = sinon.fake();
     const util = defaulted(rule, defaultedCb);
     util([], "Mr. Plow", ctx);
+
     expect(rule.calledWithExactly([], "Mr. Plow", ctx)).to.be.true;
   });
 

@@ -18,6 +18,7 @@ describe("dynamic", function() {
     const dynamicCb = sinon.fake.returns(rule);
     const util = dynamic(dynamicCb);
     util([], "Homer", ctx);
+
     expect(dynamicCb.calledWithExactly("Homer", ctx)).to.be.true;
   });
 
@@ -25,6 +26,7 @@ describe("dynamic", function() {
     const dynamicCb = sinon.fake.returns(rule);
     const util = dynamic(dynamicCb);
     util([], "Homer", ctx);
+
     expect(rule.calledWithExactly([], "Homer", ctx)).to.be.true;
   });
 

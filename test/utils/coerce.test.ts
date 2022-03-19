@@ -18,6 +18,7 @@ describe("coerce", function() {
     const coerceCb = sinon.fake.returns("742");
     const util = coerce(rule, coerceCb);
     util([], 742, ctx);
+
     expect(coerceCb.calledWithExactly(742)).to.be.true;
   });
 
@@ -25,6 +26,7 @@ describe("coerce", function() {
     const coerceCb = sinon.fake.returns("742");
     const util = coerce(rule, coerceCb);
     util([], 742, ctx);
+
     expect(rule.calledWithExactly([], "742", ctx)).to.be.true;
   });
 
