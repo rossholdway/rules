@@ -1,4 +1,4 @@
-![Tests](https://github.com/rossholdway/validate/actions/workflows/node.yml/badge.svg)
+![Test](https://github.com/rossholdway/validate/actions/workflows/test.yml/badge.svg)
 
 # Validate
 A simple validator with good performace, zero dependencies and developer friendly UX.
