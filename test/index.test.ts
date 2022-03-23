@@ -1,11 +1,10 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import { ctx, isValid, parse } from "../src";
+import { isValid, parse } from "../src";
 import Sinon from "sinon";
 
 describe("index", function() {
-  let ctx: ctx;
   let validRule: Sinon.SinonSpy;
   let invalidRule: Sinon.SinonSpy;
 
@@ -19,7 +18,6 @@ describe("index", function() {
         message: "An error occured"
       }]
     }));
-    ctx = {};
   });
 
   describe("isValid", function() {
