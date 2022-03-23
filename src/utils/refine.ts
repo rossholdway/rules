@@ -1,5 +1,5 @@
 import { InvalidRefined, Rule, Valid, ctx } from "..";
-import { isValidRefinedResult, isValidResult } from "../helpers";
+import { isValidResult } from "../helpers";
 
 export type RefinedErr = {
   code: string;
@@ -29,7 +29,7 @@ export function refine<Output>(
     // We passed the above, now run the custom rule
     const custom = customFn(result.value, ctx);
 
-    if (isValidRefinedResult(custom)) {
+    if (isValidResult(custom)) {
       return custom;
     } else {
       // No point in exposing the value, name
