@@ -35,6 +35,13 @@ export function union(ruleSet: Rule<any>[]): Rule<any> {
       }
     }
 
-    return { success: false, errors: errors.flat() };
+    return { success: false, errors: [
+      {
+        value, name, path,
+        code: "invalid_union",
+        message: "Invalid input"
+      },
+      ...errors.flat()
+    ] };
   };
 }

@@ -35,7 +35,7 @@ describe("union", function() {
     const result = util([], "Homer", this.ctx) as Invalid;
 
     expect(result.success).to.be.false;
-    expect(result.errors.length).to.eq(3);
+    expect(result.errors.length).to.eq(4);
   });
 
   it("should return errors", function() {
@@ -43,13 +43,22 @@ describe("union", function() {
     const result = util([], "Bart", this.ctx) as Invalid;
 
     expect(result.success).to.be.false;
-    expect(result.errors).to.eql([{
-      value: "Bart",
-      name: "rule",
-      path: [],
-      code: "error_code",
-      message: "An error occured"
-    }]);
+    expect(result.errors).to.eql([
+      {
+        value: "Bart",
+        name: "union",
+        path: [],
+        code: "invalid_union",
+        message: "Invalid input"
+      },
+      {
+        value: "Bart",
+        name: "rule",
+        path: [],
+        code: "error_code",
+        message: "An error occured"
+      }
+    ]);
   });
 
 });
