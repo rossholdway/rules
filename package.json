@@ -4,7 +4,7 @@
   "description": "Fast, simple validation",
   "main": "index.js",
   "scripts": {
-    "test": "c8 --reports-dir ./test/coverage mocha",
+    "test": "c8 mocha",
     "build": "tsc",
     "watch": "ts-node-dev --respawn --trace-warnings -- ./src/index.ts",
     "lint": "eslint . --ext .ts"
