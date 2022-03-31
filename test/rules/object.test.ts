@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { ctx, Invalid } from "../../src";
+import { Invalid } from "../../src";
 import { obj } from "../../src/rules/object";
 import { str } from "../../src/rules/string";
 

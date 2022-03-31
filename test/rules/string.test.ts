@@ -1,6 +1,6 @@
 import { expect } from "chai";
 
-import { ctx, Invalid } from "../../src";
+import { Invalid } from "../../src";
 import { str } from "../../src/rules/string";
 
 describe("string", function() {
