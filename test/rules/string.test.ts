@@ -4,7 +4,6 @@ import { ctx, Invalid } from "../../src";
 import { str } from "../../src/rules/string";
 
 describe("string", function() {
-  let ctx: ctx;
   const rule = str();
   type Valid = Exclude<ReturnType<typeof rule>, Invalid>;
 
@@ -22,18 +21,14 @@ describe("string", function() {
     new Map()
   ];
 
-  beforeEach(function() {
-    ctx = {};
-  });
-
   describe("valid", function() {
     it("should allow type of string", function() {
-      expect(rule([], "a string", ctx).success).to.be.true;
+      expect(rule([], "a string", this.ctx).success).to.be.true;
     });
 
     it("should trim text", function() {
       const rule = str({trim: true});
-      const result = rule([], " Lisa ", ctx) as Valid;
+      const result = rule([], " Lisa ", this.ctx) as Valid;
 
       expect(result.success).to.be.true;
       expect(result.value).to.eq("Lisa");
@@ -42,7 +37,7 @@ describe("string", function() {
 
   describe("invalid", function() {
     it("should disallow undefined", function() {
-      const result = rule([], undefined, ctx) as Invalid;
+      const result = rule([], undefined, this.ctx) as Invalid;
 
       expect(result.success).to.be.false;
       expect(result.errors[0].code).to.eq("required");
@@ -50,7 +45,7 @@ describe("string", function() {
 
     it("should disallow invalid input type", function() {
       invalidInput.forEach(type => {
-        const result = rule([], type, ctx) as Invalid;
+        const result = rule([], type, this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
         expect(result.errors[0].code).to.eq("not_a_string");
@@ -61,7 +56,7 @@ describe("string", function() {
 
       it("should disallow input less than min length", function() {
         const rule = str({min: 10});
-        const result = rule([], "Homer", ctx) as Invalid;
+        const result = rule([], "Homer", this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
         expect(result.errors[0].code).to.eq("invalid_min_length");
@@ -69,7 +64,7 @@ describe("string", function() {
 
       it("should disallow input greater than max length", function() {
         const rule = str({max: 3});
-        const result = rule([], "Lisa", ctx) as Invalid;
+        const result = rule([], "Lisa", this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
         expect(result.errors[0].code).to.eq("invalid_max_length");
@@ -77,7 +72,7 @@ describe("string", function() {
 
       it("should disallow blank string", function() {
         const rule = str({min: 1, trim: true});
-        const result = rule([], "    ", ctx) as Invalid;
+        const result = rule([], "    ", this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
         expect(result.errors[0].code).to.eq("invalid_min_length");

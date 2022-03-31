@@ -1,33 +1,24 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import { ctx } from "../../src";
 import { dynamic } from "../../src/utils/dynamic";
-import Sinon from "sinon";
 
 describe("dynamic", function() {
-  let ctx: ctx;
-  let rule: Sinon.SinonSpy;
-
-  beforeEach(function() {
-    rule = sinon.spy((_path, value, _ctx) => ({success: true, value}));
-    ctx = {};
-  });
 
   it("should provide the value and context to callback", function() {
-    const dynamicCb = sinon.fake.returns(rule);
+    const dynamicCb = sinon.fake.returns(this.validRule);
     const util = dynamic(dynamicCb);
-    util([], "Homer", ctx);
+    util([], "Homer", this.ctx);
 
-    expect(dynamicCb.calledWithExactly("Homer", ctx)).to.be.true;
+    expect(dynamicCb.calledWithExactly("Homer", this.ctx)).to.be.true;
   });
 
   it("should call the rule returned by the callback", function() {
-    const dynamicCb = sinon.fake.returns(rule);
+    const dynamicCb = sinon.fake.returns(this.validRule);
     const util = dynamic(dynamicCb);
-    util([], "Homer", ctx);
+    util([], "Homer", this.ctx);
 
-    expect(rule.calledWithExactly([], "Homer", ctx)).to.be.true;
+    expect(this.validRule.calledWithExactly([], "Homer", this.ctx)).to.be.true;
   });
 
 });

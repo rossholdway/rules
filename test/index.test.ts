@@ -1,24 +1,8 @@
 import { expect } from "chai";
-import sinon from "sinon";
 
 import { isValid, parse } from "../src";
-import Sinon from "sinon";
 
 describe("index", function() {
-  let validRule: Sinon.SinonSpy;
-  let invalidRule: Sinon.SinonSpy;
-
-  beforeEach(function() {
-    validRule = sinon.spy((_path, value, _ctx) => ({success: true, value}));
-    invalidRule = sinon.spy((path, value, _ctx) => ({
-      success: false,
-      errors: [{
-        value, name: "rule", path,
-        code: "error_code",
-        message: "An error occured"
-      }]
-    }));
-  });
 
   describe("isValid", function() {
 
@@ -45,14 +29,14 @@ describe("index", function() {
   describe("parse", function() {
 
     it("should return expected valid response", function() {
-      const result = parse(validRule, "Marge");
+      const result = parse(this.validRule, "Marge");
       
       expect(result[0]).to.be.undefined;
       expect(result[1]).to.eq("Marge");
     });
 
     it("should return expected invalid response", function() {
-      const result = parse(invalidRule, "Marge");
+      const result = parse(this.invalidRule, "Marge");
       
       expect(result[0]).to.eql([{
         value: "Marge",

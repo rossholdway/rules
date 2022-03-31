@@ -1,41 +1,32 @@
 import { expect } from "chai";
 import sinon from "sinon";
 
-import { ctx } from "../../src";
 import { defaulted } from "../../src/utils/defaulted";
-import Sinon from "sinon";
 
 describe("defaulted", function() {
-  let ctx: ctx;
-  let rule: Sinon.SinonSpy;
-
-  beforeEach(function() {
-    rule = sinon.spy((_path, value, _ctx) => ({success: true, value}));
-    ctx = {};
-  });
 
   it("should call callback when value is undefined", function() {
     const defaultedCb = sinon.fake();
-    const util = defaulted(rule, defaultedCb);
-    util([], undefined, ctx);
+    const util = defaulted(this.validRule, defaultedCb);
+    util([], undefined, this.ctx);
 
-    expect(defaultedCb.calledWithExactly(ctx)).to.be.true;
+    expect(defaultedCb.calledWithExactly(this.ctx)).to.be.true;
   });
 
   it("should call rule with default value when undefined", function() {
     const defaultedCb = sinon.fake.returns("Max Power");
-    const util = defaulted(rule, defaultedCb);
-    util([], undefined, ctx);
+    const util = defaulted(this.validRule, defaultedCb);
+    util([], undefined, this.ctx);
 
-    expect(rule.calledWithExactly([], "Max Power", ctx)).to.be.true;
+    expect(this.validRule.calledWithExactly([], "Max Power", this.ctx)).to.be.true;
   });
 
   it("should call rule with provided value when not undefined", function() {
     const defaultedCb = sinon.fake();
-    const util = defaulted(rule, defaultedCb);
-    util([], "Mr. Plow", ctx);
+    const util = defaulted(this.validRule, defaultedCb);
+    util([], "Mr. Plow", this.ctx);
 
-    expect(rule.calledWithExactly([], "Mr. Plow", ctx)).to.be.true;
+    expect(this.validRule.calledWithExactly([], "Mr. Plow", this.ctx)).to.be.true;
   });
 
 });

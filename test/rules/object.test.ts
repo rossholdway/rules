@@ -5,9 +5,6 @@ import { obj } from "../../src/rules/object";
 import { str } from "../../src/rules/string";
 
 describe("object", function() {
-  let ctx: ctx;
-  const rule = obj({ test: str() });
-
   const invalidInput = [
     "test",
     null,
@@ -22,18 +19,15 @@ describe("object", function() {
     new Map()
   ];
 
-  beforeEach(function() {
-    ctx = {};
-  });
-
   describe("valid", function() {
     it("should allow valid object", function() {
-      expect(rule([], { test: "Bart" }, ctx).success).to.be.true;
+      const rule = obj({ test: this.validRule });
+      expect(rule([], { test: "Bart" }, this.ctx).success).to.be.true;
     });
 
     it("should support nested objects", function() {
       const rule = obj({ one: obj({ two: str() }) });
-      const result = rule([], { one: { two: "Bart" }}, ctx);
+      const result = rule([], { one: { two: "Bart" }}, this.ctx);
 
       expect(result.success).to.be.true;
     });
@@ -41,22 +35,25 @@ describe("object", function() {
 
   describe("invalid", function() {
     it("should disallow undefined", function() {
-      const result = rule([], undefined, ctx) as Invalid;
+      const rule = obj({ test: this.validRule });
+      const result = rule([], undefined, this.ctx) as Invalid;
 
       expect(result.success).to.be.false;
       expect(result.errors[0].code).to.eq("required");
     });
 
     it("should fail and passthrough errors", function() {
-      const result = rule([], { test: true }, ctx) as Invalid;
+      const rule = obj({ test: this.invalidRule });
+      const result = rule([], { test: "invalid_value" }, this.ctx) as Invalid;
 
       expect(result.success).to.be.false;
-      expect(result.errors[0].code).to.eq("not_a_string");
+      expect(result.errors[0].code).to.eq("error_code");
     });
 
     it("should disallow invalid input type", function() {
+      const rule = obj({ test: this.validRule });
       invalidInput.forEach(type => {
-        const result = rule([], type, ctx) as Invalid;
+        const result = rule([], type, this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
         expect(result.errors[0].code).to.eq("not_an_object");
@@ -65,14 +62,15 @@ describe("object", function() {
 
     describe("path", function() {
       it("should provide a correct path", function() {
-        const result = rule([], { test: 1 }, ctx) as Invalid;
+        const rule = obj({ test: this.invalidRule });
+        const result = rule([], { test: "invalid_value" }, this.ctx) as Invalid;
   
         expect(result.errors[0].path).to.eql(["test"]);
       });
 
       it("should provide a correct path when nested", function() {
-        const rule = obj({ one: obj({ two: str() }) });
-        const result = rule([], { one: { two: true }}, ctx) as Invalid;
+        const rule = obj({ one: obj({ two: this.invalidRule }) });
+        const result = rule([], { one: { two: "Bart" }}, this.ctx) as Invalid;
 
         expect(result.errors[0].path).to.eql(["one","two"]);
       });
