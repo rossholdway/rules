@@ -1,4 +1,4 @@
-import { Rule } from "..";
+import { Codes, Rule } from "..";
 
 /**
  * Enum validation
@@ -13,7 +13,6 @@ export function enums<T extends string>(values: readonly T[]): Rule<T>
 export function enums(values: readonly unknown[]): Rule<string> {
   const name = "enums";
   return function enums(path, value, _ctx) {
-    const key = path[path.length - 1];
 
     // Require a value
     if (typeof value === "undefined") {
@@ -21,8 +20,8 @@ export function enums(values: readonly unknown[]): Rule<string> {
         success: false,
         errors: [{
           value, name, path,
-          code: "required",
-          message: `${key} is required`
+          code: Codes.required,
+          message: "Required"
         }]
       };
     }
@@ -34,7 +33,7 @@ export function enums(values: readonly unknown[]): Rule<string> {
         success: false,
         errors: [{
           value, name, path,
-          code: "invalid_enum",
+          code: Codes.invalid_enum,
           message: `Must be one of ${values.join(", ")}`
         }]
       };

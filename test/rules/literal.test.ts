@@ -51,7 +51,7 @@ describe("literal", function() {
         const result = rule([], type, this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_value");
+        expect(result.errors[0].code).to.eq("invalid_type");
       });
     });
   });

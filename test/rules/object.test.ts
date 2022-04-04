@@ -56,16 +56,16 @@ describe("object", function() {
         const result = rule([], type, this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("not_an_object");
+        expect(result.errors[0].code).to.eq("invalid_type");
       });
     });
 
     describe("path", function() {
       it("should provide a correct path", function() {
-        const rule = obj({ test: this.invalidRule });
-        const result = rule([], { test: "invalid_value" }, this.ctx) as Invalid;
+        const rule = obj({ one: this.invalidRule });
+        const result = rule([], { one: "invalid_value" }, this.ctx) as Invalid;
   
-        expect(result.errors[0].path).to.eql(["test"]);
+        expect(result.errors[0].path).to.eql(["one"]);
       });
 
       it("should provide a correct path when nested", function() {

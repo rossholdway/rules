@@ -1,4 +1,4 @@
-import { Err, Rule } from "..";
+import { Codes, Err, Rule } from "..";
 import { isValidResult } from "../helpers";
 
 export function intersection<A>(ruleSet: [Rule<A>]): Rule<A>;
@@ -19,7 +19,7 @@ export function intersection(ruleSet: Rule<any>[]): Rule<any> {
         success: false,
         errors: [{
           value, name, path,
-          code: "required",
+          code: Codes.required,
           message: "Required"
         }]
       };

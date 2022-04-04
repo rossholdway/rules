@@ -1,4 +1,4 @@
-import { Rule } from "..";
+import { Codes, Rule } from "..";
 
 /**
  * Literal validation
@@ -16,8 +16,6 @@ export function literal<T extends Record<string | number | symbol, unknown>>(con
 export function literal(constant: unknown): Rule<any> {
   const name = "literal";
   return function literal(path, value, _ctx) {
-    const key = path[path.length - 1];
-
     const validType = (value === constant);
 
     // Require a value
@@ -26,8 +24,8 @@ export function literal(constant: unknown): Rule<any> {
         success: false,
         errors: [{
           value, name, path,
-          code: "required",
-          message: `${key} is required`
+          code: Codes.required,
+          message: "Required"
         }]
       };
     }
@@ -37,8 +35,9 @@ export function literal(constant: unknown): Rule<any> {
         success: false,
         errors: [{
           value, name, path,
-          code: "invalid_value",
-          message: `Value must be '${constant}'`,
+          code: Codes.invalid_type,
+          message: `Expected ${constant}`,
+          meta: { constant }
         }]
       };
     }

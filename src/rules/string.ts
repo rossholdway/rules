@@ -1,4 +1,4 @@
-import { Rule } from "..";
+import { Codes, Rule } from "..";
 
 /**
  * String validation
@@ -19,7 +19,7 @@ import { Rule } from "..";
           success: false,
           errors: [{
             value, name, path,
-            code: "required",
+            code: Codes.required,
             message: "Required"
           }]
         };
@@ -30,7 +30,7 @@ import { Rule } from "..";
           success: false,
           errors: [{
             value, name, path,
-            code: "not_a_string",
+            code: Codes.invalid_type,
             message: "Not a string"
           }]
         };
@@ -45,8 +45,9 @@ import { Rule } from "..";
           success: false,
           errors: [{
             value, name, path,
-            code: "invalid_min_length",
-            message: `Must not be less than ${min} characters`
+            code: Codes.invalid_min_length,
+            message: `Must not be less than ${min} characters`,
+            meta: { min }
           }]
         };
       }
@@ -56,8 +57,9 @@ import { Rule } from "..";
           success: false,
           errors: [{
             value, name, path,
-            code: "invalid_max_length",
-            message: `Must not be greater than ${max} characters`
+            code: Codes.invalid_max_length,
+            message: `Must not be greater than ${max} characters`,
+            meta: { max }
           }]
         };
       }

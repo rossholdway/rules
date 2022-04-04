@@ -48,7 +48,7 @@ describe("string", function() {
         const result = rule([], type, this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("not_a_string");
+        expect(result.errors[0].code).to.eq("invalid_type");
       });
     });
 

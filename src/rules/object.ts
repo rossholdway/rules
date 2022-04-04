@@ -1,4 +1,4 @@
-import { Err, Rule } from "..";
+import { Codes, Err, Rule } from "..";
 import { isValidResult } from "../helpers";
 
 /**
@@ -24,7 +24,7 @@ export function obj<T>(schema: {[Key in keyof T]: Rule<T[Key]>}): Rule<T> {
         success: false,
         errors: [{
           value, name, path,
-          code: "required",
+          code: Codes.required,
           message: "Required"
         }]
       };
@@ -35,7 +35,7 @@ export function obj<T>(schema: {[Key in keyof T]: Rule<T[Key]>}): Rule<T> {
         success: false,
         errors: [{
           value, name, path,
-          code: "not_an_object",
+          code: Codes.invalid_type,
           message: "Not an object",
         }]
       };

@@ -42,6 +42,16 @@ export type Err = {
   path: string[];
   code: string;
   message: string;
+  meta?: Record<string, unknown>;
+}
+
+export enum Codes {
+  required = "required",
+  invalid_type = "invalid_type",
+  invalid_min_length = "invalid_min_length",
+  invalid_max_length = "invalid_max_length",
+  invalid_enum = "invalid_enum",
+  invalid_union = "invalid_union"
 }
 
 export type ctx = Record<string, never>;
@@ -82,14 +92,6 @@ export {
   refine,
   union
 };
-
-// function next(errors: Err[]) {
-//   return function next(rule: string, path: string[], value: unknown, ruleErrors: Err[] = [], valid?: boolean) {
-//     valid = valid ?? ruleErrors.length === 0;
-//     if (!valid) { errors.push(...ruleErrors); }
-//     return {valid, rule, path, value};
-//   };
-// }
 
 export function isValid<Output>(result: [Err[], undefined] | [undefined, Valid<Output>["value"]]): result is [undefined, Valid<Output>["value"]] {
   return typeof result[0] === "undefined";

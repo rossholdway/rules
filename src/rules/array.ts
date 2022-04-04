@@ -1,4 +1,4 @@
-import { Err, Rule } from "..";
+import { Codes, Err, Rule } from "..";
 import { isValidResult } from "../helpers";
 
 /**
@@ -25,8 +25,8 @@ export function array<T>(
         success: false,
         errors: [{
           value, name, path,
-          code: "required",
-          message: `${path[path.length - 1]} is required`
+          code: Codes.required,
+          message: "Required"
         }]
       };
     }
@@ -36,7 +36,7 @@ export function array<T>(
         success: false,
         errors: [{
           value, name, path,
-          code: "invalid_type",
+          code: Codes.invalid_type,
           message: "Must be an array",
         }]
       };
@@ -47,7 +47,7 @@ export function array<T>(
         success: false,
         errors: [{
           value, name, path,
-          code: "invalid_min_length",
+          code: Codes.invalid_min_length,
           message: `Must not be less than ${min} entries`
         }]
       };
@@ -58,7 +58,7 @@ export function array<T>(
         success: false,
         errors: [{
           value, name, path,
-          code: "invalid_max_length",
+          code: Codes.invalid_max_length,
           message: `Must not be greater than ${max} entries`
         }]
       };

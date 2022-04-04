@@ -1,11 +1,7 @@
-import { InvalidRefined, Rule, Valid, ctx } from "..";
+import { InvalidRefined, Rule, Valid, ctx, Err } from "..";
 import { isValidResult } from "../helpers";
 
-export type RefinedErr = {
-  code: string;
-  message: string;
-}
-
+export type RefinedErr = Omit<Err, "value" | "name" | "path">
 export type refineCb<Output> = (value: Output, ctx: ctx) => Valid<Output> | InvalidRefined;
 
 export function refine<Output>(
@@ -37,13 +33,12 @@ export function refine<Output>(
       // refine method, so we add them back in here
       return {
         success: false,
-        errors: custom.errors.map((e) => {
+        errors: custom.errors.map((err) => {
           return {
             value: result.value,
             name,
             path,
-            code: e.code,
-            message: e.message
+            ...err
           };
         })
       };

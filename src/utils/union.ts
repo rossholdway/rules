@@ -1,4 +1,4 @@
-import { Err, Rule } from "..";
+import { Codes, Err, Rule } from "..";
 import { isValidResult } from "../helpers";
 
 export function union<A>(ruleSet: [Rule<A>]): Rule<A>;
@@ -20,7 +20,7 @@ export function union(ruleSet: Rule<any>[]): Rule<any> {
         success: false,
         errors: [{
           value, name, path,
-          code: "required",
+          code: Codes.required,
           message: "Required"
         }]
       };
@@ -38,7 +38,7 @@ export function union(ruleSet: Rule<any>[]): Rule<any> {
     return { success: false, errors: [
       {
         value, name, path,
-        code: "invalid_union",
+        code: Codes.invalid_union,
         message: "Invalid input"
       },
       ...errors.flat()
