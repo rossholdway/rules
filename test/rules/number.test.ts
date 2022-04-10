@@ -11,6 +11,8 @@ describe("number", function() {
     {},
     [],
     "string",
+    // 1,
+    // 0,
     true,
     false,
     Symbol("test"),

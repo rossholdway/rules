@@ -6,10 +6,12 @@ import { str } from "../../src/rules/string";
 
 describe("object", function() {
   const invalidInput = [
-    "test",
     null,
+    // {},
     [],
+    "string",
     1,
+    0,
     true,
     false,
     Symbol("test"),

@@ -5,11 +5,12 @@ import { literal } from "../../src/rules/literal";
 
 describe("literal", function() {
   const invalidInput = [
-    "test",
     null,
     {},
     [],
+    "string",
     1,
+    0,
     true,
     false,
     Symbol("test"),

@@ -11,10 +11,12 @@ describe("bigInt", function() {
     {},
     [],
     "string",
+    1,
+    0,
     true,
     false,
     Symbol("test"),
-    100,
+    // BigInt(Number.MAX_SAFE_INTEGER),
     () => { return "noop"; },
     new Set(),
     new Map()

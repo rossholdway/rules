@@ -5,10 +5,12 @@ import { array } from "../../src/rules/array";
 
 describe("array", function() {
   const invalidInput = [
-    "test",
     null,
     {},
+    // [],
+    "string",
     1,
+    0,
     true,
     false,
     Symbol("test"),

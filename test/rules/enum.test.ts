@@ -7,11 +7,12 @@ describe("enum", function() {
   const rule = enums(["Maggie", "Gerald", "Ling"]);
 
   const invalidInput = [
-    "test",
     null,
     {},
     [],
+    "string",
     1,
+    0,
     true,
     false,
     Symbol("test"),
