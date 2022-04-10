@@ -3,6 +3,7 @@ import { isValidResult } from "./helpers";
 
 // Rules
 import { str } from "./rules/string";
+import { num } from "./rules/number";
 import { obj } from "./rules/object";
 import { literal } from "./rules/literal";
 import { enums } from "./rules/enum";
@@ -51,7 +52,8 @@ export enum Codes {
   invalid_min_length = "invalid_min_length",
   invalid_max_length = "invalid_max_length",
   invalid_enum = "invalid_enum",
-  invalid_union = "invalid_union"
+  invalid_union = "invalid_union",
+  invalid_integer = "invalid_integer"
 }
 
 export type ctx = Record<string, never>;
@@ -63,6 +65,7 @@ export type Infer<R extends Rule<unknown>> = R extends Rule<infer T> ? T : unkno
 const all = {
   // Rules
   str,
+  num,
   obj,
   literal,
   enums,
@@ -80,6 +83,7 @@ const all = {
 export {
   all as default,
   str,
+  num,
   obj,
   literal,
   enums,
