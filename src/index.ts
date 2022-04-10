@@ -9,6 +9,7 @@ import { literal } from "./rules/literal";
 import { enums } from "./rules/enum";
 import { array } from "./rules/array";
 import { bigInt } from "./rules/bigint";
+import { boolean } from "./rules/boolean";
 
 // Utils
 import { coerce } from "./utils/coerce";
@@ -72,6 +73,7 @@ const all = {
   enums,
   array,
   bigInt,
+  boolean,
   // Utils
   coerce,
   defaulted,
@@ -91,6 +93,7 @@ export {
   enums,
   array,
   bigInt,
+  boolean,
   coerce,
   defaulted,
   dynamic,
