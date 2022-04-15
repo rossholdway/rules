@@ -7,6 +7,7 @@ import { bigInt } from "./rules/bigint";
 import { bool } from "./rules/boolean";
 import { enums } from "./rules/enum";
 import { literal } from "./rules/literal";
+import { never } from "./rules/never";
 import { num } from "./rules/number";
 import { obj } from "./rules/object";
 import { str } from "./rules/string";
@@ -51,6 +52,7 @@ export type Err = {
 
 export enum Codes {
   required = "required",
+  invalid = "invalid",
   invalid_type = "invalid_type",
   invalid_min_length = "invalid_min_length",
   invalid_max_length = "invalid_max_length",
@@ -72,6 +74,7 @@ const all = {
   bool,
   enums,
   literal,
+  never,
   num,
   obj,
   str,
@@ -93,6 +96,7 @@ export {
   bool,
   enums,
   literal,
+  never,
   num,
   obj,
   str,
