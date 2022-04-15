@@ -5,9 +5,10 @@ import { optional } from "../../src/utils/optional";
 describe("optional", function() {
 
   it("should pass when value is undefined", function() {
-    const util = optional(this.invalidRule);
+    const util = optional(this.validRule);
     const result = util([], undefined, this.ctx);
 
+    expect(this.validRule.notCalled).to.be.true;
     expect(result.success).to.be.true;
   });
 
