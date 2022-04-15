@@ -2,20 +2,21 @@
 import { isValidResult } from "./helpers";
 
 // Rules
-import { str } from "./rules/string";
-import { num } from "./rules/number";
-import { obj } from "./rules/object";
-import { literal } from "./rules/literal";
-import { enums } from "./rules/enum";
 import { array } from "./rules/array";
 import { bigInt } from "./rules/bigint";
-import { boolean } from "./rules/boolean";
+import { bool } from "./rules/boolean";
+import { enums } from "./rules/enum";
+import { literal } from "./rules/literal";
+import { num } from "./rules/number";
+import { obj } from "./rules/object";
+import { str } from "./rules/string";
 
 // Utils
 import { coerce } from "./utils/coerce";
 import { defaulted } from "./utils/defaulted";
 import { dynamic } from "./utils/dynamic";
 import { intersection } from "./utils/intersection";
+import { nullable } from "./utils/nullable";
 import { optional } from "./utils/optional";
 import { refine } from "./utils/refine";
 import { union } from "./utils/union";
@@ -66,19 +67,20 @@ export type Infer<R extends Rule<unknown>> = R extends Rule<infer T> ? T : unkno
 
 const all = {
   // Rules
-  str,
-  num,
-  obj,
-  literal,
-  enums,
   array,
   bigInt,
-  boolean,
+  bool,
+  enums,
+  literal,
+  num,
+  obj,
+  str,
   // Utils
   coerce,
   defaulted,
   dynamic,
   intersection,
+  nullable,
   optional,
   refine,
   union
@@ -86,18 +88,19 @@ const all = {
 
 export {
   all as default,
-  str,
-  num,
-  obj,
-  literal,
-  enums,
   array,
   bigInt,
-  boolean,
+  bool,
+  enums,
+  literal,
+  num,
+  obj,
+  str,
   coerce,
   defaulted,
   dynamic,
   intersection,
+  nullable,
   optional,
   refine,
   union
