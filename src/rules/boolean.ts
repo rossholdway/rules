@@ -4,11 +4,11 @@ import { Codes, Rule } from "..";
  * Boolean validation
  * *****************************************************************
  */
- export type bool = typeof boolean;
+ export type bool = typeof bool;
 
- export function boolean(): Rule<boolean> {
+ export function bool(): Rule<boolean> {
     const name = "boolean";
-    return function boolean(path, value, _ctx) {
+    return function bool(path, value, _ctx) {
 
       // Require a value
       if (typeof value === "undefined") {

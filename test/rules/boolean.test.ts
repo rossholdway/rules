@@ -1,10 +1,10 @@
 import { expect } from "chai";
 
 import { Invalid } from "../../src";
-import { boolean } from "../../src/rules/boolean";
+import { bool } from "../../src/rules/boolean";
 
 describe("boolean", function() {
-  const rule = boolean();
+  const rule = bool();
 
   const invalidInput = [
     null,
