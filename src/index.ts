@@ -2,6 +2,7 @@
 import { isValidResult } from "./helpers";
 
 // Rules
+import { any } from "./rules/any";
 import { array } from "./rules/array";
 import { bigInt } from "./rules/bigint";
 import { bool } from "./rules/boolean";
@@ -70,6 +71,7 @@ export type Infer<R extends Rule<unknown>> = R extends Rule<infer T> ? T : unkno
 
 const all = {
   // Rules
+  any,
   array,
   bigInt,
   bool,
@@ -92,6 +94,7 @@ const all = {
 
 export {
   all as default,
+  any,
   array,
   bigInt,
   bool,
