@@ -12,7 +12,7 @@ export function array<T>(
   ruleFn: Rule<T>,
   { max, min}:
   { max?: number, min?: number } = {}
-  ): Rule<T[]> {
+): Rule<T[]> {
 
   const name = "array";
   return function array(path, value, ctx) {

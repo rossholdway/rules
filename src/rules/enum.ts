@@ -40,5 +40,4 @@ export function enums(values: readonly unknown[]): Rule<string> {
     }
 
   };
- }
- 
+}

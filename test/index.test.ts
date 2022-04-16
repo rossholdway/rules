@@ -8,12 +8,12 @@ describe("index", function() {
 
     it("should return false if invalid", function() {
       const result = isValid([[{
-          value: "Burns",
-          name: "enums",
-          path: [ "simpsons" ],
-          code: "invalid_enum",
-          message: "Must be one of Homer, Marge, Bart, Lisa, Maggie"
-        }], undefined]);
+        value: "Burns",
+        name: "enums",
+        path: [ "simpsons" ],
+        code: "invalid_enum",
+        message: "Must be one of Homer, Marge, Bart, Lisa, Maggie"
+      }], undefined]);
       
       expect(result).to.be.false;
     });

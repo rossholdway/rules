@@ -28,6 +28,14 @@
             "error",
             "always"
         ],
+        "eol-last": [
+            "error",
+            "always"
+        ],
+        "indent": [
+            "error",
+            2
+        ],
         "@typescript-eslint/no-unused-vars": [
             "warn",
             { "argsIgnorePattern": "^_" }

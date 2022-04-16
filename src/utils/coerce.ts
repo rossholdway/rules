@@ -9,4 +9,3 @@ export function coerce<Output>(ruleFn: Rule<Output>, coercionFn: coerceCb<Output
     return ruleFn(path, coercedValue, ctx);
   };
 }
-  

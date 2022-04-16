@@ -5,10 +5,10 @@ export type RefinedErr = Omit<Err, "value" | "name" | "path">
 export type refineCb<Output> = (value: Output, ctx: ctx) => Valid<Output> | InvalidRefined;
 
 export function refine<Output>(
-    name: string,
-    ruleFn: Rule<Output>,
-    customFn: refineCb<Output>
-  ): Rule<Output> {
+  name: string,
+  ruleFn: Rule<Output>,
+  customFn: refineCb<Output>
+): Rule<Output> {
   return function refine(path, value, ctx) {
 
     // Run initial rule
