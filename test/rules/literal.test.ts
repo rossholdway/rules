@@ -35,10 +35,20 @@ describe("literal", function() {
       const rule = literal(true);
       expect(rule([], true, this.ctx).success).to.be.true;
     });
+
+    it("should allow literal type null", function() {
+      const rule = literal(null);
+      expect(rule([], null, this.ctx).success).to.be.true;
+    });
+
+    it("should allow literal type undefined", function() {
+      const rule = literal(undefined);
+      expect(rule([], undefined, this.ctx).success).to.be.true;
+    });
   });
 
   describe("invalid", function() {
-    it("should disallow undefined", function() {
+    it("should disallow undefined when undefined is not constant", function() {
       const rule = literal("Homer");
       const result = rule([], undefined, this.ctx) as Invalid;
 
@@ -46,13 +56,13 @@ describe("literal", function() {
       expect(result.errors[0].code).to.eq("required");
     });
 
-    it("should disallow invalid input type", function() {
+    it("should disallow invalid input", function() {
       const rule = literal("Homer");
       invalidInput.forEach(type => {
         const result = rule([], type, this.ctx) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_type");
+        expect(result.errors[0].code).to.eq("invalid_literal");
       });
     });
   });

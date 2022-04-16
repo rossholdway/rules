@@ -58,7 +58,8 @@ export enum Codes {
   invalid_max_length = "invalid_max_length",
   invalid_enum = "invalid_enum",
   invalid_union = "invalid_union",
-  invalid_integer = "invalid_integer"
+  invalid_integer = "invalid_integer",
+  invalid_literal = "invalid_literal"
 }
 
 export type ctx = Record<string, never>;
