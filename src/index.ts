@@ -12,6 +12,7 @@ import { never } from "./rules/never";
 import { num } from "./rules/number";
 import { obj } from "./rules/object";
 import { str } from "./rules/string";
+import { tuple } from "./rules/tuple";
 
 // Utils
 import { coerce } from "./utils/coerce";
@@ -60,7 +61,8 @@ export enum Codes {
   invalid_enum = "invalid_enum",
   invalid_union = "invalid_union",
   invalid_integer = "invalid_integer",
-  invalid_literal = "invalid_literal"
+  invalid_literal = "invalid_literal",
+  invalid_length = "invalid_length"
 }
 
 export type ctx = Record<string, never>;
@@ -106,6 +108,7 @@ const all = {
   num,
   obj,
   str,
+  tuple,
   // Utils
   coerce,
   defaulted,
@@ -129,6 +132,7 @@ export {
   num,
   obj,
   str,
+  tuple,
   coerce,
   defaulted,
   dynamic,
