@@ -69,6 +69,31 @@ export type Rule<Output> = (path: string[], value: unknown, ctx: ctx) => Valid<O
 
 export type Infer<R extends Rule<unknown>> = R extends Rule<infer T> ? T : unknown;
 
+export type UnionToIntersection<U> = (
+  U extends unknown ? (arg: U) => unknown : never
+) extends (arg: infer I) => void
+  ? I
+  : never
+
+// Recursive conditional Tuple type
+// https://github.com/ianstormtaylor/superstruct
+export type InferTuple<
+  Tuple extends Rule<unknown>[],
+  Length extends number = Tuple["length"]
+> = Length extends Length
+  ? number extends Length
+    ? Tuple
+    : _InferTuple<Tuple, Length, []>
+  : never
+type _InferTuple<
+  Tuple extends Rule<unknown>[],
+  Length extends number,
+  Accumulated extends unknown[],
+  Index extends number = Accumulated["length"]
+> = Index extends Length
+  ? Accumulated
+  : _InferTuple<Tuple, Length, [...Accumulated, Infer<Tuple[Index]>]>
+
 const all = {
   // Rules
   any,

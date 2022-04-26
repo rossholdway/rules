@@ -1,14 +1,16 @@
-import { Codes, Err, Rule } from "..";
+import { Codes, Err, Infer, InferTuple, Rule, UnionToIntersection } from "..";
 import { isValidResult } from "../helpers";
 
-export function intersection<A>(ruleSet: [Rule<A>]): Rule<A>;
-export function intersection<A, B>(ruleSet: [Rule<A>, Rule<B>]): Rule<A & B>;
-export function intersection<A, B, C>(ruleSet: [Rule<A>, Rule<B>, Rule<C>]): Rule<A & B & C>;
-export function intersection<A, B, C, D>(ruleSet: [Rule<A>, Rule<B>, Rule<C>, Rule<D>]): Rule<A & B & C & D>;
+// export function intersection<A>(ruleSet: [Rule<A>]): Rule<A>;
+// export function intersection<A, B>(ruleSet: [Rule<A>, Rule<B>]): Rule<A & B>;
+// export function intersection<A, B, C>(ruleSet: [Rule<A>, Rule<B>, Rule<C>]): Rule<A & B & C>;
+// export function intersection<A, B, C, D>(ruleSet: [Rule<A>, Rule<B>, Rule<C>, Rule<D>]): Rule<A & B & C & D>;
+// export function intersection(ruleSet: Rule<any>[]): Rule<any>
 
 // Helps to run multiple rules against a single value
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function intersection(ruleSet: Rule<any>[]): Rule<any> {
+export function intersection<T extends Rule<Infer<T[number]>>[]>(
+  ruleSet: [...T]
+): Rule<UnionToIntersection<InferTuple<T>[number]>> {
   const name = "intersection";
   return function intersection(path, value, ctx) {
     const errors: Err[][] = [];
@@ -32,6 +34,8 @@ export function intersection(ruleSet: Rule<any>[]): Rule<any> {
       }
     }
 
-    return (errors.length === 0) ? { success: true, value } : { success: false, errors: errors.flat() };
+    return (errors.length === 0) ?
+      { success: true, value: (value as UnionToIntersection<InferTuple<T>[number]>) } :
+      { success: false, errors: errors.flat() };
   };
 }

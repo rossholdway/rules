@@ -1,14 +1,16 @@
-import { Codes, Err, Rule } from "..";
+import { Codes, Err, Infer, InferTuple, Rule } from "..";
 import { isValidResult } from "../helpers";
 
-export function union<A>(ruleSet: [Rule<A>]): Rule<A>;
-export function union<A, B>(ruleSet: [Rule<A>, Rule<B>]): Rule<A | B>;
-export function union<A, B, C>(ruleSet: [Rule<A>, Rule<B>, Rule<C>]): Rule<A | B | C>;
-export function union<A, B, C, D>(ruleSet: [Rule<A>, Rule<B>, Rule<C>, Rule<D>]): Rule<A | B | C | D>;
+// export function union<A>(ruleSet: [Rule<A>]): Rule<A>;
+// export function union<A, B>(ruleSet: [Rule<A>, Rule<B>]): Rule<A | B>;
+// export function union<A, B, C>(ruleSet: [Rule<A>, Rule<B>, Rule<C>]): Rule<A | B | C>;
+// export function union<A, B, C, D>(ruleSet: [Rule<A>, Rule<B>, Rule<C>, Rule<D>]): Rule<A | B | C | D>;
+// export function union(ruleSet: Rule<any>[]): Rule<any>
 
 // Helps to validate that a value matches at least one rule
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function union(ruleSet: Rule<any>[]): Rule<any> {
+export function union<T extends Rule<Infer<T[number]>>[]>(
+  ruleSet: [...T]
+): Rule<InferTuple<T>[number]> {
   const name = "union";
 
   return function union(path, value, ctx) {
