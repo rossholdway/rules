@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import Sinon from "sinon";
 
 import { Invalid, Valid } from "../../src";
 import { union } from "../../src/utils/union";
@@ -17,15 +18,15 @@ describe("union", function() {
     const util = union([this.invalidRule, this.validRule, this.invalidRule]);
     util([], "Moe", this.ctx);
 
-    expect(this.invalidRule.calledOnce).to.be.true;
-    expect(this.validRule.calledOnce).to.be.true;
+    Sinon.assert.calledOnce(this.invalidRule);
+    Sinon.assert.calledOnce(this.validRule);
   });
 
   it("should return valid on first rule pass", function() {
     const util = union([this.validRule, this.validRule, this.validRule]);
     const result = util([], "Moe", this.ctx) as Valid<string>;
 
-    expect(this.validRule.calledOnce).to.be.true;
+    Sinon.assert.calledOnce(this.validRule);
     expect(result.success).to.be.true;
     expect(result.value).to.eq("Moe");
   });

@@ -62,13 +62,13 @@ describe("array", function() {
     });
 
     describe("path", function() {
-      it("should provide a correct path", function() {
+      it("should be correct", function() {
         const rule = array(this.invalidRule);
         const result = rule([], ["Homer"], this.ctx) as Invalid;
   
         expect(result.errors[0].path).to.eql(["0"]);
       });
-      it("should provide a correct path when nested", function() {
+      it("should be correct when nested", function() {
         const rule = array(array(this.invalidRule));
         const result = rule([], [["Ned"]], this.ctx) as Invalid;
   

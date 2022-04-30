@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import Sinon from "sinon";
 
 import { optional } from "../../src/utils/optional";
 
@@ -8,7 +9,7 @@ describe("optional", function() {
     const util = optional(this.validRule);
     const result = util([], undefined, this.ctx);
 
-    expect(this.validRule.notCalled).to.be.true;
+    Sinon.assert.notCalled(this.validRule);
     expect(result.success).to.be.true;
   });
 
@@ -16,7 +17,7 @@ describe("optional", function() {
     const util = optional(this.validRule);
     util([], "Flaming Moe", this.ctx);
 
-    expect(this.validRule.calledOnceWithExactly([], "Flaming Moe", this.ctx)).to.be.true;
+    Sinon.assert.calledOnceWithExactly(this.validRule, [], "Flaming Moe", this.ctx);
   });
 
 });

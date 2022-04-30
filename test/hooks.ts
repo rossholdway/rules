@@ -1,4 +1,4 @@
-import sinon from "sinon";
+import Sinon from "sinon";
 
 declare module "mocha" {
   export interface Context {
@@ -15,19 +15,25 @@ interface mochaHooks {
 
 export const mochaHooks = {
   beforeEach(done) {
-    this.validRule = sinon.spy((_path, value, _ctx) => ({success: true, value}));
-    this.invalidRule = sinon.spy((path, value, _ctx) => ({
-      success: false,
-      errors: [{
-        value, name: "rule", path,
-        code: "error_code",
-        message: "An error occured"
-      }]
-    }));
+    this.validRule = Sinon.spy(
+      function validRule(_path, value, _ctx) {
+        return {success: true, value};
+      }
+    );
+    this.invalidRule = Sinon.spy(function invalidRule(path, value, _ctx) {
+      return {
+        success: false,
+        errors: [{
+          value, name: "rule", path,
+          code: "error_code",
+          message: "An error occured"
+        }]
+      };
+    });
     done();
   },
   afterEach(done) {
-    sinon.restore(); // Restore Sinon
+    Sinon.restore(); // Restore Sinon
     done();
   }
 } as mochaHooks;

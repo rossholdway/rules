@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import Sinon from "sinon";
 
 import { nullable } from "../../src/utils/nullable";
 
@@ -8,7 +9,7 @@ describe("nullable", function() {
     const util = nullable(this.validRule);
     const result = util([], null, this.ctx);
 
-    expect(this.validRule.notCalled).to.be.true;
+    Sinon.assert.notCalled(this.validRule);
     expect(result.success).to.be.true;
   });
 
@@ -16,7 +17,7 @@ describe("nullable", function() {
     const util = nullable(this.validRule);
     util([], "Flaming Moe", this.ctx);
 
-    expect(this.validRule.calledOnceWithExactly([], "Flaming Moe", this.ctx)).to.be.true;
+    Sinon.assert.calledOnceWithExactly(this.validRule, [], "Flaming Moe", this.ctx);
   });
 
 });

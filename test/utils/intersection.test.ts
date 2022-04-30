@@ -1,4 +1,5 @@
 import { expect } from "chai";
+import Sinon from "sinon";
 
 import { Valid, Invalid } from "../../src";
 import { intersection } from "../../src/utils/intersection";
@@ -17,8 +18,8 @@ describe("intersection", function() {
     const util = intersection([this.validRule, this.invalidRule, this.validRule]);
     util([], "Bart", this.ctx);
 
-    expect(this.validRule.calledTwice).to.be.true;
-    expect(this.invalidRule.calledOnce).to.be.true;
+    Sinon.assert.calledTwice(this.validRule);
+    Sinon.assert.calledOnce(this.invalidRule);
   });
 
   it("should return valid if all rules pass", function() {
