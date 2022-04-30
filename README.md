@@ -3,7 +3,7 @@
 # Validate
 A simple TypeScript runtime validator with good performance, zero dependencies and developer friendly UX.
 
-Build a schema using predefined rules, or create your own. Valid data will be returned typed. Let's look at some examples.
+Build a schema using predefined rules, or create your own. Valid data will be returned typed.
 
 ## Demo
 
@@ -15,8 +15,6 @@ Using the rule `str()` we can validate that any given data is of type string. Th
 
 ```Typescript
   parse(str(), "Homer");
-
-  // [undefined, "Homer"]
 ```
 
 We can also validate more complex structures such as objects and arrays.
@@ -35,15 +33,6 @@ We can also validate more complex structures such as objects and arrays.
   };
 
   parse(User, data);
-
-  // [
-  //    undefined,
-  //    {
-  //     name: "Homer",
-  //     knownAs: ["Max Power", "Pie Man", "Mr. Plow"],
-  //     age: 39
-  //   }
-  // ]
 ```
 
 At some point you'll likely want your own custom validation logic. Using `refine` will allow you to do just that, by building on top of existing rules.
@@ -76,35 +65,6 @@ At some point you'll likely want your own custom validation logic. Using `refine
   };
 
   parse(User, data);
-
-  // [
-  //    undefined,
-  //    {
-  //     name: "Homer",
-  //     knownAs: ["Max Power", "Pie Man", "Mr. Plow"],
-  //     age: 39,
-  //     email: "chunkylover53@aol.com"
-  //   }
-  // ]
-```
-
-Errors are returned in an array
-
-```Typescript
-parse(str(), undefined);
-
-// [
-//   [
-//     {
-//       value: undefined,
-//       name: 'string',
-//       path: [],
-//       code: 'required',
-//       message: 'Required'
-//     }
-//   ],
-//   undefined
-// ]
 ```
 
 ## Documentation
