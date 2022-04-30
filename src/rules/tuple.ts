@@ -51,7 +51,7 @@ export function tuple<T extends Rule<Infer<T[number]>>[]>(
           value, name, path,
           code: Codes.invalid_length,
           message: `Invalid number of items. Expected ${ruleSet.length}, got ${value.length}`,
-          meta: {ruleCount: ruleSet.length, valueCount: value.length}
+          meta: {expected: ruleSet.length, actual: value.length}
         }]
       };
     }
