@@ -1,23 +1,23 @@
-import { expect } from "chai";
-import Sinon from "sinon";
+import { expect } from "https://cdn.skypack.dev/chai@4.3.4?dts";
+import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
-import { nullable } from "../../src/utils/nullable";
+import { ctx, sandbox, validRule } from "../utils.ts";
 
-describe("nullable", function() {
+import { nullable } from "../../src/utils/nullable.ts";
 
-  it("should pass when value is null", function() {
-    const util = nullable(this.validRule);
-    const result = util([], null, this.ctx);
+describe("nullable", function () {
+  it("should pass when value is null", function () {
+    const util = nullable(validRule);
+    const result = util([], null, ctx);
 
-    Sinon.assert.notCalled(this.validRule);
+    sandbox.assert.notCalled(validRule);
     expect(result.success).to.be.true;
   });
 
-  it("should call rule when value is defined", function() {
-    const util = nullable(this.validRule);
-    util([], "Flaming Moe", this.ctx);
+  it("should call rule when value is defined", function () {
+    const util = nullable(validRule);
+    util([], "Flaming Moe", ctx);
 
-    Sinon.assert.calledOnceWithExactly(this.validRule, [], "Flaming Moe", this.ctx);
+    sandbox.assert.calledOnceWithExactly(validRule, [], "Flaming Moe", ctx);
   });
-
 });

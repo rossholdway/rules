@@ -1,4 +1,4 @@
-import { Codes, Rule } from "..";
+import { Codes, Rule } from "../mod.ts";
 
 /**
  * Number validation
@@ -7,21 +7,21 @@ import { Codes, Rule } from "..";
 export type num = typeof num;
 
 export function num(
-  { max, min, integer }:
-  { max?: number, min?: number, integer?: boolean } = {}
+  { max, min, integer }: { max?: number; min?: number; integer?: boolean } = {},
 ): Rule<number> {
   const name = "number";
   return function str(path, value, _ctx) {
-
     // Require a value
     if (typeof value === "undefined") {
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.required,
-          message: "Required"
-        }]
+          message: "Required",
+        }],
       };
     }
 
@@ -29,10 +29,12 @@ export function num(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_type,
-          message: "Not a number"
-        }]
+          message: "Not a number",
+        }],
       };
     }
 
@@ -40,10 +42,12 @@ export function num(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_integer,
-          message: "Must be an integer"
-        }]
+          message: "Must be an integer",
+        }],
       };
     }
 
@@ -51,11 +55,13 @@ export function num(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_min_length,
           message: `Must not be less than ${min}`,
-          meta: { min }
-        }]
+          meta: { min },
+        }],
       };
     }
 
@@ -63,11 +69,13 @@ export function num(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_max_length,
           message: `Must not be greater than ${max}`,
-          meta: { max }
-        }]
+          meta: { max },
+        }],
       };
     }
 

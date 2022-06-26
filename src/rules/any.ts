@@ -1,4 +1,4 @@
-import { Rule } from "..";
+import { Rule } from "../mod.ts";
 
 /**
  * Any validation
@@ -6,9 +6,9 @@ import { Rule } from "..";
  */
 export type anything = typeof any;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// deno-lint-ignore no-explicit-any
 export function any(): Rule<any> {
-  return function any(path, value, _ctx) {  
+  return function any(_path, value, _ctx) {
     return { success: true, value };
   };
 }

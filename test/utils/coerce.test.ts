@@ -1,23 +1,23 @@
-import Sinon from "sinon";
+import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
-import { coerce } from "../../src/utils/coerce";
+import { ctx, sandbox, validRule } from "../utils.ts";
 
-describe("coerce", function() {
+import { coerce } from "../../src/utils/coerce.ts";
 
-  it("should call callback with expected argument", function() {
-    const coerceCb = Sinon.fake.returns("742");
-    const util = coerce(this.validRule, coerceCb);
-    util([], 742, this.ctx);
+describe("coerce", function () {
+  it("should call callback with expected argument", function () {
+    const coerceCb = sandbox.fake.returns("742");
+    const util = coerce(validRule, coerceCb);
+    util([], 742, ctx);
 
-    Sinon.assert.calledWithExactly(coerceCb, 742);
+    sandbox.assert.calledWithExactly(coerceCb, 742);
   });
 
-  it("should call rule with coerced value", function() {
-    const coerceCb = Sinon.fake.returns("742");
-    const util = coerce(this.validRule, coerceCb);
-    util([], 742, this.ctx);
+  it("should call rule with coerced value", function () {
+    const coerceCb = sandbox.fake.returns("742");
+    const util = coerce(validRule, coerceCb);
+    util([], 742, ctx);
 
-    Sinon.assert.calledWithExactly(this.validRule, [], "742", this.ctx);
+    sandbox.assert.calledWithExactly(validRule, [], "742", ctx);
   });
-
 });

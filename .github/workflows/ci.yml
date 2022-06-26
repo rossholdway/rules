@@ -3,21 +3,19 @@ on: [push]
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      DENO_DIR: .deno
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
         with:
-          node-version: '16'
-          cache: 'npm'
-      - run: npm ci --prefer-offline
-      - run: npm test
+          deno-version: '1.23.1'
+      - run: deno test test/**/*.test.ts --lock=lock.json --cached-only
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: denoland/setup-deno@v1
         with:
-          node-version: '16'
-          cache: 'npm'
-      - run: npm ci --prefer-offline
-      - run: npm run lint
+          deno-version: '1.23.1'
+      - run: deno lint --ignore=.deno

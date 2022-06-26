@@ -1,5 +1,12 @@
-import { Codes, Err, Infer, InferTuple, Rule, UnionToIntersection } from "..";
-import { isValidResult } from "../helpers";
+import {
+  Codes,
+  Err,
+  Infer,
+  InferTuple,
+  Rule,
+  UnionToIntersection,
+} from "../mod.ts";
+import { isValidResult } from "../helpers.ts";
 
 // export function intersection<A>(ruleSet: [Rule<A>]): Rule<A>;
 // export function intersection<A, B>(ruleSet: [Rule<A>, Rule<B>]): Rule<A & B>;
@@ -9,7 +16,7 @@ import { isValidResult } from "../helpers";
 
 // Helps to run multiple rules against a single value
 export function intersection<T extends Rule<Infer<T[number]>>[]>(
-  ruleSet: [...T]
+  ruleSet: [...T],
 ): Rule<UnionToIntersection<InferTuple<T>[number]>> {
   const name = "intersection";
   return function intersection(path, value, ctx) {
@@ -20,10 +27,12 @@ export function intersection<T extends Rule<Infer<T[number]>>[]>(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.required,
-          message: "Required"
-        }]
+          message: "Required",
+        }],
       };
     }
 
@@ -34,8 +43,11 @@ export function intersection<T extends Rule<Infer<T[number]>>[]>(
       }
     }
 
-    return (errors.length === 0) ?
-      { success: true, value: (value as UnionToIntersection<InferTuple<T>[number]>) } :
-      { success: false, errors: errors.flat() };
+    return (errors.length === 0)
+      ? {
+        success: true,
+        value: (value as UnionToIntersection<InferTuple<T>[number]>),
+      }
+      : { success: false, errors: errors.flat() };
   };
 }

@@ -1,5 +1,5 @@
-import { Codes, Err, Infer, InferTuple, Rule } from "..";
-import { isValidResult } from "../helpers";
+import { Codes, Err, Infer, InferTuple, Rule } from "../mod.ts";
+import { isValidResult } from "../helpers.ts";
 
 /**
  * Tuple validation
@@ -14,22 +14,24 @@ export type tuple = typeof tuple;
 // export function tuple(rules: Rule<any>[]): Rule<any>
 
 export function tuple<T extends Rule<Infer<T[number]>>[]>(
-  ruleSet:[...T]
+  ruleSet: [...T],
 ): Rule<[...InferTuple<T>]> {
   const name = "tuple";
   return function tuple(path, value, ctx) {
     const data: unknown[] = [];
-    const errors: (Err|Err[])[] = [];
+    const errors: (Err | Err[])[] = [];
 
     //Require a value
     if (typeof value === "undefined") {
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.required,
-          message: "Required"
-        }]
+          message: "Required",
+        }],
       };
     }
 
@@ -37,22 +39,30 @@ export function tuple<T extends Rule<Infer<T[number]>>[]>(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_type,
           message: "Must be an array",
-        }]
+        }],
       };
     }
 
-    if((ruleSet.length === 0 || value.length === 0) || (ruleSet.length !== value.length)) {
+    if (
+      (ruleSet.length === 0 || value.length === 0) ||
+      (ruleSet.length !== value.length)
+    ) {
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_length,
-          message: `Invalid number of items. Expected ${ruleSet.length}, got ${value.length}`,
-          meta: {expected: ruleSet.length, actual: value.length}
-        }]
+          message:
+            `Invalid number of items. Expected ${ruleSet.length}, got ${value.length}`,
+          meta: { expected: ruleSet.length, actual: value.length },
+        }],
       };
     }
 
@@ -65,8 +75,8 @@ export function tuple<T extends Rule<Infer<T[number]>>[]>(
       }
     }
 
-    return (errors.length === 0) ?
-      { success: true, value: (data as [...InferTuple<T>]) } :
-      { success: false, errors: errors.flat() };
+    return (errors.length === 0)
+      ? { success: true, value: (data as [...InferTuple<T>]) }
+      : { success: false, errors: errors.flat() };
   };
 }

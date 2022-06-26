@@ -1,16 +1,18 @@
-import { InvalidRefined, Rule, Valid, ctx, Err } from "..";
-import { isValidResult } from "../helpers";
+import type { ctx, Err, InvalidRefined, Rule, Valid } from "../mod.ts";
+import { isValidResult } from "../helpers.ts";
 
-export type RefinedErr = Omit<Err, "value" | "name" | "path">
-export type refineCb<Output> = (value: Output, ctx: ctx) => Valid<Output> | InvalidRefined;
+export type RefinedErr = Omit<Err, "value" | "name" | "path">;
+export type refineCb<Output> = (
+  value: Output,
+  ctx: ctx,
+) => Valid<Output> | InvalidRefined;
 
 export function refine<Output>(
   name: string,
   ruleFn: Rule<Output>,
-  customFn: refineCb<Output>
+  customFn: refineCb<Output>,
 ): Rule<Output> {
   return function refine(path, value, ctx) {
-
     // Run initial rule
     const result = ruleFn(path, value, ctx);
 
@@ -38,9 +40,9 @@ export function refine<Output>(
             value: result.value,
             name,
             path,
-            ...err
+            ...err,
           };
-        })
+        }),
       };
     }
   };

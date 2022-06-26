@@ -1,10 +1,11 @@
-import { Rule } from "..";
+import { Rule } from "../mod.ts";
 
 // Mark as optional
-export function optional<Output>(ruleFn: Rule<Output>): Rule<Output | undefined> {
+export function optional<Output>(
+  ruleFn: Rule<Output>,
+): Rule<Output | undefined> {
   return function optional(path, value, ctx) {
-
-    if (typeof value === "undefined") { 
+    if (typeof value === "undefined") {
       return { success: true, value };
     }
 

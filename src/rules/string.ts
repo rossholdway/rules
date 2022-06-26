@@ -1,4 +1,4 @@
-import { Codes, Rule } from "..";
+import { Codes, Rule } from "../mod.ts";
 
 /**
  * String validation
@@ -7,21 +7,21 @@ import { Codes, Rule } from "..";
 export type str = typeof str;
 
 export function str(
-  { max, min, trim }:
-  { max?: number, min?: number, trim?: boolean } = {}
+  { max, min, trim }: { max?: number; min?: number; trim?: boolean } = {},
 ): Rule<string> {
   const name = "string";
   return function str(path, value, _ctx) {
-
     // Require a value
     if (typeof value === "undefined") {
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.required,
-          message: "Required"
-        }]
+          message: "Required",
+        }],
       };
     }
 
@@ -29,10 +29,12 @@ export function str(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_type,
-          message: "Not a string"
-        }]
+          message: "Not a string",
+        }],
       };
     }
 
@@ -44,11 +46,13 @@ export function str(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_min_length,
           message: `Must not be less than ${min} characters`,
-          meta: { min }
-        }]
+          meta: { min },
+        }],
       };
     }
 
@@ -56,11 +60,13 @@ export function str(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_max_length,
           message: `Must not be greater than ${max} characters`,
-          meta: { max }
-        }]
+          meta: { max },
+        }],
       };
     }
 

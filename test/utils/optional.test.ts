@@ -1,23 +1,23 @@
-import { expect } from "chai";
-import Sinon from "sinon";
+import { expect } from "https://cdn.skypack.dev/chai@4.3.4?dts";
+import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
-import { optional } from "../../src/utils/optional";
+import { ctx, sandbox, validRule } from "../utils.ts";
 
-describe("optional", function() {
+import { optional } from "../../src/utils/optional.ts";
 
-  it("should pass when value is undefined", function() {
-    const util = optional(this.validRule);
-    const result = util([], undefined, this.ctx);
+describe("optional", function () {
+  it("should pass when value is undefined", function () {
+    const util = optional(validRule);
+    const result = util([], undefined, ctx);
 
-    Sinon.assert.notCalled(this.validRule);
+    sandbox.assert.notCalled(validRule);
     expect(result.success).to.be.true;
   });
 
-  it("should call rule when value is defined", function() {
-    const util = optional(this.validRule);
-    util([], "Flaming Moe", this.ctx);
+  it("should call rule when value is defined", function () {
+    const util = optional(validRule);
+    util([], "Flaming Moe", ctx);
 
-    Sinon.assert.calledOnceWithExactly(this.validRule, [], "Flaming Moe", this.ctx);
+    sandbox.assert.calledOnceWithExactly(validRule, [], "Flaming Moe", ctx);
   });
-
 });

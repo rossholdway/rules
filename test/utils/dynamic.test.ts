@@ -1,23 +1,23 @@
-import Sinon from "sinon";
+import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
-import { dynamic } from "../../src/utils/dynamic";
+import { ctx, sandbox, validRule } from "../utils.ts";
 
-describe("dynamic", function() {
+import { dynamic } from "../../src/utils/dynamic.ts";
 
-  it("should provide the value and context to callback", function() {
-    const dynamicCb = Sinon.fake.returns(this.validRule);
+describe("dynamic", function () {
+  it("should provide the value and context to callback", function () {
+    const dynamicCb = sandbox.fake.returns(validRule);
     const util = dynamic(dynamicCb);
-    util([], "Homer", this.ctx);
+    util([], "Homer", ctx);
 
-    Sinon.assert.calledWithExactly(dynamicCb, "Homer", this.ctx);
+    sandbox.assert.calledWithExactly(dynamicCb, "Homer", ctx);
   });
 
-  it("should call the rule returned by the callback", function() {
-    const dynamicCb = Sinon.fake.returns(this.validRule);
+  it("should call the rule returned by the callback", function () {
+    const dynamicCb = sandbox.fake.returns(validRule);
     const util = dynamic(dynamicCb);
-    util([], "Homer", this.ctx);
+    util([], "Homer", ctx);
 
-    Sinon.assert.calledWithExactly(this.validRule, [], "Homer", this.ctx);
+    sandbox.assert.calledWithExactly(validRule, [], "Homer", ctx);
   });
-
 });

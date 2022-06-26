@@ -1,31 +1,31 @@
-import Sinon from "sinon";
+import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
-import { defaulted } from "../../src/utils/defaulted";
+import { ctx, sandbox, validRule } from "../utils.ts";
 
-describe("defaulted", function() {
+import { defaulted } from "../../src/utils/defaulted.ts";
 
-  it("should call callback when value is undefined", function() {
-    const defaultedCb = Sinon.fake();
-    const util = defaulted(this.validRule, defaultedCb);
-    util([], undefined, this.ctx);
+describe("defaulted", function () {
+  it("should call callback when value is undefined", function () {
+    const defaultedCb = sandbox.fake();
+    const util = defaulted(validRule, defaultedCb);
+    util([], undefined, ctx);
 
-    Sinon.assert.calledWithExactly(defaultedCb, this.ctx);
+    sandbox.assert.calledWithExactly(defaultedCb, ctx);
   });
 
-  it("should call rule with default value when undefined", function() {
-    const defaultedCb = Sinon.fake.returns("Max Power");
-    const util = defaulted(this.validRule, defaultedCb);
-    util([], undefined, this.ctx);
+  it("should call rule with default value when undefined", function () {
+    const defaultedCb = sandbox.fake.returns("Max Power");
+    const util = defaulted(validRule, defaultedCb);
+    util([], undefined, ctx);
 
-    Sinon.assert.calledWithExactly(this.validRule, [], "Max Power", this.ctx);
+    sandbox.assert.calledWithExactly(validRule, [], "Max Power", ctx);
   });
 
-  it("should call rule with provided value when not undefined", function() {
-    const defaultedCb = Sinon.fake();
-    const util = defaulted(this.validRule, defaultedCb);
-    util([], "Mr. Plow", this.ctx);
+  it("should call rule with provided value when not undefined", function () {
+    const defaultedCb = sandbox.fake();
+    const util = defaulted(validRule, defaultedCb);
+    util([], "Mr. Plow", ctx);
 
-    Sinon.assert.calledWithExactly(this.validRule, [], "Mr. Plow", this.ctx);
+    sandbox.assert.calledWithExactly(validRule, [], "Mr. Plow", ctx);
   });
-
 });

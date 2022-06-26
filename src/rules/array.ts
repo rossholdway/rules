@@ -1,5 +1,5 @@
-import { Codes, Err, Rule } from "..";
-import { isValidResult } from "../helpers";
+import { Codes, Err, Rule } from "../mod.ts";
+import { isValidResult } from "../helpers.ts";
 
 /**
  * Array validation
@@ -10,24 +10,24 @@ export type array = typeof array;
 
 export function array<T>(
   ruleFn: Rule<T>,
-  { max, min}:
-  { max?: number, min?: number } = {}
+  { max, min }: { max?: number; min?: number } = {},
 ): Rule<T[]> {
-
   const name = "array";
   return function array(path, value, ctx) {
     const data: T[] = [];
-    const errors: (Err|Err[])[] = [];
+    const errors: (Err | Err[])[] = [];
 
     // Require a value
     if (typeof value === "undefined") {
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.required,
-          message: "Required"
-        }]
+          message: "Required",
+        }],
       };
     }
 
@@ -35,10 +35,12 @@ export function array<T>(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_type,
           message: "Must be an array",
-        }]
+        }],
       };
     }
 
@@ -46,10 +48,12 @@ export function array<T>(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_min_length,
-          message: `Must not be less than ${min} entries`
-        }]
+          message: `Must not be less than ${min} entries`,
+        }],
       };
     }
 
@@ -57,13 +61,15 @@ export function array<T>(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_max_length,
-          message: `Must not be greater than ${max} entries`
-        }]
+          message: `Must not be greater than ${max} entries`,
+        }],
       };
     }
-    
+
     // if (unique && value.length !== new Set(value).size) {
     //   errors.push({code: "invalid_max_length", message: "Duplicate values are not permitted"});
     // }
@@ -77,6 +83,8 @@ export function array<T>(
       }
     }
 
-    return (errors.length === 0) ? { success: true, value: data } : { success: false, errors: errors.flat() };
+    return (errors.length === 0)
+      ? { success: true, value: data }
+      : { success: false, errors: errors.flat() };
   };
 }

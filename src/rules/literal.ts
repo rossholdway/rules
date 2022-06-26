@@ -1,4 +1,4 @@
-import { Codes, Rule } from "..";
+import { Codes, Rule } from "../mod.ts";
 
 /**
  * Literal validation
@@ -6,13 +6,13 @@ import { Codes, Rule } from "..";
  */
 export type literal = typeof literal;
 
-export function literal<T extends boolean>(constant: T): Rule<T>
-export function literal<T extends number>(constant: T): Rule<T>
-export function literal<T extends string>(constant: T): Rule<T>
-export function literal<T>(constant: T): Rule<T>
- 
+export function literal<T extends boolean>(constant: T): Rule<T>;
+export function literal<T extends number>(constant: T): Rule<T>;
+export function literal<T extends string>(constant: T): Rule<T>;
+export function literal<T>(constant: T): Rule<T>;
+
 // Value is an exact match, using `===` for comparison
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// deno-lint-ignore no-explicit-any
 export function literal(constant: any): Rule<any> {
   const name = "literal";
   return function literal(path, value, _ctx) {
@@ -23,10 +23,12 @@ export function literal(constant: any): Rule<any> {
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.required,
-          message: "Required"
-        }]
+          message: "Required",
+        }],
       };
     }
 
@@ -34,11 +36,13 @@ export function literal(constant: any): Rule<any> {
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.invalid_literal,
           message: `Expected ${constant}`,
-          meta: { constant }
-        }]
+          meta: { constant },
+        }],
       };
     }
 

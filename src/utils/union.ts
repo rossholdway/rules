@@ -1,5 +1,5 @@
-import { Codes, Err, Infer, InferTuple, Rule } from "..";
-import { isValidResult } from "../helpers";
+import { Codes, Err, InferTuple, Rule } from "../mod.ts";
+import { isValidResult } from "../helpers.ts";
 
 // export function union<A>(ruleSet: [Rule<A>]): Rule<A>;
 // export function union<A, B>(ruleSet: [Rule<A>, Rule<B>]): Rule<A | B>;
@@ -8,8 +8,8 @@ import { isValidResult } from "../helpers";
 // export function union(ruleSet: Rule<any>[]): Rule<any>
 
 // Helps to validate that a value matches at least one rule
-export function union<T extends Rule<Infer<T[number]>>[]>(
-  ruleSet: [...T]
+export function union<T extends Rule<InferTuple<T>[number]>[]>(
+  ruleSet: [...T],
 ): Rule<InferTuple<T>[number]> {
   const name = "union";
 
@@ -21,10 +21,12 @@ export function union<T extends Rule<Infer<T[number]>>[]>(
       return {
         success: false,
         errors: [{
-          value, name, path,
+          value,
+          name,
+          path,
           code: Codes.required,
-          message: "Required"
-        }]
+          message: "Required",
+        }],
       };
     }
 
@@ -37,13 +39,18 @@ export function union<T extends Rule<Infer<T[number]>>[]>(
       }
     }
 
-    return { success: false, errors: [
-      {
-        value, name, path,
-        code: Codes.invalid_union,
-        message: "Invalid input"
-      },
-      ...errors.flat()
-    ] };
+    return {
+      success: false,
+      errors: [
+        {
+          value,
+          name,
+          path,
+          code: Codes.invalid_union,
+          message: "Invalid input",
+        },
+        ...errors.flat(),
+      ],
+    };
   };
 }

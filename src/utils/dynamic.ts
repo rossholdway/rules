@@ -1,4 +1,4 @@
-import { Rule, ctx } from "..";
+import type { ctx, Rule } from "../mod.ts";
 
 export type dynamicCb<Output> = (value: unknown, ctx: ctx) => Rule<Output>;
 

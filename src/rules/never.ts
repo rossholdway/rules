@@ -1,4 +1,4 @@
-import { Codes, Rule } from "..";
+import { Codes, Rule } from "../mod.ts";
 
 /**
  * Never (always fail)
@@ -8,14 +8,16 @@ export type nevr = typeof never;
 
 export function never(): Rule<never> {
   const name = "never";
-  return function never(path, value, _ctx) { 
+  return function never(path, value, _ctx) {
     return {
       success: false,
       errors: [{
-        value, name, path,
+        value,
+        name,
+        path,
         code: Codes.invalid,
-        message: "Invalid"
-      }]
+        message: "Invalid",
+      }],
     };
   };
 }

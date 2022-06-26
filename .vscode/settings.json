@@ -1,4 +1,6 @@
 {
-    "typescript.tsdk": "node_modules/typescript/lib",
-    "editor.tabSize": 2
+  "deno.enable": true,
+  "deno.lint": true,
+  "deno.cache": ".deno",
+  "editor.tabSize": 2
 }
