@@ -1,49 +1,29 @@
-import type { ctx, Err, InvalidRefined, Rule, Valid } from "../mod.ts";
-import { isValidResult } from "../helpers.ts";
+import { Context } from "../mod.ts";
+import type { Invalid, Rule, Valid } from "../mod.ts";
+import { isValidRule } from "../helpers.ts";
 
-export type RefinedErr = Omit<Err, "value" | "name" | "path">;
 export type refineCb<Output> = (
-  value: Output,
-  ctx: ctx,
-) => Valid<Output> | InvalidRefined;
+  ctx: Context<Output>,
+) => Valid<Output> | Invalid;
 
 export function refine<Output>(
   name: string,
   ruleFn: Rule<Output>,
   customFn: refineCb<Output>,
 ): Rule<Output> {
-  return function refine(path, value, ctx) {
+  return function refine(ctx) {
     // Run initial rule
-    const result = ruleFn(path, value, ctx);
-
-    if (!isValidResult(result)) {
-      result.errors = result.errors.map((e) => {
-        e.name = name; // Overwrite with our custom name
-        return e;
-      });
+    const result = ruleFn(
+      new Context(name, ctx.value, ctx.path, ctx.errors)
+    );
+    
+    if (!isValidRule(result)) {
       return result;
     }
 
     // We passed the above, now run the custom rule
-    const custom = customFn(result.value, ctx);
-
-    if (isValidResult(custom)) {
-      return custom;
-    } else {
-      // No point in exposing the value, name
-      // or path props to the user writing the
-      // refine method, so we add them back in here
-      return {
-        success: false,
-        errors: custom.errors.map((err) => {
-          return {
-            value: result.value,
-            name,
-            path,
-            ...err,
-          };
-        }),
-      };
-    }
+    return customFn(
+      new Context(name, result.value, ctx.path, ctx.errors)
+    );
   };
 }

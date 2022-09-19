@@ -1,11 +1,12 @@
 import { expect } from "https://cdn.skypack.dev/chai@4.3.4?dts";
-import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
+import { describe, it, beforeEach } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
 import { ctx } from "../utils.ts";
-import type { Invalid } from "./../../src/mod.ts";
+import type { Invalid, Err } from "./../../src/mod.ts";
 import { num } from "../../src/rules/number.ts";
 
 describe("number", function () {
+  let errors: Err[] = [];
   const rule = num();
 
   const invalidInput = [
@@ -26,56 +27,60 @@ describe("number", function () {
     new Map(),
   ];
 
+  beforeEach(() => {
+    errors = [];
+  });
+
   describe("valid", function () {
     it("should allow type of number", function () {
-      expect(rule([], -1, ctx).success).to.be.true;
-      expect(rule([], 0, ctx).success).to.be.true;
-      expect(rule([], 1, ctx).success).to.be.true;
-      expect(rule([], 3.14159265359, ctx).success).to.be.true;
-      expect(rule([], Infinity, ctx).success).to.be.true;
+      expect(rule(ctx(rule.name, -1)).success).to.be.true;
+      expect(rule(ctx(rule.name, 0)).success).to.be.true;
+      expect(rule(ctx(rule.name, 1)).success).to.be.true;
+      expect(rule(ctx(rule.name, 3.14159265359)).success).to.be.true;
+      expect(rule(ctx(rule.name, Infinity)).success).to.be.true;
     });
   });
 
   describe("invalid", function () {
     it("should disallow undefined", function () {
-      const result = rule([], undefined, ctx) as Invalid;
+      const result = rule(ctx(rule.name, undefined, errors)) as Invalid;
 
       expect(result.success).to.be.false;
-      expect(result.errors[0].code).to.eq("required");
+      expect(errors[0].code).to.eq("required");
     });
 
     it("should disallow invalid input type", function () {
       invalidInput.forEach((type) => {
-        const result = rule([], type, ctx) as Invalid;
+        const result = rule(ctx(rule.name, type, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_type");
+        expect(errors[0].code).to.eq("invalid_type");
       });
     });
 
     describe("options", function () {
       it("should disallow non integer values", function () {
         const rule = num({ integer: true });
-        const result = rule([], 3.14159265359, ctx) as Invalid;
+        const result = rule(ctx(rule.name, 3.14159265359, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_integer");
+        expect(errors[0].code).to.eq("invalid_integer");
       });
 
       it("should disallow input less than min", function () {
         const rule = num({ min: 10 });
-        const result = rule([], 5, ctx) as Invalid;
+        const result = rule(ctx(rule.name, 5, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_min_length");
+        expect(errors[0].code).to.eq("invalid_min_length");
       });
 
       it("should disallow input greater than max", function () {
         const rule = num({ max: 10 });
-        const result = rule([], 20, ctx) as Invalid;
+        const result = rule(ctx(rule.name, 20, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_max_length");
+        expect(errors[0].code).to.eq("invalid_max_length");
       });
     });
   });

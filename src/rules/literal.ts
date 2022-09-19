@@ -14,38 +14,22 @@ export function literal<T>(constant: T): Rule<T>;
 // Value is an exact match, using `===` for comparison
 // deno-lint-ignore no-explicit-any
 export function literal(constant: any): Rule<any> {
-  const name = "literal";
-  return function literal(path, value, _ctx) {
-    const validType = (value === constant);
+  return function literal(ctx) {
+    const validType = (ctx.value === constant);
 
     // Require a value
-    if (typeof value === "undefined" && constant !== undefined) {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.required,
-          message: "Required",
-        }],
-      };
+    if (typeof ctx.value === "undefined" && constant !== undefined) {
+      return ctx.error(Codes.required, "Required");
     }
 
     if (!validType) {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.invalid_literal,
-          message: `Expected ${constant}`,
-          meta: { constant },
-        }],
-      };
+      return ctx.error(
+        Codes.invalid_literal,
+        `Expected ${constant}`,
+        { constant }
+      );
     }
 
-    return { success: true, value };
+    return { success: true, value: ctx.value };
   };
 }

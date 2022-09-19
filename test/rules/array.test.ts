@@ -1,11 +1,15 @@
 import { expect } from "https://cdn.skypack.dev/chai@4.3.4?dts";
-import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
+import { describe, it, beforeEach } from "https://deno.land/std@0.145.0/testing/bdd.ts";
+
+import type { Invalid } from "./../../src/mod.ts";
 
 import { ctx, invalidRule, validRule } from "../utils.ts";
-import type { Invalid } from "./../../src/mod.ts";
 import { array } from "../../src/rules/array.ts";
+import { Err } from "../../src/mod.ts"
 
 describe("array", function () {
+  let errors: Err[] = [];
+
   const invalidInput = [
     null,
     {},
@@ -24,15 +28,20 @@ describe("array", function () {
     new Map(),
   ];
 
+  beforeEach(() => {
+    errors = [];
+  });
+
   describe("valid", function () {
     it("should allow valid array", function () {
       const rule = array(validRule);
-      expect(rule([], ["Homer"], ctx).success).to.be.true;
+      const result = rule(ctx(rule.name, ["Homer"]));
+      expect(result.success).to.be.true;
     });
 
     it("should support nested arrays", function () {
       const rule = array(array(validRule));
-      const result = rule([], [["Flanders"]], ctx);
+      const result = rule(ctx(rule.name, [["Flanders"]]));
 
       expect(result.success).to.be.true;
     });
@@ -41,64 +50,65 @@ describe("array", function () {
   describe("invalid", function () {
     it("should disallow undefined", function () {
       const rule = array(validRule);
-      const result = rule([], undefined, ctx) as Invalid;
+      const result = rule(ctx(rule.name, undefined, errors)) as Invalid;
 
       expect(result.success).to.be.false;
-      expect(result.errors[0].code).to.eq("required");
+      expect(errors[0].code).to.eq("required");
     });
 
     it("should fail and passthrough errors", function () {
       const rule = array(invalidRule);
-      const result = rule([], ["invalid_value"], ctx) as Invalid;
+      const result = rule(ctx(rule.name, ["invalid_value"], errors)) as Invalid;
 
       expect(result.success).to.be.false;
-      expect(result.errors[0].code).to.eq("error_code");
+      expect(errors[0].code).to.eq("error_code");
     });
 
     it("should disallow invalid input type", function () {
       const rule = array(validRule);
       invalidInput.forEach((type) => {
-        const result = rule([], type, ctx) as Invalid;
+        const result = rule(ctx(rule.name, type, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_type");
+        expect(errors[0].code).to.eq("invalid_type");
       });
     });
 
     describe("path", function () {
       it("should be correct", function () {
         const rule = array(invalidRule);
-        const result = rule([], ["Homer"], ctx) as Invalid;
+        rule(ctx(rule.name, ["Homer"], errors)) as Invalid;
 
-        expect(result.errors[0].path).to.eql(["0"]);
+        expect(errors[0].path).to.eql(["0"]);
       });
       it("should be correct when nested", function () {
         const rule = array(array(invalidRule));
-        const result = rule([], [["Ned"]], ctx) as Invalid;
+        rule(ctx(rule.name, [["Ned"]], errors)) as Invalid;
 
-        expect(result.errors[0].path).to.eql(["0", "0"]);
+        expect(errors[0].path).to.eql(["0", "0"]);
       });
     });
 
     describe("options", function () {
       it("should disallow input less than min length", function () {
         const rule = array(validRule, { min: 2 });
-        const result = rule([], ["Homer"], ctx) as Invalid;
+        const result = rule(ctx(rule.name, ["Homer"], errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_min_length");
+        expect(errors[0].code).to.eq("invalid_min_length");
       });
 
       it("should disallow input greater than max length", function () {
         const rule = array(validRule, { max: 2 });
-        const result = rule(
-          [],
+        
+        const result = rule(ctx(
+          rule.name,
           ["Homer", "Lisa", "Hank Scorpio"],
-          ctx,
-        ) as Invalid;
+          errors
+        )) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_max_length");
+        expect(errors[0].code).to.eq("invalid_max_length");
       });
     });
   });

@@ -1,5 +1,5 @@
 // Helpers
-import { isValidResult } from "./helpers.ts";
+import { isValidRule } from "./helpers.ts";
 
 // Rules
 import { any } from "./rules/any.ts";
@@ -35,18 +35,12 @@ export type Valid<Output> = {
 
 export type Invalid = {
   success: false;
-  errors: Err[];
-};
-
-export type InvalidRefined = {
-  success: false;
-  errors: Omit<Err, "value" | "name" | "path">[];
 };
 
 export type Err = {
-  value: unknown;
   name: string;
   path: string[];
+  value: unknown;
   code: string;
   message: string;
   meta?: Record<string, unknown>;
@@ -65,13 +59,37 @@ export enum Codes {
   invalid_length = "invalid_length",
 }
 
-export type ctx = Record<string, never>;
+export class Context<T = unknown> {
+  #name: string;
+  value: T;
+  path: string[];
+  errors: Err[];
 
-export type Rule<Output> = (
-  path: string[],
-  value: unknown,
-  ctx: ctx,
-) => Valid<Output> | Invalid;
+  constructor(name: string, value: T, path: string[], errors: Err[]) {
+    this.#name = name;
+    this.value = value;
+    this.path = path;
+    this.errors = errors;
+  }
+
+  success() {
+    return { success: true, value: this.value }
+  }
+
+  error(code: string, message: string, meta?: Record<string, unknown>): Invalid {
+    this.errors.push({
+      name: this.#name,
+      value: this.value,
+      path: this.path,
+      code,
+      message,
+      meta
+    })
+    return {success: false};
+  }
+}
+
+export type Rule<Output> = (ctx: Context) => Valid<Output> | Invalid;
 
 export type Infer<R extends Rule<unknown>> = R extends Rule<infer T> ? T
   : unknown;
@@ -153,13 +171,14 @@ export function isValid<Output>(
 export function parse<S>(
   schema: Rule<S>,
   value: unknown,
-): [undefined, Valid<S>["value"]] | [Err[], undefined] {
-  const ctx = {};
-  const result = schema([], value, ctx);
-
-  if (isValidResult(result)) {
+): [Err[], undefined] | [undefined, Valid<S>["value"]] {
+  const errors: Err[] = [];
+  const ctx = new Context(schema.name, value, [], errors);
+  const result = schema(ctx);
+  
+  if (isValidRule(result)) {
     return [undefined, result.value];
   } else {
-    return [result.errors, undefined];
+    return [errors, undefined];
   }
 }

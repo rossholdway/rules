@@ -8,16 +8,20 @@ describe("dynamic", function () {
   it("should provide the value and context to callback", function () {
     const dynamicCb = sandbox.fake.returns(validRule);
     const util = dynamic(dynamicCb);
-    util([], "Homer", ctx);
+    const context = ctx(util.name, "Homer");
 
-    sandbox.assert.calledWithExactly(dynamicCb, "Homer", ctx);
+    util(context);
+
+    sandbox.assert.calledWithExactly(dynamicCb, context);
   });
 
   it("should call the rule returned by the callback", function () {
     const dynamicCb = sandbox.fake.returns(validRule);
     const util = dynamic(dynamicCb);
-    util([], "Homer", ctx);
+    const context = ctx(util.name, "Homer");
 
-    sandbox.assert.calledWithExactly(validRule, [], "Homer", ctx);
+    util(context);
+
+    sandbox.assert.calledWithExactly(validRule, context);
   });
 });

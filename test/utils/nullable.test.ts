@@ -8,7 +8,7 @@ import { nullable } from "../../src/utils/nullable.ts";
 describe("nullable", function () {
   it("should pass when value is null", function () {
     const util = nullable(validRule);
-    const result = util([], null, ctx);
+    const result = util(ctx(util.name, null));
 
     sandbox.assert.notCalled(validRule);
     expect(result.success).to.be.true;
@@ -16,8 +16,10 @@ describe("nullable", function () {
 
   it("should call rule when value is defined", function () {
     const util = nullable(validRule);
-    util([], "Flaming Moe", ctx);
+    const context = ctx(util.name, "Flaming Moe");
 
-    sandbox.assert.calledOnceWithExactly(validRule, [], "Flaming Moe", ctx);
+    util(context);
+
+    sandbox.assert.calledOnceWithExactly(validRule, context);
   });
 });

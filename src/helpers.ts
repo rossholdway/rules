@@ -1,7 +1,7 @@
-import { Invalid, InvalidRefined, Valid } from "./mod.ts";
+import { Invalid, Valid } from "./mod.ts";
 
-export function isValidResult<Output>(
-  result: Valid<Output> | Invalid | InvalidRefined,
+export function isValidRule<Output>(
+  result: Valid<Output> | Invalid,
 ): result is Valid<Output> {
   return result.success;
 }

@@ -1,11 +1,12 @@
 import { expect } from "https://cdn.skypack.dev/chai@4.3.4?dts";
-import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
+import { describe, it, beforeEach } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
 import { ctx } from "../utils.ts";
-import type { Invalid } from "./../../src/mod.ts";
+import type { Invalid, Err } from "./../../src/mod.ts";
 import { bool } from "../../src/rules/boolean.ts";
 
 describe("boolean", function () {
+  let errors: Err[] = [];
   const rule = bool();
 
   const invalidInput = [
@@ -26,27 +27,31 @@ describe("boolean", function () {
     new Map(),
   ];
 
+  beforeEach(() => {
+    errors = [];
+  });
+
   describe("valid", function () {
     it("should allow type of boolean", function () {
-      expect(rule([], true, ctx).success).to.be.true;
-      expect(rule([], false, ctx).success).to.be.true;
+      expect(rule(ctx(rule.name, true)).success).to.be.true;
+      expect(rule(ctx(rule.name, false)).success).to.be.true;
     });
   });
 
   describe("invalid", function () {
     it("should disallow undefined", function () {
-      const result = rule([], undefined, ctx) as Invalid;
+      const result = rule(ctx(rule.name, undefined, errors)) as Invalid;
 
       expect(result.success).to.be.false;
-      expect(result.errors[0].code).to.eq("required");
+      expect(errors[0].code).to.eq("required");
     });
 
     it("should disallow invalid input type", function () {
       invalidInput.forEach((type) => {
-        const result = rule([], type, ctx) as Invalid;
+        const result = rule(ctx(rule.name, type, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_type");
+        expect(errors[0].code).to.eq("invalid_type");
       });
     });
   });

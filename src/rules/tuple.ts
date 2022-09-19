@@ -1,5 +1,5 @@
-import { Codes, Err, Infer, InferTuple, Rule } from "../mod.ts";
-import { isValidResult } from "../helpers.ts";
+import { Codes, Context, Infer, InferTuple, Rule } from "../mod.ts";
+import { isValidRule } from "../helpers.ts";
 
 /**
  * Tuple validation
@@ -16,67 +16,40 @@ export type tuple = typeof tuple;
 export function tuple<T extends Rule<Infer<T[number]>>[]>(
   ruleSet: [...T],
 ): Rule<[...InferTuple<T>]> {
-  const name = "tuple";
-  return function tuple(path, value, ctx) {
+  return function tuple(ctx) {
     const data: unknown[] = [];
-    const errors: (Err | Err[])[] = [];
 
     //Require a value
-    if (typeof value === "undefined") {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.required,
-          message: "Required",
-        }],
-      };
+    if (typeof ctx.value === "undefined") {
+      return ctx.error(Codes.required, "Required")
     }
 
-    if (!Array.isArray(value)) {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.invalid_type,
-          message: "Must be an array",
-        }],
-      };
+    if (!Array.isArray(ctx.value)) {
+      return ctx.error(Codes.invalid_type, "Must be an array")
     }
 
     if (
-      (ruleSet.length === 0 || value.length === 0) ||
-      (ruleSet.length !== value.length)
+      (ruleSet.length === 0 || ctx.value.length === 0) ||
+      (ruleSet.length !== ctx.value.length)
     ) {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.invalid_length,
-          message:
-            `Invalid number of items. Expected ${ruleSet.length}, got ${value.length}`,
-          meta: { expected: ruleSet.length, actual: value.length },
-        }],
-      };
+      return ctx.error(
+        Codes.invalid_length,
+        `Invalid number of items. Expected ${ruleSet.length}, got ${ctx.value.length}`,
+        { expected: ruleSet.length, actual: ctx.value.length }
+      )
     }
 
     for (const [i, rule] of ruleSet.entries()) {
-      const result = rule([...path, i.toString()], value[i], ctx);
-      if (isValidResult(result)) {
+      const result = rule(
+        new Context(rule.name, ctx.value[i], [...ctx.path, i.toString()], ctx.errors)
+      );
+      if (isValidRule(result)) {
         data.push(result.value);
-      } else {
-        errors.push(result.errors);
       }
     }
 
-    return (errors.length === 0)
+    return (ctx.errors.length === 0)
       ? { success: true, value: (data as [...InferTuple<T>]) }
-      : { success: false, errors: errors.flat() };
+      : { success: false };
   };
 }

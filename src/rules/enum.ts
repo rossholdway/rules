@@ -9,37 +9,20 @@ export type enums = typeof enums;
 
 export function enums<T extends string>(values: readonly T[]): Rule<T>;
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function enums(values: readonly unknown[]): Rule<string> {
-  const name = "enums";
-  return function enums(path, value, _ctx) {
+  return function enums(ctx) {
     // Require a value
-    if (typeof value === "undefined") {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.required,
-          message: "Required",
-        }],
-      };
+    if (typeof ctx.value === "undefined") {
+      return ctx.error(Codes.required, "Required")
     }
 
-    if (typeof value === "string" && values.includes(value)) {
-      return { success: true, value };
+    if (typeof ctx.value === "string" && values.includes(ctx.value)) {
+      return { success: true, value: ctx.value };
     } else {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.invalid_enum,
-          message: `Must be one of ${values.join(", ")}`,
-        }],
-      };
+      return ctx.error(
+        Codes.invalid_enum,
+        `Must be one of ${values.join(", ")}`
+      )
     }
   };
 }

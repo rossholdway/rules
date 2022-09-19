@@ -46,18 +46,14 @@ At some point you'll likely want your own custom validation logic. Using
 
 ```Typescript
 // A custom, reusable validation rule
-const email = refine("email", str(), (value, ctx) => {
-  if (/\S+@\S+\.\S+/.test(value)) {
-    return { success: true, value };
-  } else {
-    return {
-      success: false,
-      errors: [{
-        code: "invalid_email",
-        message: "Must be a valid email",
-      }],
-    };
+const email = refine("email", str(), (ctx) => {
+  if (!/\S+@\S+\.\S+/.test(ctx.value)) {
+    return ctx.error(
+      "invalid_email",
+      "Must be a valid email"
+    )
   }
+  return ctx.success();
 });
 
 const User = obj({

@@ -7,8 +7,8 @@ export function coerce<Output>(
   ruleFn: Rule<Output>,
   coercionFn: coerceCb<Output>,
 ): Rule<Output> {
-  return function coerce(path, value, ctx) {
-    const coercedValue = coercionFn(value);
-    return ruleFn(path, coercedValue, ctx);
+  return function coerce(ctx) {
+    ctx.value = coercionFn(ctx.value);
+    return ruleFn(ctx);
   };
 }

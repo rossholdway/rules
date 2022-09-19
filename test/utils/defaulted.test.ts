@@ -8,24 +8,29 @@ describe("defaulted", function () {
   it("should call callback when value is undefined", function () {
     const defaultedCb = sandbox.fake();
     const util = defaulted(validRule, defaultedCb);
-    util([], undefined, ctx);
+    const context = ctx(util.name, undefined);
+    util(context);
 
-    sandbox.assert.calledWithExactly(defaultedCb, ctx);
+    sandbox.assert.calledWithExactly(defaultedCb, context);
   });
 
   it("should call rule with default value when undefined", function () {
     const defaultedCb = sandbox.fake.returns("Max Power");
     const util = defaulted(validRule, defaultedCb);
-    util([], undefined, ctx);
+    const context = ctx(util.name, undefined);
 
-    sandbox.assert.calledWithExactly(validRule, [], "Max Power", ctx);
+    util(context);
+
+    sandbox.assert.calledWithExactly(validRule, context);
   });
 
   it("should call rule with provided value when not undefined", function () {
     const defaultedCb = sandbox.fake();
     const util = defaulted(validRule, defaultedCb);
-    util([], "Mr. Plow", ctx);
+    const context = ctx(util.name, "Mr. Plow");
 
-    sandbox.assert.calledWithExactly(validRule, [], "Mr. Plow", ctx);
+    util(context);
+
+    sandbox.assert.calledWithExactly(validRule, context);
   });
 });

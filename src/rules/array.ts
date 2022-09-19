@@ -1,5 +1,5 @@
-import { Codes, Err, Rule } from "../mod.ts";
-import { isValidResult } from "../helpers.ts";
+import { Codes, Rule, Context } from "../mod.ts";
+import { isValidRule } from "../helpers.ts";
 
 /**
  * Array validation
@@ -12,79 +12,49 @@ export function array<T>(
   ruleFn: Rule<T>,
   { max, min }: { max?: number; min?: number } = {},
 ): Rule<T[]> {
-  const name = "array";
-  return function array(path, value, ctx) {
+  return function array(ctx) {
     const data: T[] = [];
-    const errors: (Err | Err[])[] = [];
 
     // Require a value
-    if (typeof value === "undefined") {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.required,
-          message: "Required",
-        }],
-      };
+    if (typeof ctx.value === "undefined") {
+      return ctx.error(Codes.required, "Required")
     }
 
-    if (!Array.isArray(value)) {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.invalid_type,
-          message: "Must be an array",
-        }],
-      };
+    if (!Array.isArray(ctx.value)) {
+      return ctx.error(Codes.invalid_type, "Must be an array")
     }
 
-    if (min && value.length < min) {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.invalid_min_length,
-          message: `Must not be less than ${min} entries`,
-        }],
-      };
+    if (min && ctx.value.length < min) {
+      return ctx.error(
+        Codes.invalid_min_length,
+        `Must not be less than ${min} entries`,
+        { min }
+      )
     }
 
-    if (max && value.length > max) {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.invalid_max_length,
-          message: `Must not be greater than ${max} entries`,
-        }],
-      };
+    if (max && ctx.value.length > max) {
+      return ctx.error(
+        Codes.invalid_max_length,
+        `Must not be greater than ${max} entries`,
+        { max }
+      )
     }
 
     // if (unique && value.length !== new Set(value).size) {
     //   errors.push({code: "invalid_max_length", message: "Duplicate values are not permitted"});
     // }
 
-    for (const [i, v] of value.entries()) {
-      const result = ruleFn([...path, i.toString()], v, ctx);
-      if (isValidResult(result)) {
+    for (const [i, v] of ctx.value.entries()) {
+      const result = ruleFn(
+        new Context(ruleFn.name, v, [...ctx.path, i.toString()], ctx.errors)
+      );
+      if (isValidRule(result)) {
         data.push(result.value);
-      } else {
-        errors.push(result.errors);
       }
     }
 
-    return (errors.length === 0)
+    return (ctx.errors.length === 0)
       ? { success: true, value: data }
-      : { success: false, errors: errors.flat() };
+      : { success: false };
   };
 }

@@ -1,11 +1,12 @@
 import { expect } from "https://cdn.skypack.dev/chai@4.3.4?dts";
-import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
+import { describe, it, beforeEach } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
 import { ctx } from "../utils.ts";
-import type { Invalid } from "./../../src/mod.ts";
+import type { Invalid, Err } from "./../../src/mod.ts";
 import { enums } from "../../src/rules/enum.ts";
 
 describe("enum", function () {
+  let errors: Err[] = [];
   const rule = enums(["Maggie", "Gerald", "Ling"]);
 
   const invalidInput = [
@@ -26,36 +27,40 @@ describe("enum", function () {
     new Map(),
   ];
 
+  beforeEach(() => {
+    errors = [];
+  });
+
   describe("valid", function () {
     it("should allow any of the predefined values", function () {
-      expect(rule([], "Maggie", ctx).success).to.be.true;
-      expect(rule([], "Gerald", ctx).success).to.be.true;
-      expect(rule([], "Ling", ctx).success).to.be.true;
+      expect(rule(ctx(rule.name, "Maggie")).success).to.be.true;
+      expect(rule(ctx(rule.name, "Gerald")).success).to.be.true;
+      expect(rule(ctx(rule.name, "Ling")).success).to.be.true;
     });
   });
 
   describe("invalid", function () {
     it("should disallow undefined", function () {
-      const result = rule([], undefined, ctx) as Invalid;
+      const result = rule(ctx(rule.name, undefined, errors)) as Invalid;
 
       expect(result.success).to.be.false;
-      expect(result.errors[0].code).to.eq("required");
+      expect(errors[0].code).to.eq("required");
     });
 
     it("should disallow invalid input type", function () {
       invalidInput.forEach((type) => {
-        const result = rule([], type, ctx) as Invalid;
+        const result = rule(ctx(rule.name, type, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(result.errors[0].code).to.eq("invalid_enum");
+        expect(errors[0].code).to.eq("invalid_enum");
       });
     });
 
     it("should disallow unknown values", function () {
-      const result = rule([], "Mr. Sparkle", ctx) as Invalid;
+      const result = rule(ctx(rule.name, "Mr. Sparkle", errors)) as Invalid;
 
       expect(result.success).to.be.false;
-      expect(result.errors[0].code).to.eq("invalid_enum");
+      expect(errors[0].code).to.eq("invalid_enum");
     });
   });
 });

@@ -4,11 +4,11 @@ import { Rule } from "../mod.ts";
 export function optional<Output>(
   ruleFn: Rule<Output>,
 ): Rule<Output | undefined> {
-  return function optional(path, value, ctx) {
-    if (typeof value === "undefined") {
-      return { success: true, value };
+  return function optional(ctx) {
+    if (typeof ctx.value === "undefined") {
+      return { success: true, value: undefined };
     }
 
-    return ruleFn(path, value, ctx);
+    return ruleFn(ctx);
   };
 }

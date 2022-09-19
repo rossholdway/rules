@@ -3,7 +3,7 @@ import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
 
 import { invalidRule, validRule } from "./utils.ts";
 
-import { isValid, parse } from "../src/mod.ts";
+import { parse, isValid } from "../src/mod.ts";
 
 describe("index", function () {
   describe("isValid", function () {
@@ -39,10 +39,11 @@ describe("index", function () {
 
       expect(result[0]).to.eql([{
         value: "Marge",
-        name: "rule",
+        name: "invalidRule",
         path: [],
         code: "error_code",
         message: "An error occured",
+        meta: undefined
       }]);
       expect(result[1]).to.be.undefined;
     });

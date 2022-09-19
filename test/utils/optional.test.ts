@@ -8,7 +8,7 @@ import { optional } from "../../src/utils/optional.ts";
 describe("optional", function () {
   it("should pass when value is undefined", function () {
     const util = optional(validRule);
-    const result = util([], undefined, ctx);
+    const result = util(ctx(util.name, undefined));
 
     sandbox.assert.notCalled(validRule);
     expect(result.success).to.be.true;
@@ -16,8 +16,9 @@ describe("optional", function () {
 
   it("should call rule when value is defined", function () {
     const util = optional(validRule);
-    util([], "Flaming Moe", ctx);
+    const context = ctx(util.name, "Flaming Moe");
+    util(context);
 
-    sandbox.assert.calledOnceWithExactly(validRule, [], "Flaming Moe", ctx);
+    sandbox.assert.calledOnceWithExactly(validRule, context);
   });
 });

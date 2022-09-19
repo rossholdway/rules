@@ -7,35 +7,16 @@ import { Codes, Rule } from "../mod.ts";
 export type bigInt = typeof bigInt;
 
 export function bigInt(): Rule<bigint> {
-  const name = "bigInt";
-  return function str(path, value, _ctx) {
+  return function bigInt(ctx) {
     // Require a value
-    if (typeof value === "undefined") {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.required,
-          message: "Required",
-        }],
-      };
+    if (typeof ctx.value === "undefined") {
+      return ctx.error(Codes.required, "Required")
     }
 
-    if (typeof value !== "bigint") {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.invalid_type,
-          message: "Not a bigInt",
-        }],
-      };
+    if (typeof ctx.value !== "bigint") {
+      return ctx.error(Codes.invalid_type, "Not a bigInt")
     }
 
-    return { success: true, value };
+    return { success: true, value: ctx.value };
   };
 }

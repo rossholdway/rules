@@ -1,5 +1,5 @@
-import { Codes, Err, InferTuple, Rule } from "../mod.ts";
-import { isValidResult } from "../helpers.ts";
+import { Codes, Err, InferTuple, Rule, Context } from "../mod.ts";
+import { isValidRule } from "../helpers.ts";
 
 // export function union<A>(ruleSet: [Rule<A>]): Rule<A>;
 // export function union<A, B>(ruleSet: [Rule<A>, Rule<B>]): Rule<A | B>;
@@ -11,46 +11,26 @@ import { isValidResult } from "../helpers.ts";
 export function union<T extends Rule<InferTuple<T>[number]>[]>(
   ruleSet: [...T],
 ): Rule<InferTuple<T>[number]> {
-  const name = "union";
-
-  return function union(path, value, ctx) {
-    const errors: Err[][] = [];
+  return function union(ctx) {
+    const errors: Err[] = [];
 
     // Require a value
-    if (typeof value === "undefined") {
-      return {
-        success: false,
-        errors: [{
-          value,
-          name,
-          path,
-          code: Codes.required,
-          message: "Required",
-        }],
-      };
+    if (typeof ctx.value === "undefined") {
+      return ctx.error(Codes.required, "Required")
     }
 
     for (const ruleFn of ruleSet) {
-      const result = ruleFn(path, value, ctx);
-      if (isValidResult(result)) {
+      const result = ruleFn(new Context(ruleFn.name, ctx.value, ctx.path, errors));
+      if (isValidRule(result)) {
         return result; // We're done
-      } else {
-        errors.push(result.errors);
       }
     }
 
-    return {
-      success: false,
-      errors: [
-        {
-          value,
-          name,
-          path,
-          code: Codes.invalid_union,
-          message: "Invalid input",
-        },
-        ...errors.flat(),
-      ],
-    };
+    // If none of the rules are valid we add them
+    // to the global errors context
+    ctx.error(Codes.invalid_union, "Invalid input")
+    ctx.errors.push(...errors);
+
+    return { success: false };
   };
 }
