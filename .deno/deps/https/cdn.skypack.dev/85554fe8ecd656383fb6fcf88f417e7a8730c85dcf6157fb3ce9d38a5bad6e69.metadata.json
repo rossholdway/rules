@@ -1,27 +1,25 @@
 {
   "headers": {
-    "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
-    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=1NtOm4lWSIJfgO8l3sCsBxF8sk6hIwNIaoc8wv3v6rg9gbzjyqVT7Rx7e58foaTcLcJz0Udq8EELToSG9CE6nhMk%2B3pk033Mokr51ArFeODODu4zBRKLBbCWm2ZEBFsf5hvidDziVTnz40BANg%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+    "x-vercel-cache": "HIT",
+    "cf-cache-status": "MISS",
+    "access-control-expose-headers": "Content-Length, X-Imports",
     "etag": "W/\"73f-sIF/wGn/j+zd7RoAe6ZxhJv3kvU\"",
     "cache-control": "public, max-age=31536000, immutable",
     "strict-transport-security": "max-age=63072000",
-    "server": "cloudflare",
-    "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
-    "content-type": "application/javascript; charset=utf-8",
-    "cf-ray": "7217d65d384175de-LHR",
-    "age": "13602",
-    "alt-svc": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400",
-    "x-vercel-id": "lhr1::sfo1::l6nct-1656252770275-1ea707d63dfb",
-    "access-control-expose-headers": "Content-Length, X-Imports",
-    "cf-cache-status": "HIT",
-    "vary": "Accept-Encoding",
-    "x-vercel-cache": "MISS",
     "access-control-allow-origin": "*",
-    "date": "Sun, 26 Jun 2022 17:59:32 GMT"
+    "x-vercel-id": "lhr1::sfo1::mkr48-1663595316995-464c55a519ae",
+    "content-type": "application/javascript; charset=utf-8",
+    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=GAQ%2BUhZliZ%2BweWr3gDsQZsu1hRvNiGyzVBZ33XjxD%2B4uZDLky7Gz35lkYuN5UTmDe8KuLn%2B6MIC4t7NszRqjSRnoEbhfMkLyLPl%2FRGtGK680c6Ef%2Byy4ieW4dfLotEgb%2FMWc48XAIIvL1tlq8g%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+    "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+    "alt-svc": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400",
+    "date": "Mon, 19 Sep 2022 13:48:37 GMT",
+    "vary": "Accept-Encoding",
+    "server": "cloudflare",
+    "cf-ray": "74d2c7ab196176ba-LHR"
   },
   "url": "https://cdn.skypack.dev/-/assertion-error@v1.1.0-kNvqltoxcdROsufUrL09/dist=es2019,mode=imports/optimized/assertion-error.js",
   "now": {
-    "secs_since_epoch": 1656266372,
-    "nanos_since_epoch": 647689000
+    "secs_since_epoch": 1663595316,
+    "nanos_since_epoch": 974624000
   }
 }

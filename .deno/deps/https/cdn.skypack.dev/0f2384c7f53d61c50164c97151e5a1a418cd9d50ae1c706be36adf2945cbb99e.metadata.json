@@ -1,27 +1,25 @@
 {
   "headers": {
-    "x-vercel-cache": "MISS",
-    "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
-    "access-control-allow-origin": "*",
-    "date": "Sun, 26 Jun 2022 17:59:32 GMT",
-    "vary": "Accept-Encoding",
-    "cf-ray": "7217d65d384475de-LHR",
-    "content-type": "application/javascript; charset=utf-8",
-    "x-vercel-id": "lhr1::sfo1::x72vp-1656252770276-1dae6c078d8c",
-    "etag": "W/\"229-JeqsdkBVg4l2rE3wD2sZXahWh8M\"",
-    "cf-cache-status": "HIT",
-    "alt-svc": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400",
-    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=6wGTnk7Am6v550To6iKByS%2FFqUqzYLDUlKIJzg0MO5VMkJICaUFa%2FWnKblpxJcrFwSfYGroqZJ7wZxj7GYyQ8TgqpjajE5x2GDS%2B1r43bz%2Bt5QhLAOCbd1171lrk7asmczhAsyAswJHuiqmohQ%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
-    "server": "cloudflare",
-    "access-control-expose-headers": "Content-Length, X-Imports",
-    "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
-    "age": "13602",
+    "date": "Mon, 19 Sep 2022 13:48:37 GMT",
+    "cf-cache-status": "MISS",
     "strict-transport-security": "max-age=63072000",
-    "cache-control": "public, max-age=31536000, immutable"
+    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=QE%2FQDhGBCGqRkuJCy6qiRZaFFYx69Ril%2B%2FKr7n5ck7xe4s%2BkWCd8tffTQxM9cBFz%2FtRFxLqKHvozl4WZNERPwUi%2FJjTO2thFkwgMnbJH3W2wwhlfjoJKdxA%2FbjmgknNW8gqE5NX%2FFwHgH2r0wg%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+    "access-control-allow-origin": "*",
+    "vary": "Accept-Encoding",
+    "content-type": "application/javascript; charset=utf-8",
+    "x-vercel-cache": "HIT",
+    "x-vercel-id": "lhr1::sfo1::v2gsk-1663595316998-1b3c3de2cefc",
+    "access-control-expose-headers": "Content-Length, X-Imports",
+    "cf-ray": "74d2c7ab196776ba-LHR",
+    "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
+    "server": "cloudflare",
+    "alt-svc": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400",
+    "cache-control": "public, max-age=31536000, immutable",
+    "etag": "W/\"229-JeqsdkBVg4l2rE3wD2sZXahWh8M\""
   },
   "url": "https://cdn.skypack.dev/-/get-func-name@v2.0.0-scW92yE6OFNJbvjxk2uF/dist=es2019,mode=imports/optimized/get-func-name.js",
   "now": {
-    "secs_since_epoch": 1656266372,
-    "nanos_since_epoch": 650548000
+    "secs_since_epoch": 1663595316,
+    "nanos_since_epoch": 982841000
   }
 }

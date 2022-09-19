@@ -1,27 +1,25 @@
 {
   "headers": {
-    "cf-cache-status": "HIT",
-    "alt-svc": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400",
-    "access-control-expose-headers": "Content-Length, X-Imports",
-    "age": "13602",
-    "access-control-allow-origin": "*",
-    "content-type": "application/javascript; charset=utf-8",
-    "etag": "W/\"966-7T64JlWDVH37ffN6JslH3FKgrDQ\"",
-    "date": "Sun, 26 Jun 2022 17:59:32 GMT",
-    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=Zi0ODwV4PFwSpLDliQir%2BnL5b2sl4UxEI74B7w2crfvYJ9uYsL6Z3b2iXMS22j66EI%2B5JdDMKDQbxlW8B2Hza56NQlllBiXeH9GnY3Vt95uK2EZuxg8qjpUo7T23H8873nPGlwgPjNJlCMfdTg%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
-    "strict-transport-security": "max-age=63072000",
-    "vary": "Accept-Encoding",
-    "cf-ray": "7217d65d384275de-LHR",
     "cache-control": "public, max-age=31536000, immutable",
+    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=jpoZ07K9zfaCEV3oG93Sodhm6%2FeIO98Cjbse%2B%2Bg8UPpqB1JlwDPfiUFQ3R819iCBxojfWgqXEFpAaHhqByVacvFOorbkxmQtKWOnGhUxqXnoSmvgT3b%2FM2UhMkypjvTKjOq3Ps2%2Fy05bqqahdw%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+    "x-vercel-id": "lhr1::sfo1::pz8r8-1663595316994-3d9fa73a25eb",
+    "etag": "W/\"966-7T64JlWDVH37ffN6JslH3FKgrDQ\"",
+    "access-control-expose-headers": "Content-Length, X-Imports",
+    "alt-svc": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400",
+    "strict-transport-security": "max-age=63072000",
+    "date": "Mon, 19 Sep 2022 13:48:37 GMT",
+    "vary": "Accept-Encoding",
+    "access-control-allow-origin": "*",
     "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
-    "x-vercel-id": "lhr1::sfo1::hljg6-1656252770275-5ff6a89ef507",
     "server": "cloudflare",
-    "x-vercel-cache": "MISS",
-    "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\""
+    "content-type": "application/javascript; charset=utf-8",
+    "cf-ray": "74d2c7ab196376ba-LHR",
+    "x-vercel-cache": "HIT",
+    "cf-cache-status": "MISS"
   },
   "url": "https://cdn.skypack.dev/-/check-error@v1.0.2-pv7N1FcwI8awT920b4E0/dist=es2019,mode=imports/optimized/check-error.js",
   "now": {
-    "secs_since_epoch": 1656266372,
-    "nanos_since_epoch": 647127000
+    "secs_since_epoch": 1663595316,
+    "nanos_since_epoch": 979965000
   }
 }

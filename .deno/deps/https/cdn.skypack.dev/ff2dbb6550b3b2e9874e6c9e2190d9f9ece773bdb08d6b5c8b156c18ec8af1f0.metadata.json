@@ -1,29 +1,27 @@
 {
   "headers": {
-    "cf-cache-status": "HIT",
-    "expect-ct": "max-age=604800, report-uri=\"https://report-uri.cloudflare.com/cdn-cgi/beacon/expect-ct\"",
-    "server": "cloudflare",
-    "content-type": "application/typescript; charset=utf-8",
-    "x-vercel-id": "lhr1::sfo1::58fjm-1656264297001-469922b7d3aa",
-    "strict-transport-security": "max-age=63072000",
     "nel": "{\"success_fraction\":0,\"report_to\":\"cf-nel\",\"max_age\":604800}",
     "cache-control": "public, max-age=31536000, immutable",
-    "x-imports": "/-/@sinonjs/fake-timers@v9.1.2-KzX0ompb8odSUvoOapks/dist=es2019,mode=types/index.d.ts",
-    "accept-ranges": "bytes",
-    "etag": "W/\"121c9-2snh4+OmHCdKfkdecBgQcalk6/w\"",
-    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=J3RAlW3POAQuV2qSus%2Bqhz2anXZWi8GjoiJM7s9Bg8bWfp7DuoKbtODJcAEOlIycNXjpQzI%2BT0UkvxP2YoRG1%2FoJoQwxEieBWhXTIt5Os2pk4pINGXi40Gnhqa%2BFRJkFbLn04JiOLNQvfm7mTA%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
-    "date": "Sun, 26 Jun 2022 17:59:32 GMT",
-    "access-control-allow-origin": "*",
-    "x-vercel-cache": "HIT",
-    "cf-ray": "7217d65ecaf475de-LHR",
     "vary": "Accept-Encoding",
+    "access-control-allow-origin": "*",
+    "accept-ranges": "bytes",
     "alt-svc": "h3=\":443\"; ma=86400, h3-29=\":443\"; ma=86400",
+    "report-to": "{\"endpoints\":[{\"url\":\"https:\\/\\/a.nel.cloudflare.com\\/report\\/v3?s=6WXwk1UYWBter4nreyYUDFwn3YmsAE7NpKr16zzOFjLeEAF0%2F63KQ90qyqDEsioyhhLEr%2B8MkopHv5vUA7%2B3E8ojS2Qo6QOHg19b2cTSE58ImouL7CCDYcQ%2BsFt4CBbcBZR5wvihyNAvujAYTA%3D%3D\"}],\"group\":\"cf-nel\",\"max_age\":604800}",
+    "cf-ray": "74d2c7abca8976ba-LHR",
+    "date": "Mon, 19 Sep 2022 13:48:37 GMT",
+    "x-vercel-cache": "HIT",
+    "x-vercel-id": "lhr1::sfo1::2c4q5-1663595317111-3dac28a1b15b",
     "content-length": "74185",
-    "age": "2075"
+    "x-imports": "/-/@sinonjs/fake-timers@v9.1.2-KzX0ompb8odSUvoOapks/dist=es2019,mode=types/index.d.ts",
+    "server": "cloudflare",
+    "etag": "W/\"121c9-2snh4+OmHCdKfkdecBgQcalk6/w\"",
+    "strict-transport-security": "max-age=63072000",
+    "cf-cache-status": "MISS",
+    "content-type": "application/typescript; charset=utf-8"
   },
   "url": "https://cdn.skypack.dev/-/sinon@v13.0.2-XNWaDSX3H8C298B97460/dist=es2019,mode=types/index.d.ts",
   "now": {
-    "secs_since_epoch": 1656266372,
-    "nanos_since_epoch": 900449000
+    "secs_since_epoch": 1663595317,
+    "nanos_since_epoch": 102471000
   }
 }
