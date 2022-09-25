@@ -338,7 +338,7 @@ type Homer = Infer<typeof homer>;
 ```
 
 #### Codes
-A list of predefined codes.
+A list of predefined error codes.
 
 ## Contributing
 
