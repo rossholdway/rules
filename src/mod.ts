@@ -11,6 +11,7 @@ import { literal } from "./rules/literal.ts";
 import { never } from "./rules/never.ts";
 import { num } from "./rules/number.ts";
 import { obj } from "./rules/object.ts";
+import { regex } from "./rules/regex.ts";
 import { str } from "./rules/string.ts";
 import { tuple } from "./rules/tuple.ts";
 
@@ -57,6 +58,7 @@ export enum Codes {
   invalid_integer = "invalid_integer",
   invalid_literal = "invalid_literal",
   invalid_length = "invalid_length",
+  regex_no_match = "regex_no_match"
 }
 
 export class Context<T = unknown> {
@@ -126,6 +128,7 @@ const all = {
   never,
   num,
   obj,
+  regex,
   str,
   tuple,
   // Utils
@@ -141,25 +144,28 @@ const all = {
 
 export {
   all as default,
+  // Rules
   any,
   array,
   bigInt,
   bool,
+  enums,
+  literal,
+  never,
+  num,
+  obj,
+  regex,
+  str,
+  tuple,
+  // Utils
   coerce,
   defaulted,
   dynamic,
-  enums,
   intersection,
-  literal,
-  never,
   nullable,
-  num,
-  obj,
   optional,
   refine,
-  str,
-  tuple,
-  union,
+  union
 };
 
 export function isValid<Output>(
