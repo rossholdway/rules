@@ -48,7 +48,7 @@ describe("string", function () {
 
   describe("invalid", function () {
     it("should disallow undefined", function () {
-      const result = rule(ctx(rule.name, undefined, errors)) as Invalid;
+      const result = rule(ctx(rule.name, undefined, errors));
 
       expect(result.success).to.be.false;
       expect(errors[0].code).to.eq("required");
@@ -56,7 +56,7 @@ describe("string", function () {
 
     it("should disallow invalid input type", function () {
       invalidInput.forEach((type) => {
-        const result = rule(ctx(rule.name, type, errors)) as Invalid;
+        const result = rule(ctx(rule.name, type, errors));
 
         expect(result.success).to.be.false;
         expect(errors[0].code).to.eq("invalid_type");
@@ -66,7 +66,7 @@ describe("string", function () {
     describe("options", function () {
       it("should disallow input less than min length", function () {
         const rule = str({ min: 10 });
-        const result = rule(ctx(rule.name, "Homer", errors)) as Invalid;
+        const result = rule(ctx(rule.name, "Homer", errors));
 
         expect(result.success).to.be.false;
         expect(errors[0].code).to.eq("invalid_min_length");
@@ -74,7 +74,7 @@ describe("string", function () {
 
       it("should disallow input greater than max length", function () {
         const rule = str({ max: 3 });
-        const result = rule(ctx(rule.name, "Lisa", errors)) as Invalid;
+        const result = rule(ctx(rule.name, "Lisa", errors));
 
         expect(result.success).to.be.false;
         expect(errors[0].code).to.eq("invalid_max_length");
@@ -82,7 +82,7 @@ describe("string", function () {
 
       it("should disallow blank string", function () {
         const rule = str({ min: 1, trim: true });
-        const result = rule(ctx(rule.name, "    ", errors)) as Invalid;
+        const result = rule(ctx(rule.name, "    ", errors));
 
         expect(result.success).to.be.false;
         expect(errors[0].code).to.eq("invalid_min_length");

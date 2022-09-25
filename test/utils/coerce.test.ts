@@ -6,16 +6,16 @@ import { coerce } from "../../src/utils/coerce.ts";
 
 describe("coerce", function () {
   it("should call callback with expected argument", function () {
-    const coerceCb = sandbox.fake.returns("742");
-    const util = coerce(validRule, coerceCb);
+    const coerceFn = sandbox.fake.returns("742");
+    const util = coerce(validRule, coerceFn);
     util(ctx(util.name, 742));
 
-    sandbox.assert.calledWithExactly(coerceCb, 742);
+    sandbox.assert.calledWithExactly(coerceFn, 742);
   });
 
   it("should call rule with coerced value", function () {
-    const coerceCb = sandbox.fake.returns("742");
-    const util = coerce(validRule, coerceCb);
+    const coerceFn = sandbox.fake.returns("742");
+    const util = coerce(validRule, coerceFn);
     const context = ctx(util.name, 742)
     util(context);
 
