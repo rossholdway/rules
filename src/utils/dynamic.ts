@@ -1,5 +1,4 @@
 import { Context } from "../mod.ts";
-import { isValidRule } from "../helpers.ts";
 import type { Rule } from "../mod.ts";
 
 // deno-lint-ignore no-explicit-any

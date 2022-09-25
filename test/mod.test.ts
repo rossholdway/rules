@@ -5,7 +5,7 @@ import { invalidRule, validRule } from "./utils.ts";
 
 import { parse, isValid } from "../src/mod.ts";
 
-describe("index", function () {
+describe("mod", function () {
   describe("isValid", function () {
     it("should return false if invalid", function () {
       const result = isValid([[{
