@@ -8,10 +8,6 @@ and developer friendly UX.
 Build a schema using predefined rules, or create your own. Valid data will be
 returned typed.
 
-## Demo
-
-TODO: Add demo
-
 ## Getting started
 
 Using the rule `str()` we can validate that any given data is of type string.
@@ -71,7 +67,35 @@ parse(User, data);
 
 ## Documentation
 
-TODO: Document API
+### Context
+
+Context is available within all rules and utils. It contains some useful information and helper methods.
+
+#### Value
+`ctx.value` contains the initial value.
+
+#### Path
+`ctx.path` contains the path taken. This will be an array of the object properties or position within the array of the rule.
+
+#### Errors
+`ctx.errors` is an array of errors.
+
+```typescript
+{
+  name: string;
+  path: string[];
+  value: unknown;
+  code: string;
+  message: string;
+  meta?: Record<string, unknown>;
+}
+```
+
+#### Error
+`ctx.error(code, message, meta)` takes a code (an error code string), an error message and a meta object to hold additional details.
+
+#### Success
+`ctx.success` returns a success object.
 
 ### Rules
 
@@ -283,9 +307,44 @@ union([
 ])
 ```
 
+### Helpers
+
+#### isValid
+`isValid` can be used as a helpful type guard for narrowing the result.
+
+```typescript
+const result = parse(schema, { name: "Homer" })
+
+if(isValid(result)) {
+  const name = result[1].name
+}
+```
+#### Infer
+`Infer` can be used as a TypeScript util to infer the return type of a r
+Rule.
+```typescript
+const homer = obj({
+  name: literal("Homer"),
+  catchphrase: literal("D'oh")
+});
+
+type Homer = Infer<typeof homer>;
+
+// Type is now:
+// {
+//   name: "Homer";
+//   catchphrase: "D'oh";
+// }
+```
+
+#### Codes
+A list of predefined codes.
+
 ## Contributing
 
 ### Adding and updating dependencies
 
 When adding, updating or removing dependencies you should make sure to update
-the `.deno` cache:
+the `.deno` cache with `deno cache --reload --lock=lock.json --lock-write ./**/*.ts`
+
+Run tests manually with `deno test test/**/*.test.ts --lock=lock.json --cached-only`
