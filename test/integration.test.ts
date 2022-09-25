@@ -19,7 +19,7 @@ import {
   // utils
   coerce,
   defaulted,
-  dynamic,
+  // dynamic, TODO: Add dynamic to full object
   intersection,
   nullable,
   optional,
