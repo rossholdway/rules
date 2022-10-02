@@ -9,11 +9,17 @@ export type enums = typeof enums;
 
 export function enums<T extends string>(values: readonly T[]): Rule<T>;
 
-export function enums(values: readonly unknown[]): Rule<string> {
+export function enums(
+  values: readonly unknown[],
+  {
+    required_error = "is required",
+    invalid_enum_error = `must be one of ${values.join(", ")}`
+  } = {}
+): Rule<string> {
   return function enums(ctx) {
     // Require a value
     if (typeof ctx.value === "undefined") {
-      return ctx.error(Codes.required, "Required")
+      return ctx.error(Codes.required, required_error)
     }
 
     if (typeof ctx.value === "string" && values.includes(ctx.value)) {
@@ -21,7 +27,7 @@ export function enums(values: readonly unknown[]): Rule<string> {
     } else {
       return ctx.error(
         Codes.invalid_enum,
-        `Must be one of ${values.join(", ")}`
+        invalid_enum_error
       )
     }
   };

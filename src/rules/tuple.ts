@@ -15,17 +15,22 @@ export type tuple = typeof tuple;
 
 export function tuple<T extends Rule<Infer<T[number]>>[]>(
   ruleSet: [...T],
+  {
+    required_error = "is required",
+    invalid_type_error = "must be an array",
+    invalid_length_error = `has invalid number of items. Expected ${ruleSet.length}`,
+  } = {}
 ): Rule<[...InferTuple<T>]> {
   return function tuple(ctx) {
     const data: unknown[] = [];
 
     //Require a value
     if (typeof ctx.value === "undefined") {
-      return ctx.error(Codes.required, "Required")
+      return ctx.error(Codes.required, required_error)
     }
 
     if (!Array.isArray(ctx.value)) {
-      return ctx.error(Codes.invalid_type, "Must be an array")
+      return ctx.error(Codes.invalid_type, invalid_type_error)
     }
 
     if (
@@ -34,7 +39,7 @@ export function tuple<T extends Rule<Infer<T[number]>>[]>(
     ) {
       return ctx.error(
         Codes.invalid_length,
-        `Invalid number of items. Expected ${ruleSet.length}, got ${ctx.value.length}`,
+        invalid_length_error,
         { expected: ruleSet.length, actual: ctx.value.length }
       )
     }

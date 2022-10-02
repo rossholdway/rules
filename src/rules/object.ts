@@ -12,17 +12,23 @@ function isObject(value: any): value is Record<string, unknown> {
   return (!!value) && (value.constructor === Object);
 }
 
-export function obj<T>(schema: { [Key in keyof T]: Rule<T[Key]> }): Rule<T> {
+export function obj<T>(
+  schema: { [Key in keyof T]: Rule<T[Key]> },
+  {
+    required_error = "is required",
+    invalid_type_error = "must be an object"
+  } = {}
+): Rule<T> {
   return function obj(ctx) {
     const data = {} as { [Key in keyof T]: T[Key] };
 
     // Require a value
     if (typeof ctx.value === "undefined") {
-      return ctx.error(Codes.required, "Required")
+      return ctx.error(Codes.required, required_error)
     }
 
     if (!isObject(ctx.value)) {
-      return ctx.error(Codes.invalid_type, "Not an object")
+      return ctx.error(Codes.invalid_type, invalid_type_error)
     } else {
       for (const prop in schema) {
         if (!Object.prototype.hasOwnProperty.call(schema, prop)) continue;

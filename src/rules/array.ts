@@ -10,24 +10,36 @@ export type array = typeof array;
 
 export function array<T>(
   ruleFn: Rule<T>,
-  { max, min }: { max?: number; min?: number } = {},
+  { 
+    max, min,
+    required_error = "is required",
+    invalid_type_error = "must be an array",
+    invalid_min_length_error = `must not have less than ${min} entries`,
+    invalid_max_length_error = `must not have more than ${max} entries`
+  }: {
+    max?: number; min?: number;
+    required_error?: string;
+    invalid_type_error?: string;
+    invalid_min_length_error?: string;
+    invalid_max_length_error?: string;
+  } = {},
 ): Rule<T[]> {
   return function array(ctx) {
     const data: T[] = [];
 
     // Require a value
     if (typeof ctx.value === "undefined") {
-      return ctx.error(Codes.required, "Required")
+      return ctx.error(Codes.required, required_error)
     }
 
     if (!Array.isArray(ctx.value)) {
-      return ctx.error(Codes.invalid_type, "Must be an array")
+      return ctx.error(Codes.invalid_type, invalid_type_error)
     }
 
     if (min && ctx.value.length < min) {
       return ctx.error(
         Codes.invalid_min_length,
-        `Must not be less than ${min} entries`,
+        invalid_min_length_error,
         { min }
       )
     }
@@ -35,7 +47,7 @@ export function array<T>(
     if (max && ctx.value.length > max) {
       return ctx.error(
         Codes.invalid_max_length,
-        `Must not be greater than ${max} entries`,
+        invalid_max_length_error,
         { max }
       )
     }

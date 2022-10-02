@@ -26,6 +26,22 @@ import { refine } from "./utils/refine.ts";
 import { union } from "./utils/union.ts";
 
 /**
+ * Private
+ * *****************************************************************
+ */
+
+const groupErrors = <T extends Err>(arr: T[]): Map<string, T[]> => {
+  return arr.reduce((storage, item) => {
+    const objKey = (item.path.length > 0) ? item.path.join('.') : 'value';
+    if (!storage.has(objKey)) {
+      storage.set(objKey, []);
+    }
+    storage.get(objKey)!.push(item);
+    return storage;
+  }, new Map() as Map<string, T[]>);
+}
+
+/**
  * Public
  * *****************************************************************
  */
@@ -169,15 +185,30 @@ export {
 };
 
 export function isValid<Output>(
-  result: [Err[], undefined] | [undefined, Valid<Output>["value"]],
+  result: [Map<string, Err[]>, undefined] | [undefined, Valid<Output>["value"]],
 ): result is [undefined, Valid<Output>["value"]] {
   return typeof result[0] === "undefined";
+}
+
+export function format(errors: Map<string, Err[]>): Map<string, string[]> {
+  const messages = new Map();
+  for (const [key, value] of errors) {
+    const name = (key[0].toUpperCase() + key.slice(1)).replace(/(\.|_)/g, " ");
+    const output: string[] = [];
+
+    for (const e of value) {
+      output.push(`${name} ${e.message}`);
+      if (e.name === "union") { break; }
+    }
+    messages.set(key, output);
+  }
+  return messages;
 }
 
 export function parse<S>(
   schema: Rule<S>,
   value: unknown,
-): [Err[], undefined] | [undefined, Valid<S>["value"]] {
+): [Map<string, Err[]>, undefined] | [undefined, Valid<S>["value"]] {
   const errors: Err[] = [];
   const ctx = new Context(schema.name, value, [], errors);
   const result = schema(ctx);
@@ -185,6 +216,6 @@ export function parse<S>(
   if (isValidRule(result)) {
     return [undefined, result.value];
   } else {
-    return [errors, undefined];
+    return [groupErrors(errors), undefined];
   }
 }

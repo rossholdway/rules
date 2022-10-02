@@ -6,8 +6,10 @@ import { Codes, Rule } from "../mod.ts";
  */
 export type nevr = typeof never;
 
-export function never(): Rule<never> {
+export function never(
+  { invalid_error = "is invalid" } = {}
+): Rule<never> {
   return function never(ctx) {
-    return ctx.error(Codes.invalid, "Invalid")
+    return ctx.error(Codes.invalid, invalid_error)
   };
 }

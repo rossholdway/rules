@@ -2,7 +2,7 @@
 
 # Validate
 
-A simple TypeScript runtime validator with good performance, zero dependencies
+A simple Deno 🦕 TypeScript runtime validator with good performance, zero dependencies
 and developer friendly UX.
 
 Build a schema using predefined rules, or create your own. Valid data will be
@@ -13,7 +13,7 @@ returned typed.
 Using the rule `str()` we can validate that any given data is of type string.
 The `parse` method will always return an array containing any errors (or
 undefined if there are none) followed by the validated data itself (or undefined
-if it was invalid).
+if invalid).
 
 ```Typescript
 parse(str(), "Homer");
@@ -67,87 +67,114 @@ parse(User, data);
 
 ## Documentation
 
+### Validation
+
+#### parse
+
+Provide a schema and value to `parse(schema, value)` to validate your data. A tuple of [errors, validated_data] will be returned. If errors are present, validated_data will be undefined. If your data is valid, errors will be undefined.
+
+Valid data:
+```typescript
+const schema = obj({name: str()});
+const [errors, user] = parse(schema, { name: "Homer" });
+
+// errors
+undefined
+
+// user
+{
+  name: "Homer"
+}
+```
+
+```typescript
+const schema = obj({name: str()});
+const [errors, user] = parse(schema, {});
+
+// errors
+Map {
+  "name" => [
+    {
+      name: "str",
+      value: undefined,
+      path: ["name"],
+      code: "required",
+      message: "is required"
+    }
+  ]
+}
+
+// user
+undefined
+```
+
 ### Context
 
 Context is available within all rules and utils. It contains some useful information and helper methods.
 
-#### Value
-`ctx.value` contains the initial value.
+#### ctx.value
+`ctx.value` contains the value.
 
-#### Path
+#### ctx.path
 `ctx.path` contains the path taken. This will be an array of the object properties or position within the array of the rule.
 
-#### Errors
-`ctx.errors` is an array of errors.
-
-```typescript
-{
-  name: string;
-  path: string[];
-  value: unknown;
-  code: string;
-  message: string;
-  meta?: Record<string, unknown>;
-}
-```
-
-#### Error
+#### ctx.error
 `ctx.error(code, message, meta)` takes a code (an error code string), an error message and a meta object to hold additional details.
 
-#### Success
+#### ctx.success
 `ctx.success` returns a success object.
 
 ### Rules
 
-#### Any
+#### any
 Allow any value as valid.
 ```typescript
 any()
 ```
 
-#### Array
+#### array
 Allow an array of values. A min and / or max array length can also be specified.
 ```typescript
 array(str(), { min: 1, max: 3 })
 ```
 
-#### BigInt
+#### bigInt
 Must be a bigint value e.g. `100n`.
 ```typescript
 bigInt()
 ```
 
-#### Boolean
+#### boolean
 Value must be either `true` or `false`.
 ```typescript
-bigInt()
+bool()
 ```
 
-#### Enum
+#### enum
 Value must be one of the given literal values.
 ```typescript
 enums(["Homer", "Max Power", "Mr. Plow"] as const
 ```
 
-#### Literal
+#### literal
 Value must be an exact match (using `===`).
 ```typescript
 literal(742)
 ```
 
-#### Never
+#### never
 Validation will always fail.
 ```typescript
 never()
 ```
 
-#### Number
+#### num
 Value must be a number. A min and / or max value can also be specified. If the number must be an integer, set `integer` to `true`.
 ```typescript
 num({min: 5, max: 10, integer: true})
 ```
 
-#### Object
+#### obj
 Validate that the provided value is an object, and that each property is also valid. Can be nested. Any unknown or undefined properties will be excluded from the returned object.
 ```typescript
 obj({
@@ -157,19 +184,19 @@ obj({
 });
 ```
 
-#### Regex
+#### regex
 Value must be a string that passes the provided regular expression.
 ```typescript
 regex(/Bart/i)
 ```
 
-#### String
+#### str
 Value must be a string. A min and / or max length can also be specified. The string can also be trimmed of whitespace via `trim: true` .
 ```typescript
 str({min: 5, max: 10, trim: true})
 ```
 
-#### Tuple
+#### tuple
 Validates that a value is an array of the same length, with each value being the given type at that position.
 ```typescript
 tuple([str(), num()])
@@ -177,14 +204,14 @@ tuple([str(), num()])
 
 ### Utils
 
-#### Coerce
+#### coerce
 Coerce a value into another allowing you to transform input data (before validation).
 
-The example below coerces a number to string, before passing the value on to be validated. If the value cannot be coerced, it is returned as is.
+The example below attempts to coerce the input to number, before passing the value on to be validated. If the value cannot be coerced, it is returned as is.
 ```typescript
-coerce(str(), (value) => {
-  if (typeof value === "number") {
-    return value.toString();
+coerce(num(), (value) => {
+  if (typeof value === "string") {
+    return parseInt(value, 10);
   } else {
     return value;
   }
@@ -192,9 +219,9 @@ coerce(str(), (value) => {
 ```
 The coercion function can also be provided separately.
 ```typescript
-const coerceFn: coerceFn<string> = (value) => {
-  if (typeof value === "number") {
-    return value.toString();
+const coerceFn: coerceFn<number> = (value) => {
+  if (typeof value === "string") {
+    return parseInt(value, 10);
   } else {
     return value;
   }
@@ -203,7 +230,7 @@ const coerceFn: coerceFn<string> = (value) => {
 coerce(str(), coerceFn);
 ```
 
-#### Defaulted
+#### defaulted
 Provide a default if it's undefined (before validation).
 ```typescript
 defaulted(str(), (ctx) => "30")
@@ -215,7 +242,7 @@ const defaultedFn: defaultedFn<string> = (ctx) => "30";
 defaulted(str(), defaultedFn);
 ```
 
-#### Dynamic
+#### dynamic
 Decide what validation to run at runtime.
 ```typescript
 const Homer = obj({
@@ -247,7 +274,7 @@ const dynamicCb: dynamicFn<typeof Homer | typeof Character> = (ctx) => {
 };
 ```
 
-#### Intersection
+#### intersection
 Used to validate that a group of rules pass.
 ```typescript
 intersection([
@@ -256,19 +283,19 @@ intersection([
 ])
 ```
 
-#### Nullable
+#### nullable
 Allow a value to be null.
 ```typescript
 nullable(str())
 ```
 
-#### Optional
+#### optional
 Allow a value to be undefined.
 ```typescript
 optional(str())
 ```
 
-#### Refine
+#### refine
 Allow an existing rule to be refined. Useful for defining your own rules.
 ```typescript
 refine("email", str(), (ctx) => {
@@ -298,7 +325,7 @@ const refineCb: refineCb<string> = (ctx) => {
 refine("email", str(), refineCb);
 ```
 
-#### Union
+#### union
 Validate that a value matches at least one rule.
 ```typescript
 union([
@@ -308,6 +335,22 @@ union([
 ```
 
 ### Helpers
+
+#### format
+`format` can be used to generate a nice `Map` of error messages. Path name will be appended to the start of the error message, sentance cased and any `.` or `_` replaced with a whitespace. It will also combine `union` error messages into a single message if the union is invalid.
+
+```typescript
+const schema = obj({
+  account: obj({
+    first_name: str()
+  })
+});
+const [errors, user] = parse(schema, { account: {} });
+
+// Output
+Map { "account.first_name" => [ "Account first name is required" ] }
+
+```
 
 #### isValid
 `isValid` can be used as a helpful type guard for narrowing the result.
@@ -331,10 +374,10 @@ const homer = obj({
 type Homer = Infer<typeof homer>;
 
 // Type is now:
-// {
-//   name: "Homer";
-//   catchphrase: "D'oh";
-// }
+{
+  name: "Homer";
+  catchphrase: "D'oh";
+}
 ```
 
 #### Codes

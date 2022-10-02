@@ -57,7 +57,7 @@ describe("union", function () {
         name: "union",
         path: [],
         code: "invalid_union",
-        message: "Invalid input",
+        message: "is invalid. An error occured",
         meta: undefined
       },
       {

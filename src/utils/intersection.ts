@@ -16,11 +16,12 @@ import {
 // Helps to run multiple rules against a single value
 export function intersection<T extends Rule<Infer<T[number]>>[]>(
   ruleSet: [...T],
+  { required_error = "is required" } = {}
 ): Rule<UnionToIntersection<InferTuple<T>[number]>> {
   return function intersection(ctx) {
     // Require a value
     if (typeof ctx.value === "undefined") {
-      return ctx.error(Codes.required, "Required")
+      return ctx.error(Codes.required, required_error)
     }
 
     for (const ruleFn of ruleSet) {

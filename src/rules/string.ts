@@ -7,16 +7,29 @@ import { Codes, Rule } from "../mod.ts";
 export type str = typeof str;
 
 export function str(
-  { max, min, trim }: { max?: number; min?: number; trim?: boolean } = {},
+  {
+    max, min, trim,
+    required_error = "is required",
+    invalid_type_error = "must be a string",
+    invalid_min_length_error = `must not be less than ${min} characters`,
+    invalid_max_length_error = `must not be more than ${max} characters`
+  }: 
+  {
+    max?: number; min?: number; trim?: boolean;
+    required_error?: string;
+    invalid_type_error?: string;
+    invalid_min_length_error?: string;
+    invalid_max_length_error?: string;
+  } = {}
 ): Rule<string> {
   return function str(ctx) {
     // Require a value
     if (typeof ctx.value === "undefined") {
-      return ctx.error(Codes.required, "Required")
+      return ctx.error(Codes.required, required_error)
     }
 
     if (typeof ctx.value !== "string") {
-      return ctx.error(Codes.invalid_type, "Not a string");
+      return ctx.error(Codes.invalid_type, invalid_type_error);
     }
 
     if (trim) {
@@ -26,7 +39,7 @@ export function str(
     if (min && ctx.value.length < min) {
       return ctx.error(
         Codes.invalid_min_length,
-        `Must not be less than ${min} characters`,
+        invalid_min_length_error,
         { min }
       )
     }
@@ -34,7 +47,7 @@ export function str(
     if (max && ctx.value.length > max) {
       return ctx.error(
         Codes.invalid_max_length,
-        `Must not be greater than ${max} characters`,
+        invalid_max_length_error,
         { max }
       )
     }

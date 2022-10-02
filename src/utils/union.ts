@@ -10,13 +10,21 @@ import { isValidRule } from "../helpers.ts";
 // Helps to validate that a value matches at least one rule
 export function union<T extends Rule<InferTuple<T>[number]>[]>(
   ruleSet: [...T],
+  { 
+    required_error = "is required",
+    invalid_union_error = undefined
+  }:
+  {
+    required_error?: string;
+    invalid_union_error?: string;
+  } = {}
 ): Rule<InferTuple<T>[number]> {
   return function union(ctx) {
     const errors: Err[] = [];
 
     // Require a value
     if (typeof ctx.value === "undefined") {
-      return ctx.error(Codes.required, "Required")
+      return ctx.error(Codes.required, required_error)
     }
 
     for (const ruleFn of ruleSet) {
@@ -28,7 +36,12 @@ export function union<T extends Rule<InferTuple<T>[number]>[]>(
 
     // If none of the rules are valid we add them
     // to the global errors context
-    ctx.error(Codes.invalid_union, "Invalid input")
+    ctx.error(
+      Codes.invalid_union,
+      invalid_union_error || `is invalid. ${errors
+        .map((e, i) => (i === 0) ? (e.message[0].toUpperCase() + e.message.slice(1)) : `${e.message}`)
+        .join(" or ")}`
+    );
     ctx.errors.push(...errors);
 
     return { success: false };
