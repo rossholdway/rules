@@ -73,7 +73,6 @@ parse(User, data);
 
 Provide a schema and value to `parse(schema, value)` to validate your data. A tuple of [errors, validated_data] will be returned. If errors are present, validated_data will be undefined. If your data is valid, errors will be undefined.
 
-Valid data:
 ```typescript
 const schema = obj({name: str()});
 const [errors, user] = parse(schema, { name: "Homer" });
@@ -363,8 +362,7 @@ if(isValid(result)) {
 }
 ```
 #### Infer
-`Infer` can be used as a TypeScript util to infer the return type of a r
-Rule.
+`Infer` can be used as a TypeScript util to infer the return type of a Rule.
 ```typescript
 const homer = obj({
   name: literal("Homer"),
@@ -389,5 +387,7 @@ A list of predefined error codes.
 
 When adding, updating or removing dependencies you should make sure to update
 the `.deno` cache with `deno cache --reload --lock=lock.json --lock-write ./**/*.ts`
+
+### Tests
 
 Run tests manually with `deno test test/**/*.test.ts --lock=lock.json --cached-only`
