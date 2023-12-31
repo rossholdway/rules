@@ -5,7 +5,7 @@
     },
     "tasks": {
       "cache": "deno cache --lock=deno.lock --lock-write ./**/*.ts",
-      "test": "deno test test/**/*.test.ts --lock=lock.json --cached-only",
+      "test": "deno test test/**/*.test.ts --lock=deno.lock --cached-only",
       "lint": "deno lint"
     }
   }
