@@ -385,11 +385,6 @@ A list of predefined error codes.
 
 ## Contributing
 
-### Adding and updating dependencies
-
-When adding, updating or removing dependencies you should make sure to update
-the cache with `deno task cache`
-
 ### Tests
 
 Run tests manually with `deno task test`
