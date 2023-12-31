@@ -346,6 +346,8 @@ const schema = obj({
 });
 const [errors, user] = parse(schema, { account: {} });
 
+format(errors);
+
 // Output
 Map { "account.first_name" => [ "Account first name is required" ] }
 
