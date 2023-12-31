@@ -1,5 +1,5 @@
 import Sinon from "https://cdn.skypack.dev/sinon@13.0.2?dts";
-import { afterEach } from "https://deno.land/std@0.145.0/testing/bdd.ts";
+import { afterEach } from "std/testing/bdd.ts";
 import { Err, Context } from "../src/mod.ts";
 
 export const sandbox = Sinon.createSandbox();

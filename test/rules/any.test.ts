@@ -1,5 +1,5 @@
-import { expect } from "https://cdn.skypack.dev/chai@4.3.4?dts";
-import { describe, it, beforeEach } from "https://deno.land/std@0.145.0/testing/bdd.ts";
+import { expect } from "chai";
+import { describe, it, beforeEach } from "std/testing/bdd.ts";
 
 import { Context, Err } from "../../src/mod.ts"
 import { any } from "../../src/rules/any.ts";

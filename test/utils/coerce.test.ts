@@ -1,4 +1,4 @@
-import { describe, it } from "https://deno.land/std@0.145.0/testing/bdd.ts";
+import { describe, it } from "std/testing/bdd.ts";
 
 import { ctx, sandbox, validRule } from "../utils.ts";
 

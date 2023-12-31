@@ -1,0 +1,11 @@
+{
+    "imports": {
+      "std/": "https://deno.land/std@0.206.0/",
+      "chai": "https://esm.sh/v135/chai@5.0.0"
+    },
+    "tasks": {
+      "cache": "deno cache --lock=deno.lock --lock-write ./**/*.ts",
+      "test": "deno test test/**/*.test.ts --lock=lock.json --cached-only",
+      "lint": "deno lint"
+    }
+  }

@@ -1,9 +1,9 @@
-import { expect } from "https://cdn.skypack.dev/chai@4.3.4?dts";
+import { expect } from "chai";
 import {
   beforeEach,
   describe,
   it,
-} from "https://deno.land/std@0.145.0/testing/bdd.ts";
+} from "std/testing/bdd.ts";
 
 import { ctx, invalidRule, sandbox, validRule } from "../utils.ts";
 import type { Invalid, Valid, Context, Err } from "./../../src/mod.ts";

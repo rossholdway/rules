@@ -388,8 +388,8 @@ A list of predefined error codes.
 ### Adding and updating dependencies
 
 When adding, updating or removing dependencies you should make sure to update
-the `.deno` cache with `deno cache --reload --lock=lock.json --lock-write ./**/*.ts`
+the cache with `deno task cache`
 
 ### Tests
 
-Run tests manually with `deno test test/**/*.test.ts --lock=lock.json --cached-only`
+Run tests manually with `deno task test`
