@@ -10,6 +10,10 @@ returned typed.
 
 ## Getting started
 
+```typescript
+import { parse, str } from 'https://deno.land/x/rules/mod.ts'
+```
+
 Using the rule `str()` we can validate that any given data is of type string.
 The `parse` method will always return an array containing any errors (or
 undefined if there are none) followed by the validated data itself (or undefined
