@@ -111,21 +111,45 @@ Map {
 undefined
 ```
 
-### Context
+### Errors
+Errors are returned as a Map of keys. Each key holds an array of error object(s).
 
-Context is available within all rules and utils. It contains some useful information and helper methods.
+```typescript
+Map {
+  "name" => [
+    {
+      name: "str",
+      value: undefined,
+      path: ["name"],
+      code: "required",
+      message: "is required"
+    }
+  ]
+}
+```
 
-#### ctx.value
-`ctx.value` contains the value.
+#### error.name
+`error.name` contains the name of the rule.
 
-#### ctx.path
-`ctx.path` contains the path taken. This will be an array of the object properties or position within the array of the rule.
+#### error.value
+`error.value` contains the provided value.
 
-#### ctx.error
-`ctx.error(code, message, meta)` takes a code (an error code string), an error message and a meta object to hold additional details.
+#### error.path
+`error.path` contains the path taken. This will be an array of properties or position within the array of the rule.
 
-#### ctx.success
-`ctx.success` returns a success object.
+#### error.code
+`error.code` provides a code that can be used to reference the type of error. See the predefined [error codes list](#codes) for a list of valid codes.
+
+#### error.message
+`error.message` contains the error message.
+
+There are default error messages for each error code type. They can be easily overridden by passing the error code with "_error" appended as a property to each rule. This could also be used for I18n.
+
+```typescript
+str({required_error: "must be provided"})
+```
+
+There is also a utility to help format error messages in a more user friendly way. See the [format helper](#format) for more information.
 
 ### Rules
 
@@ -300,6 +324,7 @@ optional(str())
 
 #### refine
 Allow an existing rule to be refined. Useful for defining your own rules.
+
 ```typescript
 refine("email", str(), (ctx) => {
   if (!/\S+@\S+\.\S+/.test(ctx.value)) {
@@ -398,6 +423,22 @@ Predefined error codes.
 `invalid_literal`
 `invalid_length`
 `regex_no_match`
+
+### Context
+
+Context is available within all rules and utils. It contains some useful information and helper methods.
+
+#### ctx.value
+`ctx.value` contains the value.
+
+#### ctx.path
+`ctx.path` contains the path taken. This will be an array of the object properties or position within the array of the rule.
+
+#### ctx.error
+`ctx.error(code, message, meta)` takes a code (an error code string), an error message and a meta object to hold additional details.
+
+#### ctx.success
+`ctx.success` returns a success object.
 
 ## Contributing
 
