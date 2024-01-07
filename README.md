@@ -149,7 +149,7 @@ There are default error messages for each error code type. They can be easily ov
 str({required_error: "must be provided"})
 ```
 
-There is also a utility to help format error messages in a more user friendly way. See the [format helper](#format) for more information.
+There is also a helper available to format error messages in a more user friendly way. See the [format helper](#format) for more information.
 
 ### Rules
 
