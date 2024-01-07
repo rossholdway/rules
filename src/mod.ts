@@ -190,14 +190,14 @@ export function isValid<Output>(
   return typeof result[0] === "undefined";
 }
 
-export function format(errors: Map<string, Err[]>): Map<string, string[]> {
+export function format(errors: Map<string, Err[]>): Map<string, {code: string, message: string}[]> {
   const messages = new Map();
   for (const [key, value] of errors) {
     const name = (key[0].toUpperCase() + key.slice(1)).replace(/(\.|_)/g, " ");
-    const output: string[] = [];
+    const output: {code: string, message: string}[] = [];
 
     for (const e of value) {
-      output.push(`${name} ${e.message}`);
+      output.push({code: e.code, message: `${name} ${e.message}`});
       if (e.name === "union") { break; }
     }
     messages.set(key, output);

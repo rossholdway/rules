@@ -340,7 +340,7 @@ union([
 ### Helpers
 
 #### format
-`format` can be used to generate a nice `Map` of error messages. Path name will be appended to the start of the error message, sentance cased and any `.` or `_` replaced with a whitespace. It will also combine `union` error messages into a single message if the union is invalid.
+`format` can be used to generate a nice `Map` of error codes and messages. Path name will be appended to the start of the error message, sentance cased and any `.` or `_` replaced with a whitespace. It will also combine `union` error messages into a single message if the union is invalid.
 
 ```typescript
 const schema = obj({
@@ -353,7 +353,7 @@ const [errors, user] = parse(schema, { account: {} });
 format(errors);
 
 // Output
-Map { "account.first_name" => [ "Account first name is required" ] }
+Map { "account.first_name" => [ { code: "required", message: "Account first name is required" } ] }
 
 ```
 

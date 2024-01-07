@@ -39,7 +39,7 @@ describe("mod", function () {
       };
       const result = format(new Map([["character.first_name", [error]]]));
 
-      expect(result).to.eql(new Map([["character.first_name", [ "Character first name is required" ]]]));
+      expect(result).to.eql(new Map([["character.first_name", [{ code: "required", message: "Character first name is required" }]]]));
     });
   });
 
