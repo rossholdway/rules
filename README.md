@@ -1,6 +1,6 @@
-![Test](https://github.com/rossholdway/validate/actions/workflows/ci.yml/badge.svg)
+![Test](https://github.com/rossholdway/rules/actions/workflows/ci.yml/badge.svg)
 
-# Validate
+# Rules
 
 A simple Deno 🦕 TypeScript runtime validator with good performance, zero dependencies
 and developer friendly UX.
