@@ -385,7 +385,19 @@ type Homer = Infer<typeof homer>;
 ```
 
 #### Codes
-A list of predefined error codes.
+Predefined error codes.
+
+`required`
+`invalid`
+`invalid_type`
+`invalid_min_length`
+`invalid_max_length`
+`invalid_enum`
+`invalid_union`
+`invalid_integer`
+`invalid_literal`
+`invalid_length`
+`regex_no_match`
 
 ## Contributing
 
