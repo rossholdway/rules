@@ -135,7 +135,7 @@ Map {
 `error.value` contains the provided value.
 
 #### error.path
-`error.path` contains the path taken. This will be an array of properties or position within the array of the rule.
+`error.path` contains the path taken. This will be an array of property names and / or an index indicating the location of the value that caused the error.
 
 #### error.code
 `error.code` provides a code that can be used to reference the type of error. See the predefined [error codes list](#codes) for a list of valid codes.
