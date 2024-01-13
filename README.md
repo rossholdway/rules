@@ -151,6 +151,22 @@ str({required_error: "must be provided"})
 
 There is also a helper available to format error messages in a more user friendly way. See the [format helper](#format) for more information.
 
+### Context
+
+Context is available within all rules (and utils).
+
+#### ctx.value
+`ctx.value` contains the value.
+
+#### ctx.path
+`ctx.path` contains the path taken. This will be an array of property names and / or an index indicating the location of the value that caused the error.
+
+#### ctx.error
+`ctx.error(code, message, meta)` takes a code (an error code string), an error message and a meta object to hold additional details.
+
+#### ctx.success
+`ctx.success` returns a success object.
+
 ### Rules
 
 #### any
@@ -365,7 +381,9 @@ union([
 ### Helpers
 
 #### format
-`format` can be used to generate a nice `Map` of error codes and messages. Path name will be appended to the start of the error message, sentance cased and any `.` or `_` replaced with a whitespace. It will also combine `union` error messages into a single message if the union is invalid.
+`format` can be used to generate a nice `Map` of error codes and messages. Path name will be appended to the start of the error message and `union` errors are combined into a single message.
+
+By default the message will be sentance cased and any `.` or `_` replaced with a whitespace. You can pass `{ humanise: false }` as a second argument to prevent this.
 
 ```typescript
 const schema = obj({
@@ -423,22 +441,6 @@ Predefined error codes.
 `invalid_literal`
 `invalid_length`
 `regex_no_match`
-
-### Context
-
-Context is available within all rules and utils. It contains some useful information and helper methods.
-
-#### ctx.value
-`ctx.value` contains the value.
-
-#### ctx.path
-`ctx.path` contains the path taken. This will be an array of the object properties or position within the array of the rule.
-
-#### ctx.error
-`ctx.error(code, message, meta)` takes a code (an error code string), an error message and a meta object to hold additional details.
-
-#### ctx.success
-`ctx.success` returns a success object.
 
 ## Contributing
 

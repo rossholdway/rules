@@ -28,7 +28,7 @@ describe("mod", function () {
   });
 
   describe("format", function () {
-    it("should return expected response", function () {
+    it("should return expected defaults response", function () {
       const error: Err = {
         value: undefined,
         name: "invalidRule",
@@ -40,6 +40,20 @@ describe("mod", function () {
       const result = format(new Map([["character.first_name", [error]]]));
 
       expect(result).to.eql(new Map([["character.first_name", [{ code: "required", message: "Character first name is required" }]]]));
+    });
+
+    it("should return expected response when humanise is false", function () {
+      const error: Err = {
+        value: undefined,
+        name: "invalidRule",
+        path: [ "character", "first_name" ],
+        code: "required",
+        message: "is required",
+        meta: undefined
+      };
+      const result = format(new Map([["character.first_name", [error]]]), { humanise: false });
+
+      expect(result).to.eql(new Map([["character.first_name", [{ code: "required", message: "character.first_name is required" }]]]));
     });
   });
 
