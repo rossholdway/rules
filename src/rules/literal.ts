@@ -29,7 +29,7 @@ export function literal(
   constant: any,
   {
     required_error = "is required",
-    invalid_literal_error = `expected ${constant}`
+    invalid_literal_error = `expected '${constant}'`
   } = {}
 ): Rule<any> {
   return function literal(ctx) {
