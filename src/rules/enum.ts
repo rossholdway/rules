@@ -7,7 +7,10 @@ import { Codes, Rule } from "../mod.ts";
  */
 export type enums = typeof enums;
 
-export function enums<T extends string>(values: readonly T[]): Rule<T>;
+export function enums<T extends string>(
+  values: readonly T[],
+  options?: { required_error?: string; invalid_enum_error?: string; }
+): Rule<T>;
 
 export function enums(
   values: readonly unknown[],
