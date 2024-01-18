@@ -8,20 +8,20 @@ import { Codes, Rule } from "../mod.ts";
 export type literal = typeof literal;
 
 export function literal<T extends boolean>(constant: T, options?: {
-  required_error?: string | undefined;
-  invalid_literal_error?: string | undefined;
+  required_error?: string;
+  invalid_literal_error?: string;
 }): Rule<T>;
 export function literal<T extends number>(constant: T, options?: {
-  required_error?: string | undefined;
-  invalid_literal_error?: string | undefined;
+  required_error?: string;
+  invalid_literal_error?: string;
 }): Rule<T>;
 export function literal<T extends string>(constant: T, options?: {
-  required_error?: string | undefined;
-  invalid_literal_error?: string | undefined;
+  required_error?: string;
+  invalid_literal_error?: string;
 }): Rule<T>;
 export function literal<T>(constant: T, options?: {
-  required_error?: string | undefined;
-  invalid_literal_error?: string | undefined;
+  required_error?: string;
+  invalid_literal_error?: string;
 }): Rule<T>;
 
 // Value is an exact match, using `===` for comparison
