@@ -383,7 +383,7 @@ union([
 #### format
 `format` can be used to generate a nice `Map` of error codes and messages. Path name will be appended to the start of the error message and `union` errors are combined into a single message.
 
-By default the message will be sentance cased and any `.` or `_` replaced with a whitespace. You can pass `{ humanise: false }` as a second argument to prevent this.
+By default error messages will be sentance cased and any `.` or `_` replaced with a whitespace. You can pass `{ humanise: false }` as a second argument to prevent this.
 
 ```typescript
 const schema = obj({
