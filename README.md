@@ -441,6 +441,7 @@ Predefined error codes.
 `invalid_literal`
 `invalid_length`
 `regex_no_match`
+`invalid_object_properties`
 
 ## Contributing
 
