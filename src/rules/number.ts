@@ -24,7 +24,7 @@ export function num(
     invalid_max_length_error?: string;
   } = {}
 ): Rule<number> {
-  return function str(ctx) {
+  return function num(ctx) {
     // Require a value
     if (typeof ctx.value === "undefined") {
       return ctx.error(Codes.required, required_error)
