@@ -66,7 +66,7 @@ describe("union", function () {
         path: [],
         code: "error_code",
         message: "An error occured",
-        meta: undefined
+        meta: { union: 'value' }
       },
     ]);
   });

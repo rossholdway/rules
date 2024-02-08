@@ -195,15 +195,19 @@ export function format(errors: Map<string, Err[]>, options: {
 } = {}): Map<string, {code: string, message: string}[]> {
   const { humanise = true } = options;
   const messages = new Map();
+
   for (const [key, value] of errors) {
     const name = humanise ? (key[0].toUpperCase() + key.slice(1)).replace(/(\.|_)/g, " ") : key;
     const output: {code: string, message: string}[] = [];
 
     for (const e of value) {
+      if (e.meta?.union) { break; } // Filter out union child errors
       output.push({code: e.code, message: `${name} ${e.message}`});
       if (e.name === "union") { break; }
     }
-    messages.set(key, output);
+    if(output.length > 0) {
+      messages.set(key, output);
+    }
   }
   return messages;
 }
