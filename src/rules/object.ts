@@ -16,8 +16,7 @@ export function obj<T>(
   schema: { [Key in keyof T]: Rule<T[Key]> },
   {
     required_error = "is required",
-    invalid_type_error = "must be an object",
-    invalid_object_properties_error = "has invalid properties"
+    invalid_type_error = "must be an object"
   } = {}
 ): Rule<T> {
   return function obj(ctx) {
@@ -44,13 +43,6 @@ export function obj<T>(
             data[prop as keyof T] = result.value;
           }
         }
-      }
-
-      if(ctx.errors.length > 0) {
-        ctx.error(
-          Codes.invalid_object_properties,
-          invalid_object_properties_error
-        );
       }
     }
 
