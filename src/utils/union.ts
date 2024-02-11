@@ -20,37 +20,43 @@ export function union<T extends Rule<InferTuple<T>[number]>[]>(
   } = {}
 ): Rule<InferTuple<T>[number]> {
   return function union(ctx) {
-    let errors: Err[] = [];
+    const errors: Err[] = [];
 
     // Require a value
     if (typeof ctx.value === "undefined") {
       return ctx.error(Codes.required, required_error)
     }
 
-    for (const ruleFn of ruleSet) {
-      const result = ruleFn(new Context(ruleFn.name, ctx.value, ctx.path, errors));
+    for (const [i, ruleFn] of ruleSet.entries()) {
+      const ruleErrors: Err[] = [];
+      const result = ruleFn(
+        new Context(ruleFn.name, ctx.value, ctx.path, ruleErrors)
+      );
+
       if (isValidRule(result)) {
         return result; // We're done
+      } else {
+        // It is helpful to know which union raised the error and where
+        ruleErrors.map((e) => {
+          e.meta = {
+            ...e.meta,
+            union: {
+              key: (ctx.path.length > 0) ? ctx.path.join('.') : 'value',
+              index: i
+            }
+          }
+          return e;
+        });
+        errors.push(...ruleErrors);
       }
     }
 
     // If none of the rules are valid we add them
     // to the global errors context
-    const uniqueErrorsByMsg = [...new Map(errors.map(e => [e.message, e])).values()];
-
     ctx.error(
       Codes.invalid_union,
-      invalid_union_error || `is invalid. ${uniqueErrorsByMsg
-        .filter((e) => e.path.length === ctx.path.length)
-        .map((e, i) => (i === 0) ? (e.message[0].toUpperCase() + e.message.slice(1)) : `${e.message}`)
-        .join(" or ")}`
+      invalid_union_error || 'is invalid'
     );
-    
-    // It is helpful to know the error was rasied by a union
-    errors = errors.map((e) => e.meta = {
-      ...e,
-      meta: { ...e.meta, union: (ctx.path.length > 0) ? ctx.path.join('.') : 'value' }
-    });
 
     ctx.errors.push(...errors);
 

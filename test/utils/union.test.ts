@@ -57,7 +57,7 @@ describe("union", function () {
         name: "union",
         path: [],
         code: "invalid_union",
-        message: "is invalid. An error occured",
+        message: "is invalid",
         meta: undefined
       },
       {
@@ -66,7 +66,7 @@ describe("union", function () {
         path: [],
         code: "error_code",
         message: "An error occured",
-        meta: { union: 'value' }
+        meta: { union: { key: 'value', index: 0 } }
       },
     ]);
   });
