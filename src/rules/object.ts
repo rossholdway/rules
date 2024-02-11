@@ -1,4 +1,4 @@
-import { Codes, Rule, Context } from "../mod.ts";
+import { Codes, Rule, Context, Err } from "../mod.ts";
 import { isValidRule } from "../helpers.ts";
 
 /**
@@ -21,6 +21,7 @@ export function obj<T>(
 ): Rule<T> {
   return function obj(ctx) {
     const data = {} as { [Key in keyof T]: T[Key] };
+    const errors: Err[] = [];
 
     // Require a value
     if (typeof ctx.value === "undefined") {
@@ -35,7 +36,7 @@ export function obj<T>(
         const v = ctx.value[prop];
         const ruleFn = schema[prop as keyof T];
         const result = ruleFn(
-          new Context(ruleFn.name, v, [...ctx.path, prop], ctx.errors)
+          new Context(ruleFn.name, v, [...ctx.path, prop], errors)
         );
 
         if (isValidRule(result)) {
@@ -46,8 +47,11 @@ export function obj<T>(
       }
     }
 
-    return (ctx.errors.length === 0)
-      ? {success: true, value: data}
-      : {success: false};
+    if(errors.length === 0) {
+      return { success: true, value: data }
+    } else {
+      ctx.errors.push(...errors);
+      return { success: false }
+    }
   };
 }

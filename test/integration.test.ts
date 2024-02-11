@@ -69,9 +69,9 @@ describe("integration", function () {
           return ctx.success();
         }),
         knownAs: union([
-          literal("Max Power"),
-          literal("Mr. Plow"),
-          literal("Mr. Sparkle")
+          obj({name: literal("Max Power")}),
+          obj({name: literal("Mr. Plow")}),
+          obj({name: literal("Mr. Sparkle")})
         ])
       });
 
@@ -91,7 +91,7 @@ describe("integration", function () {
         neighbour: "Ned Flanders",
         children: ["Bart", "Lisa", "Maggie"],
         email: "chunkylover53@aol.com",
-        knownAs: "Mr. Plow"
+        knownAs: { name: "Mr. Plow" }
       }
 
       const result = parse(simpson, homer);
@@ -109,7 +109,7 @@ describe("integration", function () {
         neighbour: "Ned Flanders",
         children: [ "Bart", "Lisa", "Maggie" ],
         email: "chunkylover53@aol.com",
-        knownAs: "Mr. Plow"
+        knownAs: { name: "Mr. Plow" }
       });
     });
   });

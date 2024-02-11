@@ -1,4 +1,4 @@
-import { Codes, Rule, Context } from "../mod.ts";
+import { Codes, Rule, Context, Err } from "../mod.ts";
 import { isValidRule } from "../helpers.ts";
 
 /**
@@ -26,6 +26,7 @@ export function array<T>(
 ): Rule<T[]> {
   return function array(ctx) {
     const data: T[] = [];
+    const errors: Err[] = [];
 
     // Require a value
     if (typeof ctx.value === "undefined") {
@@ -58,15 +59,18 @@ export function array<T>(
 
     for (const [i, v] of ctx.value.entries()) {
       const result = ruleFn(
-        new Context(ruleFn.name, v, [...ctx.path, i.toString()], ctx.errors)
+        new Context(ruleFn.name, v, [...ctx.path, i.toString()], errors)
       );
       if (isValidRule(result)) {
         data.push(result.value);
       }
     }
 
-    return (ctx.errors.length === 0)
-      ? { success: true, value: data }
-      : { success: false };
+    if(errors.length === 0) {
+      return { success: true, value: data }
+    } else {
+      ctx.errors.push(...errors);
+      return { success: false }
+    }
   };
 }

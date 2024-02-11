@@ -4,7 +4,8 @@ import {
   InferTuple,
   Rule,
   UnionToIntersection,
-  Context
+  Context,
+  Err
 } from "../mod.ts";
 
 // export function intersection<A>(ruleSet: [Rule<A>]): Rule<A>;
@@ -19,20 +20,22 @@ export function intersection<T extends Rule<Infer<T[number]>>[]>(
   { required_error = "is required" } = {}
 ): Rule<UnionToIntersection<InferTuple<T>[number]>> {
   return function intersection(ctx) {
+    const errors: Err[] = [];
+
     // Require a value
     if (typeof ctx.value === "undefined") {
       return ctx.error(Codes.required, required_error)
     }
 
     for (const ruleFn of ruleSet) {
-      ruleFn(new Context(ruleFn.name, ctx.value, ctx.path, ctx.errors));
+      ruleFn(new Context(ruleFn.name, ctx.value, ctx.path, errors));
     }
 
-    return (ctx.errors.length === 0)
-      ? {
-        success: true,
-        value: (ctx.value as UnionToIntersection<InferTuple<T>[number]>),
-      }
-      : { success: false };
+    if(errors.length === 0) {
+      return { success: true, value: (ctx.value as UnionToIntersection<InferTuple<T>[number]>) }
+    } else {
+      ctx.errors.push(...errors);
+      return { success: false }
+    }
   };
 }

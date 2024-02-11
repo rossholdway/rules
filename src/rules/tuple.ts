@@ -1,4 +1,4 @@
-import { Codes, Context, Infer, InferTuple, Rule } from "../mod.ts";
+import { Codes, Context, Infer, InferTuple, Rule, Err } from "../mod.ts";
 import { isValidRule } from "../helpers.ts";
 
 /**
@@ -23,6 +23,7 @@ export function tuple<T extends Rule<Infer<T[number]>>[]>(
 ): Rule<[...InferTuple<T>]> {
   return function tuple(ctx) {
     const data: unknown[] = [];
+    const errors: Err[] = [];
 
     //Require a value
     if (typeof ctx.value === "undefined") {
@@ -46,15 +47,18 @@ export function tuple<T extends Rule<Infer<T[number]>>[]>(
 
     for (const [i, rule] of ruleSet.entries()) {
       const result = rule(
-        new Context(rule.name, ctx.value[i], [...ctx.path, i.toString()], ctx.errors)
+        new Context(rule.name, ctx.value[i], [...ctx.path, i.toString()], errors)
       );
       if (isValidRule(result)) {
         data.push(result.value);
       }
     }
 
-    return (ctx.errors.length === 0)
-      ? { success: true, value: (data as [...InferTuple<T>]) }
-      : { success: false };
+    if(errors.length === 0) {
+      return { success: true, value: (data as [...InferTuple<T>]) }
+    } else {
+      ctx.errors.push(...errors);
+      return { success: false }
+    }
   };
 }
