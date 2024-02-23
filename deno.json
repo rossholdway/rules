@@ -1,4 +1,7 @@
 {
+    "name": "@rossholdway/rules",
+    "version": "0.8.0",
+    "exports": "./mod.ts",
     "imports": {
       "std/": "https://deno.land/std@0.206.0/",
       "chai": "https://esm.sh/v135/chai@5.0.0"
