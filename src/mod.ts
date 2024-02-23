@@ -90,7 +90,7 @@ export class Context<T = unknown> {
     this.errors = errors;
   }
 
-  success() {
+  success(): Valid<T> {
     return { success: true, value: this.value }
   }
 
