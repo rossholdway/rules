@@ -1,6 +1,6 @@
 {
     "name": "@rossholdway/rules",
-    "version": "0.8.0",
+    "version": "0.8.1",
     "exports": "./mod.ts",
     "imports": {
       "std/": "https://deno.land/std@0.206.0/",
