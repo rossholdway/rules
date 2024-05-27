@@ -19,13 +19,13 @@ The `parse` method will always return an array containing any errors (or
 undefined if there are none) followed by the validated data itself (or undefined
 if invalid).
 
-```Typescript
+```typescript
 parse(str(), "Homer");
 ```
 
 We can also validate more complex structures such as objects and arrays.
 
-```Typescript
+```typescript
 const User = obj({
   name: str(),
   knownAs: array(str()),
@@ -44,7 +44,7 @@ parse(User, data);
 At some point you'll likely want your own custom validation logic. Using
 `refine` will allow you to do just that, by building on top of existing rules.
 
-```Typescript
+```typescript
 // A custom, reusable validation rule
 const email = refine("email", str(), (ctx) => {
   if (!/\S+@\S+\.\S+/.test(ctx.value)) {
