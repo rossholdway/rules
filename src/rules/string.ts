@@ -11,8 +11,8 @@ export function str(
     max, min, trim,
     required_error = "is required",
     invalid_type_error = "must be a string",
-    invalid_min_length_error = `must not be less than ${min} characters`,
-    invalid_max_length_error = `must not be more than ${max} characters`
+    invalid_min_length_error = `must not be less than ${min} character${min === 1 ? '' : 's'}`,
+    invalid_max_length_error = `must not be more than ${max} character${max === 1 ? '' : 's'}`
   }: 
   {
     max?: number; min?: number; trim?: boolean;
