@@ -1,12 +1,5 @@
-import {
-  Codes,
-  Infer,
-  InferTuple,
-  Rule,
-  UnionToIntersection,
-  Context,
-  Err
-} from "../mod.ts";
+import type { Infer, InferTuple, Rule, UnionToIntersection, Err } from "../mod.ts";
+import { Codes, Context } from "../mod.ts";
 
 // export function intersection<A>(ruleSet: [Rule<A>]): Rule<A>;
 // export function intersection<A, B>(ruleSet: [Rule<A>, Rule<B>]): Rule<A & B>;

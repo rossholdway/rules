@@ -5,7 +5,7 @@ import type { Invalid } from "./../../src/mod.ts";
 
 import { ctx } from "../utils.ts";
 import { bigInt } from "../../src/rules/bigint.ts";
-import { Err } from "../../src/mod.ts"
+import type { Err } from "../../src/mod.ts"
 
 describe("bigInt", function () {
   let errors: Err[] = [];

@@ -1,4 +1,5 @@
-import { Codes, Context, Infer, InferTuple, Rule, Err } from "../mod.ts";
+import type { Infer, InferTuple, Rule, Err } from "../mod.ts";
+import { Codes, Context } from "../mod.ts";
 import { isValidRule } from "../helpers.ts";
 
 /**

@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import { describe, it, beforeEach } from "std/testing/bdd.ts";
 
-import { Context, Err } from "../../src/mod.ts"
+import { Context, type Err } from "../../src/mod.ts"
 import { any } from "../../src/rules/any.ts";
 
 describe("any", function () {

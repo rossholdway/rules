@@ -1,4 +1,4 @@
-import { Invalid, Valid } from "./mod.ts";
+import type { Invalid, Valid } from "./mod.ts";
 
 export function isValidRule<Output>(
   result: Valid<Output> | Invalid,

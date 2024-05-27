@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-import { Codes, Rule } from "../mod.ts";
+import { Codes, type Rule } from "../mod.ts";
 
 /**
  * Literal validation

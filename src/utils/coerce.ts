@@ -1,4 +1,4 @@
-import { Rule } from "../mod.ts";
+import type { Rule } from "../mod.ts";
 
 export type coerceFn<Output> = (value: unknown) => Required<Output> | unknown;
 

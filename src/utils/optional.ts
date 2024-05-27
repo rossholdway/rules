@@ -1,4 +1,4 @@
-import { Rule } from "../mod.ts";
+import type { Rule } from "../mod.ts";
 
 // Mark as optional
 export function optional<Output>(

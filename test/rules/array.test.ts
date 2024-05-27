@@ -5,7 +5,7 @@ import type { Invalid } from "./../../src/mod.ts";
 
 import { ctx, invalidRule, validRule } from "../utils.ts";
 import { array } from "../../src/rules/array.ts";
-import { Err } from "../../src/mod.ts"
+import type { Err } from "../../src/mod.ts"
 
 describe("array", function () {
   let errors: Err[] = [];

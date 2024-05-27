@@ -1,4 +1,4 @@
-import { Rule } from "../mod.ts";
+import type { Rule } from "../mod.ts";
 
 export function nullable<Output>(ruleFn: Rule<Output>): Rule<Output | null> {
   return function nullable(ctx) {

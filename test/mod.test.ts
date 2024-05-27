@@ -3,7 +3,7 @@ import { describe, it } from "std/testing/bdd.ts";
 
 import { invalidRule, validRule } from "./utils.ts";
 
-import { parse, isValid, format, Err } from "../src/mod.ts";
+import { parse, isValid, format, type Err } from "../src/mod.ts";
 
 describe("mod", function () {
   describe("isValid", function () {

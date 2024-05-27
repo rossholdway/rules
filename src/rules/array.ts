@@ -1,4 +1,4 @@
-import { Codes, Rule, Context, Err } from "../mod.ts";
+import { Codes, type Rule, Context, type Err } from "../mod.ts";
 import { isValidRule } from "../helpers.ts";
 
 /**

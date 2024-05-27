@@ -1,4 +1,5 @@
-import { Codes, Err, InferTuple, Rule, Context } from "../mod.ts";
+import type { Err, InferTuple, Rule } from "../mod.ts";
+import { Codes, Context } from "../mod.ts";
 import { isValidRule } from "../helpers.ts";
 
 // export function union<A>(ruleSet: [Rule<A>]): Rule<A>;
