@@ -11,7 +11,7 @@ export function regex(
   {
     required_error = "is required",
     invalid_type_error = "must be a string",
-    regex_no_match_error = "is not in the expected format"
+    invalid_format_error = "is not in the expected format"
   } = {}
 ): Rule<string> {
   return function str(ctx) {
@@ -25,7 +25,7 @@ export function regex(
     }
 
     if (!regex.test(ctx.value)) {
-      return ctx.error(Codes.regex_no_match, regex_no_match_error);
+      return ctx.error(Codes.invalid_format, invalid_format_error);
     }
 
     return {success: true, value: ctx.value};

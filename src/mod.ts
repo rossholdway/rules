@@ -76,7 +76,7 @@ export enum Codes {
   invalid_integer = "invalid_integer",
   invalid_literal = "invalid_literal",
   invalid_length = "invalid_length",
-  regex_no_match = "regex_no_match"
+  invalid_format = "invalid_format"
 }
 
 export class Context<T = unknown> {

@@ -58,7 +58,7 @@ describe("regex", function () {
     it("should not match an invalid string", function () {
       const result = rule(ctx(rule.name, "Homer", errors))
       expect(result.success).to.be.false;
-      expect(errors[0].code).to.eq("regex_no_match");
+      expect(errors[0].code).to.eq("invalid_format");
     });
   });
 });
