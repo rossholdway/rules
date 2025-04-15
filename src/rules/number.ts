@@ -12,16 +12,16 @@ export function num(
     required_error = "is required",
     invalid_type_error = "must be a number",
     invalid_integer_error = "must be an integer",
-    invalid_min_length_error = `must not be less than ${min}`,
-    invalid_max_length_error = `must not be more than ${max}`
+    invalid_min_value_error = `must not be less than ${min}`,
+    invalid_max_value_error = `must not be more than ${max}`
   }:
   {
     max?: number; min?: number; integer?: boolean;
     required_error?: string;
     invalid_type_error?: string;
     invalid_integer_error?: string;
-    invalid_min_length_error?: string;
-    invalid_max_length_error?: string;
+    invalid_min_value_error?: string;
+    invalid_max_value_error?: string;
   } = {}
 ): Rule<number> {
   return function num(ctx) {
@@ -40,16 +40,16 @@ export function num(
 
     if (typeof min !== "undefined" && ctx.value < min) {
       return ctx.error(
-        Codes.invalid_min_length,
-        invalid_min_length_error,
+        Codes.invalid_min_value,
+        invalid_min_value_error,
         { min }
       )
     }
 
     if (typeof max !== "undefined" && ctx.value > max) {
       return ctx.error(
-        Codes.invalid_max_length,
-        invalid_max_length_error,
+        Codes.invalid_max_value,
+        invalid_max_value_error,
         { max }
       )
     }

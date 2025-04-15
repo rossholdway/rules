@@ -69,6 +69,8 @@ export enum Codes {
   invalid_type = "invalid_type",
   invalid_min_length = "invalid_min_length",
   invalid_max_length = "invalid_max_length",
+  invalid_min_value = "invalid_min_value",
+  invalid_max_value = "invalid_max_value",
   invalid_enum = "invalid_enum",
   invalid_union = "invalid_union",
   invalid_integer = "invalid_integer",

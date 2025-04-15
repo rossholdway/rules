@@ -72,7 +72,7 @@ describe("number", function () {
         const result = rule(ctx(rule.name, 5, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(errors[0].code).to.eq("invalid_min_length");
+        expect(errors[0].code).to.eq("invalid_min_value");
       });
 
       it("should disallow input greater than max", function () {
@@ -80,7 +80,7 @@ describe("number", function () {
         const result = rule(ctx(rule.name, 20, errors)) as Invalid;
 
         expect(result.success).to.be.false;
-        expect(errors[0].code).to.eq("invalid_max_length");
+        expect(errors[0].code).to.eq("invalid_max_value");
       });
     });
   });
