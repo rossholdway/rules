@@ -1,4 +1,4 @@
-![Test](https://github.com/rossholdway/rules/actions/workflows/ci.yml/badge.svg)
+![Test](https://github.com/rossholdway/rules/actions/workflows/tests.yml/badge.svg)
 
 # Rules
 
@@ -435,12 +435,14 @@ Predefined error codes.
 `invalid_type`
 `invalid_min_length`
 `invalid_max_length`
+`invalid_min_value`,
+`invalid_max_value`,
 `invalid_enum`
 `invalid_union`
 `invalid_integer`
 `invalid_literal`
 `invalid_length`
-`regex_no_match`
+`invalid_format`
 
 ## Contributing
 
