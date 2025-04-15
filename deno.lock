@@ -1,25 +1,18 @@
 {
-  "version": "3",
-  "packages": {
-    "specifiers": {
-      "npm:@types/node": "npm:@types/node@18.16.19"
-    },
-    "npm": {
-      "@types/node@18.16.19": {
-        "integrity": "sha512-IXl7o+R9iti9eBW4Wg2hx1xQDig183jj7YLn8F7udNceyfkbn1ZxmzZXuak20gR40D7pIkIY1kYGx5VIGbaHKA==",
-        "dependencies": {}
-      }
-    }
-  },
+  "version": "4",
   "redirects": {
-    "https://esm.sh/v135/@types/chai@latest/index.d.ts": "https://esm.sh/v135/@types/chai@4.3.11/index.d.ts"
+    "https://esm.sh/v135/@types/chai@~5.2/index.d.ts": "https://esm.sh/v135/@types/chai@5.2.1/index.d.ts",
+    "https://esm.sh/v135/@types/sinon@latest/index.d.ts": "https://esm.sh/v135/@types/sinon@17.0.4/index.d.ts"
   },
   "remote": {
-    "https://cdn.skypack.dev/-/sinon@v13.0.2-XNWaDSX3H8C298B97460/dist=es2019,mode=imports/optimized/sinon.js": "dbd19e534593fa14b30d461b3c6bc4553666cf5fecd0fcc87ce494b75b4bf1eb",
-    "https://cdn.skypack.dev/sinon@13.0.2?dts": "a7b717f9f350b7730d7c85205e79297d659a948d53f6092ef1f27b21a4ec497a",
     "https://deno.land/std@0.206.0/testing/_test_suite.ts": "30f018feeb3835f12ab198d8a518f9089b1bcb2e8c838a8b615ab10d5005465c",
     "https://deno.land/std@0.206.0/testing/bdd.ts": "3f446df5ef8e856a869e8eec54c8482590415741ff0b6358a00c43486cc15769",
-    "https://esm.sh/v135/chai@5.0.0": "24afdd96263b9bc883c2d9d89e3d50e8c5484f459f8619bced1d463a097a0980",
-    "https://esm.sh/v135/chai@5.0.0/denonext/chai.mjs": "7d1a50e454df297938c332bf37bc9c03b03a1d2695ce70e17fe4b8139448bd1a"
+    "https://esm.sh/v135/buffer@6.0.3/es2022/buffer.bundle.mjs": "38fb6c4551f7a5197c6959bdecdda848945d6faed5119b3c3d354868efea8936",
+    "https://esm.sh/v135/chai@5.2.0": "dbf0f633cd377fc2c9d4a774f1ef6e0dc42e2c1440a1c497bebaccaf6085a53c",
+    "https://esm.sh/v135/chai@5.2.0/es2022/chai.mjs": "4b4feea1c646f6a3fd90fa64664832722b23f392be5c1ccb938708b4acd843ba",
+    "https://esm.sh/v135/node_events.js": "b1b65598db01a0621f65bf86948381344943c6b53828c470be4caa678d5fcfd5",
+    "https://esm.sh/v135/node_process.js": "13a1bd2438678b509dd68a0006c11c50c77451c9bcdeaa25c6602236ffce247c",
+    "https://esm.sh/v135/sinon@20.0.0": "2d337642ebe173f8e459152fbfda165c26f9c57fa205dc013882e808a2231a3b",
+    "https://esm.sh/v135/sinon@20.0.0/es2022/sinon.mjs": "2194fbd7e98f8177e6b46a47619299e2b6958c5f01e16d231ee8c56ad6df276b"
   }
 }

@@ -4,7 +4,8 @@
     "exports": "./mod.ts",
     "imports": {
       "std/": "https://deno.land/std@0.206.0/",
-      "chai": "https://esm.sh/v135/chai@5.0.0"
+      "chai": "https://esm.sh/v135/chai@5.2.0",
+      "sinon": "https://esm.sh/v135/sinon@20.0.0"
     },
     "tasks": {
       "test": "deno test test/**/*.test.ts",

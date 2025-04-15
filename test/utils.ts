@@ -1,4 +1,4 @@
-import Sinon from "https://cdn.skypack.dev/sinon@13.0.2?dts";
+import Sinon from "sinon";
 import { afterEach } from "std/testing/bdd.ts";
 import { type Err, Context } from "../src/mod.ts";
 
