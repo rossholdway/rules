@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { describe, it, beforeEach } from "std/testing/bdd.ts";
+import { describe, it, beforeEach } from "@std/testing/bdd";
 
 import { ctx, invalidRule, sandbox, validRule } from "../utils.ts";
 
@@ -27,6 +27,18 @@ describe("intersection", function () {
 
     sandbox.assert.calledTwice(validRule);
     sandbox.assert.calledOnce(invalidRule);
+  });
+
+  it("should pass value forward", function () {
+    // deno-lint-ignore no-explicit-any
+    function modifyValueRule(ctx: any) {
+      return { success: true, value: ctx.value.trim() };
+    }
+    const util = intersection([validRule, modifyValueRule, validRule]);
+    const result = util(ctx(util.name, " Bart ")) as Valid<string>;
+
+    expect(result.success).to.be.true;
+    expect(result.value).to.eq("Bart");
   });
 
   it("should return valid if all rules pass", function () {

@@ -1,18 +1,120 @@
 {
   "version": "4",
-  "redirects": {
-    "https://esm.sh/v135/@types/chai@~5.2/index.d.ts": "https://esm.sh/v135/@types/chai@5.2.1/index.d.ts",
-    "https://esm.sh/v135/@types/sinon@latest/index.d.ts": "https://esm.sh/v135/@types/sinon@17.0.4/index.d.ts"
+  "specifiers": {
+    "jsr:@std/assert@^1.0.13": "1.0.13",
+    "jsr:@std/internal@^1.0.8": "1.0.9",
+    "jsr:@std/testing@^1.0.14": "1.0.14",
+    "npm:@types/sinon@*": "17.0.3",
+    "npm:chai@^5.2.1": "5.2.1",
+    "npm:sinon@21": "21.0.0"
   },
-  "remote": {
-    "https://deno.land/std@0.206.0/testing/_test_suite.ts": "30f018feeb3835f12ab198d8a518f9089b1bcb2e8c838a8b615ab10d5005465c",
-    "https://deno.land/std@0.206.0/testing/bdd.ts": "3f446df5ef8e856a869e8eec54c8482590415741ff0b6358a00c43486cc15769",
-    "https://esm.sh/v135/buffer@6.0.3/es2022/buffer.bundle.mjs": "38fb6c4551f7a5197c6959bdecdda848945d6faed5119b3c3d354868efea8936",
-    "https://esm.sh/v135/chai@5.2.0": "dbf0f633cd377fc2c9d4a774f1ef6e0dc42e2c1440a1c497bebaccaf6085a53c",
-    "https://esm.sh/v135/chai@5.2.0/es2022/chai.mjs": "4b4feea1c646f6a3fd90fa64664832722b23f392be5c1ccb938708b4acd843ba",
-    "https://esm.sh/v135/node_events.js": "b1b65598db01a0621f65bf86948381344943c6b53828c470be4caa678d5fcfd5",
-    "https://esm.sh/v135/node_process.js": "13a1bd2438678b509dd68a0006c11c50c77451c9bcdeaa25c6602236ffce247c",
-    "https://esm.sh/v135/sinon@20.0.0": "2d337642ebe173f8e459152fbfda165c26f9c57fa205dc013882e808a2231a3b",
-    "https://esm.sh/v135/sinon@20.0.0/es2022/sinon.mjs": "2194fbd7e98f8177e6b46a47619299e2b6958c5f01e16d231ee8c56ad6df276b"
+  "jsr": {
+    "@std/assert@1.0.13": {
+      "integrity": "ae0d31e41919b12c656c742b22522c32fb26ed0cba32975cb0de2a273cb68b29"
+    },
+    "@std/internal@1.0.9": {
+      "integrity": "bdfb97f83e4db7a13e8faab26fb1958d1b80cc64366501af78a0aee151696eb8"
+    },
+    "@std/testing@1.0.14": {
+      "integrity": "144b3737105b9071cb50c957681f58a1b8ec0f3e5b19ad830f401c5fa931e8f0",
+      "dependencies": [
+        "jsr:@std/assert",
+        "jsr:@std/internal"
+      ]
+    }
+  },
+  "npm": {
+    "@sinonjs/commons@3.0.1": {
+      "integrity": "sha512-K3mCHKQ9sVh8o1C9cxkwxaOmXoAMlDxC1mYyHrjqOWEcBjYr76t96zL2zlj5dUGZ3HSw240X1qgH3Mjf1yJWpQ==",
+      "dependencies": [
+        "type-detect@4.0.8"
+      ]
+    },
+    "@sinonjs/fake-timers@13.0.5": {
+      "integrity": "sha512-36/hTbH2uaWuGVERyC6da9YwGWnzUZXuPro/F2LfsdOsLnCojz/iSH8MxUt/FD2S5XBSVPhmArFUXcpCQ2Hkiw==",
+      "dependencies": [
+        "@sinonjs/commons"
+      ]
+    },
+    "@sinonjs/samsam@8.0.2": {
+      "integrity": "sha512-v46t/fwnhejRSFTGqbpn9u+LQ9xJDse10gNnPgAcxgdoCDMXj/G2asWAC/8Qs+BAZDicX+MNZouXT1A7c83kVw==",
+      "dependencies": [
+        "@sinonjs/commons",
+        "lodash.get",
+        "type-detect@4.1.0"
+      ]
+    },
+    "@types/sinon@17.0.3": {
+      "integrity": "sha512-j3uovdn8ewky9kRBG19bOwaZbexJu/XjtkHyjvUgt4xfPFz18dcORIMqnYh66Fx3Powhcr85NT5+er3+oViapw==",
+      "dependencies": [
+        "@types/sinonjs__fake-timers"
+      ]
+    },
+    "@types/sinonjs__fake-timers@8.1.5": {
+      "integrity": "sha512-mQkU2jY8jJEF7YHjHvsQO8+3ughTL1mcnn96igfhONmR+fUPSKIkefQYpSe8bsly2Ep7oQbn/6VG5/9/0qcArQ=="
+    },
+    "assertion-error@2.0.1": {
+      "integrity": "sha512-Izi8RQcffqCeNVgFigKli1ssklIbpHnCYc6AknXGYoB6grJqyeby7jv12JUQgmTAnIDnbck1uxksT4dzN3PWBA=="
+    },
+    "chai@5.2.1": {
+      "integrity": "sha512-5nFxhUrX0PqtyogoYOA8IPswy5sZFTOsBFl/9bNsmDLgsxYTzSZQJDPppDnZPTQbzSEm0hqGjWPzRemQCYbD6A==",
+      "dependencies": [
+        "assertion-error",
+        "check-error",
+        "deep-eql",
+        "loupe",
+        "pathval"
+      ]
+    },
+    "check-error@2.1.1": {
+      "integrity": "sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw=="
+    },
+    "deep-eql@5.0.2": {
+      "integrity": "sha512-h5k/5U50IJJFpzfL6nO9jaaumfjO/f2NjK/oYB2Djzm4p9L+3T9qWpZqZ2hAbLPuuYq9wrU08WQyBTL5GbPk5Q=="
+    },
+    "diff@7.0.0": {
+      "integrity": "sha512-PJWHUb1RFevKCwaFA9RlG5tCd+FO5iRh9A8HEtkmBH2Li03iJriB6m6JIN4rGz3K3JLawI7/veA1xzRKP6ISBw=="
+    },
+    "has-flag@4.0.0": {
+      "integrity": "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ=="
+    },
+    "lodash.get@4.4.2": {
+      "integrity": "sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ=="
+    },
+    "loupe@3.1.4": {
+      "integrity": "sha512-wJzkKwJrheKtknCOKNEtDK4iqg/MxmZheEMtSTYvnzRdEYaZzmgH976nenp8WdJRdx5Vc1X/9MO0Oszl6ezeXg=="
+    },
+    "pathval@2.0.1": {
+      "integrity": "sha512-//nshmD55c46FuFw26xV/xFAaB5HF9Xdap7HJBBnrKdAd6/GxDBaNA1870O79+9ueg61cZLSVc+OaFlfmObYVQ=="
+    },
+    "sinon@21.0.0": {
+      "integrity": "sha512-TOgRcwFPbfGtpqvZw+hyqJDvqfapr1qUlOizROIk4bBLjlsjlB00Pg6wMFXNtJRpu+eCZuVOaLatG7M8105kAw==",
+      "dependencies": [
+        "@sinonjs/commons",
+        "@sinonjs/fake-timers",
+        "@sinonjs/samsam",
+        "diff",
+        "supports-color"
+      ]
+    },
+    "supports-color@7.2.0": {
+      "integrity": "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==",
+      "dependencies": [
+        "has-flag"
+      ]
+    },
+    "type-detect@4.0.8": {
+      "integrity": "sha512-0fr/mIH1dlO+x7TlcMy+bIDqKPsw/70tVyeHW787goQjhmqaZe10uwLujubK9q9Lg6Fiho1KUKDYz0Z7k7g5/g=="
+    },
+    "type-detect@4.1.0": {
+      "integrity": "sha512-Acylog8/luQ8L7il+geoSxhEkazvkslg7PSNKOX59mbB9cOveP5aq9h74Y7YU8yDpJwetzQQrfIwtf4Wp4LKcw=="
+    }
+  },
+  "workspace": {
+    "dependencies": [
+      "jsr:@std/testing@^1.0.14",
+      "npm:chai@^5.2.1",
+      "npm:sinon@21"
+    ]
   }
 }

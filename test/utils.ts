@@ -1,5 +1,6 @@
+// @deno-types="npm:@types/sinon"
 import Sinon from "sinon";
-import { afterEach } from "std/testing/bdd.ts";
+import { afterEach } from "@std/testing/bdd";
 import { type Err, Context } from "../src/mod.ts";
 
 export const sandbox = Sinon.createSandbox();

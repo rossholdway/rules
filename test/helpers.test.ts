@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { describe, it } from "std/testing/bdd.ts";
+import { describe, it } from "@std/testing/bdd";
 
 import { isValidRule } from "../src/helpers.ts";
 
