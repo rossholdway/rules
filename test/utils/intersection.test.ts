@@ -29,6 +29,18 @@ describe("intersection", function () {
     sandbox.assert.calledOnce(invalidRule);
   });
 
+  it("should pass value forward", function () {
+    // deno-lint-ignore no-explicit-any
+    function modifyValueRule(ctx: any) {
+      return { success: true, value: ctx.value.trim() };
+    }
+    const util = intersection([validRule, modifyValueRule, validRule]);
+    const result = util(ctx(util.name, " Bart ")) as Valid<string>;
+
+    expect(result.success).to.be.true;
+    expect(result.value).to.eq("Bart");
+  });
+
   it("should return valid if all rules pass", function () {
     const util = intersection([validRule, validRule, validRule]);
     const result = util(ctx(util.name, "Bart")) as Valid<string>;

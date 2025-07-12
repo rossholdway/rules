@@ -14,18 +14,26 @@ export function intersection<T extends Rule<Infer<T[number]>>[]>(
 ): Rule<UnionToIntersection<InferTuple<T>[number]>> {
   return function intersection(ctx) {
     const errors: Err[] = [];
+    let value: unknown = ctx.value;
 
     // Require a value
-    if (typeof ctx.value === "undefined") {
+    if (typeof value === "undefined") {
       return ctx.error(Codes.required, required_error)
     }
 
     for (const ruleFn of ruleSet) {
-      ruleFn(new Context(ruleFn.name, ctx.value, ctx.path, errors));
+      const result = ruleFn(
+        new Context(ruleFn.name, value, ctx.path, errors)
+      );
+
+      // Propagate value forward
+      if (result.success) {
+        value = result.value;
+      }
     }
 
     if(errors.length === 0) {
-      return { success: true, value: (ctx.value as UnionToIntersection<InferTuple<T>[number]>) }
+      return { success: true, value: (value as UnionToIntersection<InferTuple<T>[number]>) }
     } else {
       ctx.errors.push(...errors);
       return { success: false }
