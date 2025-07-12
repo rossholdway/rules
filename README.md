@@ -8,10 +8,14 @@ and developer friendly UX.
 Build a schema using predefined rules, or create your own. Valid data will be
 returned typed.
 
+## Install
+
+`deno add jsr:@rossholdway/rules`
+
 ## Getting started
 
 ```typescript
-import { parse, str } from 'https://deno.land/x/rules/mod.ts'
+import { parse, str } from '@rossholdway/rules';
 ```
 
 Using the rule `str()` we can validate that any given data is of type string.
