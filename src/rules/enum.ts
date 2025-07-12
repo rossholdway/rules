@@ -2,7 +2,7 @@ import { Codes, type Rule } from "../mod.ts";
 
 /**
  * Enum validation
- * Value is one of a specific set of given number(s) or string(s)
+ * Value is one of a specific set of given strings
  * *****************************************************************
  */
 export type enums = typeof enums;
