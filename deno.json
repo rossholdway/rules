@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "exports": "./mod.ts",
     "imports": {
-      "std/": "https://deno.land/std@0.206.0/",
-      "chai": "https://esm.sh/v135/chai@5.2.0",
-      "sinon": "https://esm.sh/v135/sinon@20.0.0"
+      "@std/testing": "jsr:@std/testing@^1.0.14",
+      "chai": "npm:chai@^5.2.1",
+      "sinon": "npm:sinon@^21.0.0"
     },
     "tasks": {
       "test": "deno test test/**/*.test.ts",

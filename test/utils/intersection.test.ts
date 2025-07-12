@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { describe, it, beforeEach } from "std/testing/bdd.ts";
+import { describe, it, beforeEach } from "@std/testing/bdd";
 
 import { ctx, invalidRule, sandbox, validRule } from "../utils.ts";
 

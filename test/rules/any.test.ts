@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { describe, it, beforeEach } from "std/testing/bdd.ts";
+import { describe, it, beforeEach } from "@std/testing/bdd";
 
 import { Context, type Err } from "../../src/mod.ts"
 import { any } from "../../src/rules/any.ts";

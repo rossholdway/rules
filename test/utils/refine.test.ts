@@ -3,7 +3,7 @@ import {
   beforeEach,
   describe,
   it,
-} from "std/testing/bdd.ts";
+} from "@std/testing/bdd";
 
 import { ctx, invalidRule, sandbox, validRule } from "../utils.ts";
 import type { Invalid, Valid, Context, Err } from "./../../src/mod.ts";

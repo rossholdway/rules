@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import { describe, it, beforeEach } from "std/testing/bdd.ts";
+import { describe, it, beforeEach } from "@std/testing/bdd";
 
 import { ctx } from "../utils.ts";
 import type { Invalid, Err } from "./../../src/mod.ts";
